@@ -1,0 +1,13 @@
+{
+  "synthetic": true,
+  "description": "README room correction fixture. Not a simulator run or disclosure incident.",
+  "sources": {
+    "agenda-v1": {"locator": "synthetic agenda version 1, complete record", "text": "The demo is in Room A."},
+    "agenda-v2": {"locator": "synthetic agenda version 2, complete record", "text": "Correction: the demo is in Room B."}
+  },
+  "deliveries": [
+    {"run_id": "demo", "event_id": "e1", "sequence": 1, "source_ref": "agenda-v1", "text": "The demo is in Room A."},
+    {"run_id": "demo", "event_id": "e2", "sequence": 2, "source_ref": "agenda-v2", "text": "Correction: the demo is in Room B."},
+    {"run_id": "demo", "event_id": "e2", "sequence": 2, "source_ref": "agenda-v2", "text": "Correction: the demo is in Room B."}
+  ]
+}

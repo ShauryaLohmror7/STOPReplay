@@ -1,0 +1,53 @@
+{
+  "synthetic": true,
+  "analysis_id": "history-demo-v1",
+  "description": "Synthetic full-history handoff. No-change events use the exact-match fake adapter; not semantic model judgments.",
+  "sources": {
+    "agenda-v1": {
+      "text": "The demo is in Room A.",
+      "locator": "synthetic complete record"
+    },
+    "delivery-note": {
+      "text": "Synthetic delivery receipt; no room information.",
+      "locator": "synthetic complete record"
+    },
+    "agenda-v2": {
+      "text": "Correction: the demo is in Room B.",
+      "locator": "synthetic complete record"
+    },
+    "closing-note": {
+      "text": "Synthetic end-of-record marker; no room information.",
+      "locator": "synthetic complete record"
+    }
+  },
+  "events": [
+    {
+      "run_id": "history-demo",
+      "event_id": "e1",
+      "sequence": 1,
+      "source_ref": "agenda-v1",
+      "text": "The demo is in Room A."
+    },
+    {
+      "run_id": "history-demo",
+      "event_id": "e2",
+      "sequence": 2,
+      "source_ref": "delivery-note",
+      "text": "Synthetic delivery receipt; no room information."
+    },
+    {
+      "run_id": "history-demo",
+      "event_id": "e3",
+      "sequence": 3,
+      "source_ref": "agenda-v2",
+      "text": "Correction: the demo is in Room B."
+    },
+    {
+      "run_id": "history-demo",
+      "event_id": "e4",
+      "sequence": 4,
+      "source_ref": "closing-note",
+      "text": "Synthetic end-of-record marker; no room information."
+    }
+  ]
+}

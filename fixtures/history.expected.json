@@ -1,0 +1,397 @@
+{
+  "synthetic": true,
+  "database_verified": false,
+  "note": "Sequence-based fixture views, not committed turns. Fake responses; no model quality claim.",
+  "sources": {
+    "agenda-v1": {
+      "text": "The demo is in Room A.",
+      "locator": "synthetic complete record"
+    },
+    "delivery-note": {
+      "text": "Synthetic delivery receipt; no room information.",
+      "locator": "synthetic complete record"
+    },
+    "agenda-v2": {
+      "text": "Correction: the demo is in Room B.",
+      "locator": "synthetic complete record"
+    },
+    "closing-note": {
+      "text": "Synthetic end-of-record marker; no room information.",
+      "locator": "synthetic complete record"
+    }
+  },
+  "steps": [
+    {
+      "event": {
+        "run_id": "history-demo",
+        "event_id": "e1",
+        "sequence": 1,
+        "source_ref": "agenda-v1",
+        "text": "The demo is in Room A."
+      },
+      "context_before": {
+        "run_id": "history-demo",
+        "analysis_id": "history-demo-v1",
+        "before_sequence": 1,
+        "events": [],
+        "findings": []
+      },
+      "result": {
+        "run_id": "history-demo",
+        "analysis_id": "history-demo-v1",
+        "event_id": "e1",
+        "sequence": 1,
+        "outcome": "new",
+        "finding": {
+          "finding_id": "f_8a9642ec132c47e0f7ce335e4dc66fb6c5ddabcd99e3ea1a280d86f53f1952f3",
+          "finding_index": 0,
+          "run_id": "history-demo",
+          "analysis_id": "history-demo-v1",
+          "sequence": 1,
+          "statement": "The agenda says the demo is in Room A.",
+          "kind": "observation",
+          "status": "supported",
+          "evidence": [
+            {
+              "event_id": "e1",
+              "source_ref": "agenda-v1",
+              "quote": "The demo is in Room A."
+            }
+          ],
+          "revises": null,
+          "uncertainty": null
+        },
+        "reason": "The source directly states the room.",
+        "runtime": {
+          "provider": "local-fake",
+          "model_version": "room-fixture-v1",
+          "prompt_version": "room-fixture-v1",
+          "parameters": {}
+        },
+        "schema_version": "analysis-proposal-v1.1"
+      },
+      "active_findings_after": [
+        {
+          "finding_id": "f_8a9642ec132c47e0f7ce335e4dc66fb6c5ddabcd99e3ea1a280d86f53f1952f3",
+          "finding_index": 0,
+          "run_id": "history-demo",
+          "analysis_id": "history-demo-v1",
+          "sequence": 1,
+          "statement": "The agenda says the demo is in Room A.",
+          "kind": "observation",
+          "status": "supported",
+          "evidence": [
+            {
+              "event_id": "e1",
+              "source_ref": "agenda-v1",
+              "quote": "The demo is in Room A."
+            }
+          ],
+          "revises": null,
+          "uncertainty": null
+        }
+      ]
+    },
+    {
+      "event": {
+        "run_id": "history-demo",
+        "event_id": "e2",
+        "sequence": 2,
+        "source_ref": "delivery-note",
+        "text": "Synthetic delivery receipt; no room information."
+      },
+      "context_before": {
+        "run_id": "history-demo",
+        "analysis_id": "history-demo-v1",
+        "before_sequence": 2,
+        "events": [
+          {
+            "run_id": "history-demo",
+            "event_id": "e1",
+            "sequence": 1,
+            "source_ref": "agenda-v1",
+            "text": "The demo is in Room A."
+          }
+        ],
+        "findings": [
+          {
+            "finding_id": "f_8a9642ec132c47e0f7ce335e4dc66fb6c5ddabcd99e3ea1a280d86f53f1952f3",
+            "finding_index": 0,
+            "run_id": "history-demo",
+            "analysis_id": "history-demo-v1",
+            "sequence": 1,
+            "statement": "The agenda says the demo is in Room A.",
+            "kind": "observation",
+            "status": "supported",
+            "evidence": [
+              {
+                "event_id": "e1",
+                "source_ref": "agenda-v1",
+                "quote": "The demo is in Room A."
+              }
+            ],
+            "revises": null,
+            "uncertainty": null
+          }
+        ]
+      },
+      "result": {
+        "run_id": "history-demo",
+        "analysis_id": "history-demo-v1",
+        "event_id": "e2",
+        "sequence": 2,
+        "outcome": "no_change",
+        "finding": null,
+        "reason": "Fixture adapter does not interpret this text; no finding proposed.",
+        "runtime": {
+          "provider": "local-fake",
+          "model_version": "room-fixture-v1",
+          "prompt_version": "room-fixture-v1",
+          "parameters": {}
+        },
+        "schema_version": "analysis-proposal-v1.1"
+      },
+      "active_findings_after": [
+        {
+          "finding_id": "f_8a9642ec132c47e0f7ce335e4dc66fb6c5ddabcd99e3ea1a280d86f53f1952f3",
+          "finding_index": 0,
+          "run_id": "history-demo",
+          "analysis_id": "history-demo-v1",
+          "sequence": 1,
+          "statement": "The agenda says the demo is in Room A.",
+          "kind": "observation",
+          "status": "supported",
+          "evidence": [
+            {
+              "event_id": "e1",
+              "source_ref": "agenda-v1",
+              "quote": "The demo is in Room A."
+            }
+          ],
+          "revises": null,
+          "uncertainty": null
+        }
+      ]
+    },
+    {
+      "event": {
+        "run_id": "history-demo",
+        "event_id": "e3",
+        "sequence": 3,
+        "source_ref": "agenda-v2",
+        "text": "Correction: the demo is in Room B."
+      },
+      "context_before": {
+        "run_id": "history-demo",
+        "analysis_id": "history-demo-v1",
+        "before_sequence": 3,
+        "events": [
+          {
+            "run_id": "history-demo",
+            "event_id": "e1",
+            "sequence": 1,
+            "source_ref": "agenda-v1",
+            "text": "The demo is in Room A."
+          },
+          {
+            "run_id": "history-demo",
+            "event_id": "e2",
+            "sequence": 2,
+            "source_ref": "delivery-note",
+            "text": "Synthetic delivery receipt; no room information."
+          }
+        ],
+        "findings": [
+          {
+            "finding_id": "f_8a9642ec132c47e0f7ce335e4dc66fb6c5ddabcd99e3ea1a280d86f53f1952f3",
+            "finding_index": 0,
+            "run_id": "history-demo",
+            "analysis_id": "history-demo-v1",
+            "sequence": 1,
+            "statement": "The agenda says the demo is in Room A.",
+            "kind": "observation",
+            "status": "supported",
+            "evidence": [
+              {
+                "event_id": "e1",
+                "source_ref": "agenda-v1",
+                "quote": "The demo is in Room A."
+              }
+            ],
+            "revises": null,
+            "uncertainty": null
+          }
+        ]
+      },
+      "result": {
+        "run_id": "history-demo",
+        "analysis_id": "history-demo-v1",
+        "event_id": "e3",
+        "sequence": 3,
+        "outcome": "revision",
+        "finding": {
+          "finding_id": "f_76b064099cc7fa74d36dfc0108a25e1c733f7ab117583a8f03c7b569902cb08c",
+          "finding_index": 0,
+          "run_id": "history-demo",
+          "analysis_id": "history-demo-v1",
+          "sequence": 3,
+          "statement": "The corrected agenda says the demo is in Room B.",
+          "kind": "observation",
+          "status": "supported",
+          "evidence": [
+            {
+              "event_id": "e3",
+              "source_ref": "agenda-v2",
+              "quote": "Correction: the demo is in Room B."
+            }
+          ],
+          "revises": "f_8a9642ec132c47e0f7ce335e4dc66fb6c5ddabcd99e3ea1a280d86f53f1952f3",
+          "uncertainty": null
+        },
+        "reason": "An explicit agenda correction revises the earlier finding.",
+        "runtime": {
+          "provider": "local-fake",
+          "model_version": "room-fixture-v1",
+          "prompt_version": "room-fixture-v1",
+          "parameters": {}
+        },
+        "schema_version": "analysis-proposal-v1.1"
+      },
+      "active_findings_after": [
+        {
+          "finding_id": "f_76b064099cc7fa74d36dfc0108a25e1c733f7ab117583a8f03c7b569902cb08c",
+          "finding_index": 0,
+          "run_id": "history-demo",
+          "analysis_id": "history-demo-v1",
+          "sequence": 3,
+          "statement": "The corrected agenda says the demo is in Room B.",
+          "kind": "observation",
+          "status": "supported",
+          "evidence": [
+            {
+              "event_id": "e3",
+              "source_ref": "agenda-v2",
+              "quote": "Correction: the demo is in Room B."
+            }
+          ],
+          "revises": "f_8a9642ec132c47e0f7ce335e4dc66fb6c5ddabcd99e3ea1a280d86f53f1952f3",
+          "uncertainty": null
+        }
+      ]
+    },
+    {
+      "event": {
+        "run_id": "history-demo",
+        "event_id": "e4",
+        "sequence": 4,
+        "source_ref": "closing-note",
+        "text": "Synthetic end-of-record marker; no room information."
+      },
+      "context_before": {
+        "run_id": "history-demo",
+        "analysis_id": "history-demo-v1",
+        "before_sequence": 4,
+        "events": [
+          {
+            "run_id": "history-demo",
+            "event_id": "e1",
+            "sequence": 1,
+            "source_ref": "agenda-v1",
+            "text": "The demo is in Room A."
+          },
+          {
+            "run_id": "history-demo",
+            "event_id": "e2",
+            "sequence": 2,
+            "source_ref": "delivery-note",
+            "text": "Synthetic delivery receipt; no room information."
+          },
+          {
+            "run_id": "history-demo",
+            "event_id": "e3",
+            "sequence": 3,
+            "source_ref": "agenda-v2",
+            "text": "Correction: the demo is in Room B."
+          }
+        ],
+        "findings": [
+          {
+            "finding_id": "f_8a9642ec132c47e0f7ce335e4dc66fb6c5ddabcd99e3ea1a280d86f53f1952f3",
+            "finding_index": 0,
+            "run_id": "history-demo",
+            "analysis_id": "history-demo-v1",
+            "sequence": 1,
+            "statement": "The agenda says the demo is in Room A.",
+            "kind": "observation",
+            "status": "supported",
+            "evidence": [
+              {
+                "event_id": "e1",
+                "source_ref": "agenda-v1",
+                "quote": "The demo is in Room A."
+              }
+            ],
+            "revises": null,
+            "uncertainty": null
+          },
+          {
+            "finding_id": "f_76b064099cc7fa74d36dfc0108a25e1c733f7ab117583a8f03c7b569902cb08c",
+            "finding_index": 0,
+            "run_id": "history-demo",
+            "analysis_id": "history-demo-v1",
+            "sequence": 3,
+            "statement": "The corrected agenda says the demo is in Room B.",
+            "kind": "observation",
+            "status": "supported",
+            "evidence": [
+              {
+                "event_id": "e3",
+                "source_ref": "agenda-v2",
+                "quote": "Correction: the demo is in Room B."
+              }
+            ],
+            "revises": "f_8a9642ec132c47e0f7ce335e4dc66fb6c5ddabcd99e3ea1a280d86f53f1952f3",
+            "uncertainty": null
+          }
+        ]
+      },
+      "result": {
+        "run_id": "history-demo",
+        "analysis_id": "history-demo-v1",
+        "event_id": "e4",
+        "sequence": 4,
+        "outcome": "no_change",
+        "finding": null,
+        "reason": "Fixture adapter does not interpret this text; no finding proposed.",
+        "runtime": {
+          "provider": "local-fake",
+          "model_version": "room-fixture-v1",
+          "prompt_version": "room-fixture-v1",
+          "parameters": {}
+        },
+        "schema_version": "analysis-proposal-v1.1"
+      },
+      "active_findings_after": [
+        {
+          "finding_id": "f_76b064099cc7fa74d36dfc0108a25e1c733f7ab117583a8f03c7b569902cb08c",
+          "finding_index": 0,
+          "run_id": "history-demo",
+          "analysis_id": "history-demo-v1",
+          "sequence": 3,
+          "statement": "The corrected agenda says the demo is in Room B.",
+          "kind": "observation",
+          "status": "supported",
+          "evidence": [
+            {
+              "event_id": "e3",
+              "source_ref": "agenda-v2",
+              "quote": "Correction: the demo is in Room B."
+            }
+          ],
+          "revises": "f_8a9642ec132c47e0f7ce335e4dc66fb6c5ddabcd99e3ea1a280d86f53f1952f3",
+          "uncertainty": null
+        }
+      ]
+    }
+  ]
+}
