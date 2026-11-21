@@ -13,7 +13,7 @@ This README defines our parts and how they connect. The current checkout contain
 | Adrian | `data-collection` | Collect and normalize records; preserve original sources | Cem for storage; Anushree for evidence interpretation |
 | Cem | `database` | Supabase Postgres, migrations, storage interfaces, ordering, and history | Anushree, Shaurya, and Gary |
 | Anushree | `analysis` | Source-backed findings, uncertainty, corrections, and disclosure interpretation | Shaurya’s controller and Gary’s reporting |
-| Shaurya | `integration` | Controller, shared runtime configuration, module integration, later main UI and time machine | The integrated application |
+| Shaurya | `integration` | Attack orchestration inside the simulator, channel/API integration, controller, shared runtime, and later UI/time machine | The integrated application |
 | Gary | `reporting` | Reporting semantics, timeline narrative, demo, architecture page, and pitch | Shaurya’s UI and the final presentation |
 
 **Adrian and Cem jointly own collection and storage.** Adrian’s work is complete when Cem can reliably ingest its output. Cem’s work is complete when downstream modules can retrieve that evidence and its history.
@@ -33,6 +33,9 @@ flowchart LR
     Anushree --> History[(Cem: findings and turn history)]
     History --> Gary[Gary: reporting projection]
     Gary --> UI[Shaurya: UI and time machine]
+    Shaurya -. live mode .-> Attack[Shaurya: attack orchestration and channel adapter]
+    Attack <--> Simulator[revel8 simulator]
+    Simulator --> Adrian
     Correction[Later evidence or correction] --> Adrian
 ```
 
@@ -156,7 +159,7 @@ Keep credentials out of source code and logs. Document actual commands.
 
 An agenda listing two co-presenters supports “the agenda lists them as co-presenters.” It does not establish that they are close friends. Likewise, a link opening does not by itself prove credential entry.
 
-Analysis answers **what the evidence supports**. The later decision stage answers **what the simulator agent should do next**. Keep these separate; Shaurya integrates the decision stage with the controller later.
+Analysis answers **what the evidence supports**. The later decision stage answers **what the simulator agent should do next**. Keep these separate; Shaurya owns the attack decision stage and integrates it with the controller.
 
 **First deliverable works when:** the first finding cites the Room A record, the second cites the Room B correction and revises the first, and viewing turn 1 still shows Room A.
 
@@ -171,7 +174,7 @@ structured changes or explicit errors; do not send messages or write directly to
 storage. Coordinate disclosure semantics with Gary and persistence with Cem.
 ```
 
-## Shaurya — integration, runtime, and UI
+## Shaurya — simulator attacks, integration, runtime, and UI
 
 **Branch:** `integration`
 **Works most closely with:** all teammates.
@@ -181,7 +184,8 @@ storage. Coordinate disclosure semantics with Gary and persistence with Cem.
 - The controller that connects collection, storage, analysis, and reporting.
 - Shared runtime model configuration and provider adapter.
 - Ordering, checkpoints, recovery, and run status.
-- The later simulator API adapter and live execution integration.
+- Attack orchestration inside the authorized simulator: channel selection, simulated message/call generation, reaction handling, and session continuity.
+- The simulator API adapter and channel-specific payload mapping, including email phishing, SMS phishing, and supported simulated voice/video scenarios.
 - The main UI, visual design implementation, and time machine.
 
 ### Implementation steps
@@ -196,6 +200,45 @@ storage. Coordinate disclosure semantics with Gary and persistence with Cem.
 8. Integrate live simulator access only after reading the actual API docs. Do not invent endpoint names, response fields, or retry guarantees.
 
 Keep three modes distinct: **replay** reads stored results, **reanalysis** creates a new version of analysis, and **live execution** communicates with the simulator. Scrubbing the UI must never rerun the model or send a simulator action.
+
+### Attack orchestration and simulator channels
+
+Shaurya owns the **attack execution part**, as well as integration and the later UI. Anushree supplies source-backed analysis; Shaurya’s decision stage uses that state to choose the next simulator action, submit it through the documented API, consume the reaction, and continue the session. Cem preserves the action/event history, and Gary makes the thread understandable in reporting.
+
+The supplied challenge describes **one revel8 API with a team key**, not separate integrations with real SMS, email, social, or calling providers. The documents say API documentation is on the API start page, but **the start-page URL, authentication format, endpoint paths, and request schemas have not been supplied**. No working API client is present in this checkout.
+
+The following channel names come from the supplied challenge. The integration notes are our proposed responsibilities, not verified API field names:
+
+| Simulator channel(s) | Shaurya’s integration responsibility | What must be checked in API docs |
+| --- | --- | --- |
+| Email | Submit simulated email contacts and retain the content needed for replay and later rendering | Channel identifier, sender representation, subject/body format, supported markup, link/page references |
+| SMS | Submit simulated SMS contacts and map replies into the same session history | Channel identifier, sender representation, message limits, reply events |
+| WhatsApp, Signal, Telegram, iMessage | Map each simulated messaging channel to the common action/event interface | Exact channel values, supported content, conversation/session behavior |
+| Slack, Teams, Discord | Preserve channel identity and conversation context in simulated workplace messages | Destination/context fields, thread behavior, response format |
+| LinkedIn, X, Instagram, Messenger | Support documented simulated social-message contacts | Sender/profile representation, message format, supported interactions |
+| Calendar invite | Represent the simulated invite and any returned observations | Invite schema, title/time/body fields if supported, available response events |
+| Shared document | Register/reference the simulated document as documented | Document content representation and open/interaction events |
+| Voicemail | Represent a simulated voicemail and preserve its transcript/content | Whether content is text, a descriptor, or an actual supported media input |
+| MFA prompt | Represent only the simulator’s supported prompt interaction | Prompt schema and confirmation/response events; no real identity-provider integration |
+| Phone call, video call, Teams call, live chat | Manage the documented live exchange, retaining each turn and completion state | Start/continue/end operations, turn transport, timeouts, contact accounting |
+
+**Voice deepfake / vishing and deepfake video:** these are scenario concepts the team wants to represent, not capabilities established by the supplied API documentation. The challenge explicitly describes live calls in text. It does not establish audio synthesis, voice cloning, face generation, audio/video upload, or real-time media streaming support. Start with the documented textual simulation. Do not assume a video-call channel requires generating a deepfake video, or add media-generation services until the organizer confirms supported inputs and scope.
+
+Email phishing and SMS phishing similarly refer here to **simulated contacts with AI twins**. There is no real mail delivery, SMS gateway, or external calling integration in this plan. Simulated landing pages are registered through revel8’s API; the brief says we host nothing. Attachments are file names rather than real malware.
+
+### API connection work — after receiving the start-page URL
+
+1. Read the organizer’s API docs and record the base URL, exact authentication scheme, available targets, session lifecycle, and channel capabilities. Keep the team key in server-side local configuration.
+2. Implement one shared simulator client. Map each documented channel to its actual payload schema; do not assume one endpoint per channel or invent a generic payload as official API syntax.
+3. Establish a practice session using the documented operation and retain its external session ID alongside our local run ID.
+4. Validate each action against the selected channel’s schema, simulator rules, and contact budget before submission. Store the intended action and its local identity.
+5. Submit through the documented operation and record the returned action/contact identifiers. Register any simulated page content through the documented page mechanism before referencing it where required.
+6. Receive observations using the actual supported mechanism—polling, streaming, or another documented transport. Do not assume webhooks. Normalize replies, opens, submissions, and other supported events through the shared storage boundary.
+7. Pass new evidence to Anushree’s analysis, persist the resulting state, and let the autonomous decision stage continue. During scoring, the UI observes rather than approving individual messages.
+8. Handle timeouts and uncertain submissions using documented history lookup or idempotency support. Do not blindly retry a send that may already have consumed a contact.
+9. Verify each enabled channel in practice: submission, reaction handling, source/event persistence, contact accounting, and replay. Mark unsupported or untested channels explicitly.
+
+**Required API handoff:** verified documentation URL; redacted request/response samples; exact channel mappings; session and contact semantics; timeout/retry behavior; and one recorded practice thread. Until then, exact per-channel HTTP examples would be guesses.
 
 ### UI scope
 
@@ -229,11 +272,14 @@ The visual direction should follow revel8’s approved reference: clean typograp
 
 ```text
 I am Shaurya, working on integration. Read README.md and inspect the checkout.
+Own simulator attack orchestration and channel/API integration, alongside the UI.
 Build the resumable offline controller and shared model adapter first. Integrate
 Cem's storage and Anushree's analysis using the agreed contracts. Deliver historical
 timeline data to Gary. Later, implement the main UI and time machine using Gary's
 reporting semantics. Synchronize every panel to one selected turn. Keep replay,
-reanalysis, and live execution distinct. Do not invent simulator API behavior.
+reanalysis, and live execution distinct. Read the actual API docs before implementing
+channel payloads. Treat voice/video as textual simulation unless media support is
+explicitly documented. Do not invent simulator API behavior.
 ```
 
 ## Gary — reporting, demo, and explanation
