@@ -12,6 +12,7 @@ With Python 3.10+ from the repository root (no dependencies or credentials requi
 
 ```sh
 python3 -m stopreplay_analysis
+python3 -m stopreplay_analysis.history_fixture
 python3 -m stopreplay_analysis.evaluation --reference
 python3 -m unittest discover -s tests -v
 ```

@@ -2,7 +2,7 @@
 
 Owner: Anushree. Branch: `analysis`. Status: local fixture implementation, **not an agreed shared contract or an integrated application**.
 
-Anushree approved Python, offline fake responses, and drafting this proposal. Cem and Shaurya still need to agree on persistence and execution fields; Gary needs to agree on reporting and disclosure meaning. This document is intended to be shared with their coding agents. It does not authorize changes to their modules.
+Anushree approved Python, offline fake responses, and drafting this proposal. Cem has accepted the v1.1 storage boundary in database reply 2. Shaurya still needs to agree on execution and decoding-adapter ownership; Gary needs to agree on reporting and disclosure meaning. Storage is not implemented yet. This document is intended to be shared with their coding agents. It does not authorize changes to their modules.
 
 ## Run it
 
@@ -15,7 +15,7 @@ python3 -m unittest discover -s tests -v
 
 No installation, external dependencies, credentials, provider calls, or database are required. The example emits JSON to stdout; it writes no history. `fixtures/room.json` contains the original synthetic source text, source locators, and all three README deliveries.
 
-Verified locally: 35 tests pass, including 26 analysis checks and nine quality/prompt checks. Three deliveries produce two results: Room A citing `e1`, followed by Room B citing `e2` and revising the first finding. The sequence-1 example view retains Room A and does not contain the correction. Tests also cover conflicts, inference uncertainty, no change, duplicates, conflicting IDs, wrong-run/future/missing citations, fabricated quotes, bad revisions, malformed output, adapter failures, and separate reanalysis identities.
+Verified locally: 37 tests pass, including 26 analysis checks, two history-fixture checks, and nine quality/prompt checks. Three deliveries produce two results: Room A citing `e1`, followed by Room B citing `e2` and revising the first finding. The sequence-1 example view retains Room A and does not contain the correction. Tests also cover conflicts, inference uncertainty, no change, duplicates, conflicting IDs, wrong-run/future/missing citations, fabricated quotes, bad revisions, malformed output, adapter failures, and separate reanalysis identities.
 
 Versioned analysis instructions, an injected completion callback, and nine synthetic evaluation scenarios are now available without changing this event/finding contract. See [analysis quality preparation](analysis-quality.md). These additions can be reviewed when teammates are available; their reference checks do not establish real model quality.
 
@@ -179,7 +179,7 @@ Cem's proposed storage boundary covers immutable findings, source resolution wit
 - Finding revision uniqueness must be scoped to the run and analysis history; Cem owns the exact database constraints.
 - Shaurya and Gary still need to review the revised output before it becomes a shared interface.
 
-Validation after this change: 35 unit tests pass, all nine reference scenarios pass automatic checks, and the CLI matches `fixtures/room.expected.json`. Real model quality and end-to-end integration remain unverified.
+Validation after this change: 37 unit tests pass, all nine reference scenarios pass automatic checks, and the CLI matches `fixtures/room.expected.json`. Real model quality and end-to-end integration remain unverified.
 
 ## Follow-up to Cem and Adrian's revised database reply
 
@@ -190,10 +190,32 @@ The analysis module and fixtures are now on `origin/analysis`. The current outpu
 - The conflict cites two events in order, has `status: unresolved`, includes uncertainty, and does not revise the earlier finding.
 - The genuine `no_change` result has `finding: null` and non-null runtime metadata. It must still be recorded as processed. There is no finding ID, index, or evidence to insert for it. This differs from a duplicate skip, whose runtime is null.
 
-Remaining database questions:
+Database questions raised with the revised reply (resolved by reply 2 below):
 
 1. The proposed `claims` table uses `finding_id` as a non-null primary key for every result, including `no_change`. What identifies a result with no finding? Prefer a result key `(run_id, analysis_id, event_id)` with a separate nullable finding relationship, as in the original reply. A storage-only result key is also possible, but do not fabricate a finding or return one in analysis context. Preserve the result's `schema_version` as well as runtime metadata.
 2. Please share `data-schema-spec-revised.md` and a concrete `get_analysis_context` JSON response, including citation ordering and superseded findings. The Python entry point accepts `Event` and `Finding` objects; JSON returned by Supabase needs a decoding adapter, including immutable citation tuples. The actual response shape and adapter owner still need agreement with Shaurya.
 3. Is `source_ref` globally unique, or scoped to a run? The revised reply uses a global primary key and `get_source(source_ref)`, whereas the earlier proposal used `(run_id, source_ref)`. Adrian and Cem must define collision handling; analysis retains the five existing event fields.
 
 The revised reply's API descriptions have not been independently verified in this module. A preserved simulator interaction can confirm that interaction; it does not automatically establish credential disclosure or an official incident. A real ingested `page.submitted` sample, its preserved original and normalization mapping, and Gary/Shaurya's interpretation agreement are still needed before adding confirmed-outcome semantics. No API payload is invented by these fixtures.
+
+## Database reply 2 and full-history fixture
+
+Cem and Adrian accepted the v1.1 output after inspecting the pushed examples. This resolves the three database questions above:
+
+- `analysis_results` is keyed by `(run_id, analysis_id, event_id)`, preserves `schema_version`, and stores genuine `no_change` results. Separate findings and ordered evidence rows exist only when a finding is present.
+- Sources are scoped by `(run_id, source_ref)`, with conflicting preserved content rejected.
+- Context has `run_id`, `analysis_id`, `before_sequence`, `events`, and `findings`. Events are ordered by sequence; findings by `(sequence, finding_index)`; citation order is preserved. Superseded findings remain included. Shaurya is the proposed owner of the JSON-to-Python decoding adapter, pending his confirmation.
+
+Cem reports that no tables/functions have been migrated or implemented yet. The referenced schema-v2 document has not been supplied here. This is an accepted storage target, not a verified database integration.
+
+The requested longer example is now in `fixtures/history.json` and `fixtures/history.expected.json`. Generate it with:
+
+```sh
+python3 -m stopreplay_analysis.history_fixture
+```
+
+The four synthetic events produce `new`, `no_change`, `revision`, `no_change`: `e1` says Room A, `e2` carries no room information, `e3` corrects the room to B and revises the `e1` finding, and `e4` carries no room information. The exact-match fake adapter does not interpret the two marker records; this does not evaluate a real model's no-change judgment.
+
+Each expected step contains its input event, the complete `context_before` in Cem's proposed JSON shape, its analysis result, and an illustrative `active_findings_after` view. Context before `e4` contains `e1`, `e2`, and `e3` plus both the original and revised findings. The active view after `e2` still shows Room A; after `e3` it shows Room B. These are sequence-based views, not assigned controller turns or a production reporting API.
+
+Two regression tests verify the saved output, no future information in earlier context, genuine no-change runtime metadata, and JSON history reconstructed as Python objects. Removing the superseded revision target is rejected. All 37 tests pass, including the nine reference quality scenarios. Cem can compare actual database context against this example once storage exists; no database behavior is claimed by these tests.
