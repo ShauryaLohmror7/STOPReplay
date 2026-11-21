@@ -143,10 +143,11 @@ def analyze_profiles(facts, events, *, run_id: str, as_of_sequence: int,
     for row in rows:
         if not row["superseded"]:
             grouped[(row["subject"], row["predicate"])].append(row)
-    # Multiple projects/colleagues can coexist. Only role/organization/tool slots are
+    # Multiple tools/projects/colleagues can coexist; using two tools is not a
+    # contradiction (per Gary). Only single-valued role/organization slots are
     # compared as potential disagreements, not automatically declared contradictions.
     for (_, predicate), group in grouped.items():
-        if predicate in {"role", "organization", "uses_tool"}:
+        if predicate in {"role", "organization"}:
             for row in group:
                 row["conflicting_fact_ids"] = [other["fact_id"] for other in group
                                                 if other["value"] != row["value"]

@@ -262,7 +262,7 @@ Read-only views built from explicit structured annotations with verbatim citatio
 
 All four take `as_of_sequence`. Records whose evidence arrives after that sequence are hidden from the view, and a revision that arrives later does not supersede the earlier fact in an earlier view. A citation to an event missing from the run is still an error. Semantic review uses the same injected-verifier pattern; without one, facts stay `pending` and a revision never takes effect, so both values remain and are flagged.
 
-**Open semantic question for Gary:** `role`, `organization`, and `uses_tool` are compared as single-valued slots, so two different tools for one person are flagged as possible conflicting claims. That suits role and organization; it may be too strict for tools.
+**Resolved with Gary (2026-11-21):** only `role` and `organization` are compared as single-valued slots. Two different tools for one person no longer conflict, since using two tools is compatible. A genuine exclusivity contradiction (for example "uses Tool A exclusively" alongside Tool B evidence in the same scope and period) would need an explicit exclusivity annotation and is deferred.
 
 ### Fix made while adding tests
 

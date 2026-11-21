@@ -125,6 +125,18 @@ class ProfileTests(unittest.TestCase):
         rows = self.rows(self.profiles([ATLAS, second]))
         self.assertEqual((rows["f4"]["conflicting_fact_ids"], rows["f5"]["conflicting_fact_ids"]), ([], []))
 
+    def test_two_tools_coexist_without_conflict(self):
+        # Gary: using two tools is compatible; only role/organization are single-valued.
+        tool_a = fact("f6", "uses_tool", "Tool A", "e1", "CTO of Northwind")
+        tool_b = fact("f7", "uses_tool", "Tool B", "e2", "Northwind")
+        rows = self.rows(self.profiles([tool_a, tool_b]))
+        self.assertEqual((rows["f6"]["conflicting_fact_ids"], rows["f7"]["conflicting_fact_ids"]), ([], []))
+        self.assertNotIn("possible_conflicting_claims", rows["f6"]["blocking_reasons"])
+        role_a = fact("f8", "role", "CTO", "e1", "CTO of Northwind")
+        role_b = fact("f9", "role", "CEO", "e2", "Northwind")
+        roles = self.rows(self.profiles([role_a, role_b]))
+        self.assertEqual(roles["f8"]["conflicting_fact_ids"], ["f9"])
+
     def test_earlier_view_hides_later_facts_and_skips_their_review(self):
         verifier = Counting()
         result = self.profiles([CTO, PEER, CEO, ATLAS], as_of_sequence=1, verifier=verifier)
