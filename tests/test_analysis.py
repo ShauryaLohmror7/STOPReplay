@@ -245,6 +245,27 @@ class AnalysisTests(unittest.TestCase):
             self.assertEqual(result.outcome, "no_change")
             self.assertIsNone(result.finding)
 
+    def test_history_identity_mismatch_is_rejected_before_model(self):
+        adapter = StubAdapter()
+        other = self.analyzer.analyze_incremental(E1, analysis_id="other-analysis")
+        for wrong_id in ["invented-id", other.finding.finding_id]:
+            with self.subTest(wrong_id=wrong_id):
+                self.assert_error("invalid_input", lambda: Analyzer(adapter).analyze_incremental(
+                    E2, analysis_id="test-v1", previous_events=[E1],
+                    previous_findings=[replace(self.first.finding, finding_id=wrong_id)]))
+        self.assertEqual(adapter.calls, [])
+
+    def test_history_cannot_omit_trigger_evidence(self):
+        second = self.analyzer.analyze_incremental(
+            E2, analysis_id="test-v1", previous_events=[E1], previous_findings=[self.first.finding])
+        third = replace(E2, event_id="e3", sequence=3)
+        adapter = StubAdapter()
+        self.assert_error("invalid_evidence", lambda: Analyzer(adapter).analyze_incremental(
+            third, analysis_id="test-v1", previous_events=[E1, E2],
+            previous_findings=[self.first.finding,
+                               replace(second.finding, evidence=self.first.finding.evidence)]))
+        self.assertEqual(adapter.calls, [])
+
     def test_runtime_errors_are_distinct_and_do_not_expose_provider_details(self):
         for error, code in [(ModelRefusal("private"), "refusal"), (TimeoutError("private"), "timeout"),
                             (RuntimeError("private"), "provider_failure")]:

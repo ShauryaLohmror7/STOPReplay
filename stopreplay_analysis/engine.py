@@ -20,6 +20,12 @@ def _text(value: Any) -> bool:
     return isinstance(value, str) and bool(value.strip())
 
 
+def _finding_id(event: Event, analysis_id: str, finding_index: int = 0) -> str:
+    identity = json.dumps([SCHEMA_VERSION, event.run_id, analysis_id,
+                           event.event_id, finding_index], separators=(",", ":"))
+    return "f_" + hashlib.sha256(identity.encode()).hexdigest()
+
+
 def _validate_evidence(finding: Finding, events: Mapping[str, Event]) -> None:
     _require(isinstance(finding.evidence, tuple) and bool(finding.evidence),
              "invalid_evidence", "A finding needs an immutable tuple of evidence.")
@@ -80,6 +86,7 @@ def _validate_context(request: AnalysisRequest) -> dict[str, Event]:
                  "invalid_input", "Incremental analysis requires strictly increasing sequence.")
 
     findings: dict[str, Finding] = {}
+    events_by_sequence = {event.sequence: event for event in events.values()}
     revised = set()
     for finding in request.previous_findings:
         _validate_finding(finding)
@@ -88,6 +95,11 @@ def _validate_context(request: AnalysisRequest) -> dict[str, Event]:
         _require(finding.finding_id not in findings, "invalid_input", "Duplicate finding ID in history.")
         _require(finding.sequence in sequences, "invalid_input", "Finding history has no event at its sequence.")
         _validate_evidence(finding, events)
+        trigger = events_by_sequence[finding.sequence]
+        _require(finding.finding_id == _finding_id(trigger, request.analysis_id, finding.finding_index),
+                 "invalid_input", "History finding ID does not match its event and analysis identity.")
+        _require(trigger.event_id in {citation.event_id for citation in finding.evidence},
+                 "invalid_evidence", "History finding must cite its triggering event.")
         if finding.revises is not None:
             target = findings.get(finding.revises)
             _require(target is not None and target.sequence < finding.sequence,
@@ -137,10 +149,8 @@ def _decode(raw: Any, request: AnalysisRequest, events: dict[str, Event],
                      "invalid_output", "Malformed citation fields.")
         evidence = tuple(Citation(**citation) for citation in citations)
         # IDs belong to the analysis layer, not the model. One finding per event in v1.
-        identity = json.dumps([SCHEMA_VERSION, request.event.run_id, request.analysis_id,
-                               request.event.event_id, 0], separators=(",", ":"))
         finding = Finding(
-            finding_id="f_" + hashlib.sha256(identity.encode()).hexdigest(),
+            finding_id=_finding_id(request.event, request.analysis_id),
             finding_index=0,
             run_id=request.event.run_id, analysis_id=request.analysis_id,
             sequence=request.event.sequence, statement=payload["statement"], kind=payload["kind"],

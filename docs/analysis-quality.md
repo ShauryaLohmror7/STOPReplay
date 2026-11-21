@@ -17,7 +17,7 @@ python3 -m unittest discover -s tests -v
 python3 -m stopreplay_analysis.evaluation --reference
 ```
 
-Verified: 33 unit tests pass; all nine reference scenarios pass their automatic checks. Reference mode uses hand-authored responses and makes no model calls. It verifies the harness and examples, not real model quality.
+Verified: 35 unit tests pass; all nine reference scenarios pass their automatic checks. Reference mode uses hand-authored responses and makes no model calls. It verifies the harness and examples, not real model quality.
 
 The original `python3 -m stopreplay_analysis` room demo still works and matches its saved expected output.
 

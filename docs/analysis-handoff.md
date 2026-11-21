@@ -15,7 +15,7 @@ python3 -m unittest discover -s tests -v
 
 No installation, external dependencies, credentials, provider calls, or database are required. The example emits JSON to stdout; it writes no history. `fixtures/room.json` contains the original synthetic source text, source locators, and all three README deliveries.
 
-Verified locally: 33 tests pass, including 24 analysis checks and nine quality/prompt checks. Three deliveries produce two results: Room A citing `e1`, followed by Room B citing `e2` and revising the first finding. The sequence-1 example view retains Room A and does not contain the correction. Tests also cover conflicts, inference uncertainty, no change, duplicates, conflicting IDs, wrong-run/future/missing citations, fabricated quotes, bad revisions, malformed output, adapter failures, and separate reanalysis identities.
+Verified locally: 35 tests pass, including 26 analysis checks and nine quality/prompt checks. Three deliveries produce two results: Room A citing `e1`, followed by Room B citing `e2` and revising the first finding. The sequence-1 example view retains Room A and does not contain the correction. Tests also cover conflicts, inference uncertainty, no change, duplicates, conflicting IDs, wrong-run/future/missing citations, fabricated quotes, bad revisions, malformed output, adapter failures, and separate reanalysis identities.
 
 Versioned analysis instructions, an injected completion callback, and nine synthetic evaluation scenarios are now available without changing this event/finding contract. See [analysis quality preparation](analysis-quality.md). These additions can be reviewed when teammates are available; their reference checks do not establish real model quality.
 
@@ -114,7 +114,7 @@ An example generated from the actual CLI is in `fixtures/room.expected.json`. Th
 
 ## Validation and limits
 
-Before invoking the adapter, analysis rejects invalid event fields, mixed runs, future context, conflicting identities/order, mismatched analysis histories, and invalid prior citations/revision chains.
+Before invoking the adapter, analysis rejects invalid event fields, mixed runs, future context, conflicting identities/order, mismatched analysis histories, and invalid prior citations/revision chains. Supplied history must also use the current deterministic finding ID for its triggering event and cite that event; analysis rejects mismatched IDs and omitted trigger evidence before calling the adapter. These checks validate structural consistency, not the meaning or authenticity of a stored statement.
 
 Before returning a finding, it rejects missing or future evidence, mismatched sources, quotes absent from the event, duplicate citations, omitted current-event evidence, invalid uncertainty, and missing/already-revised revision targets. Identity/scope/sequence fields are assigned by analysis rather than trusted from model output.
 
@@ -179,4 +179,4 @@ Cem's proposed storage boundary covers immutable findings, source resolution wit
 - Finding revision uniqueness must be scoped to the run and analysis history; Cem owns the exact database constraints.
 - Shaurya and Gary still need to review the revised output before it becomes a shared interface.
 
-Validation after this change: 33 unit tests pass, all nine reference scenarios pass automatic checks, and the CLI matches `fixtures/room.expected.json`. Real model quality and end-to-end integration remain unverified.
+Validation after this change: 35 unit tests pass, all nine reference scenarios pass automatic checks, and the CLI matches `fixtures/room.expected.json`. Real model quality and end-to-end integration remain unverified.
