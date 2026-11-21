@@ -4,7 +4,21 @@ Team STOP’s project for the revel8 challenge at the START Munich Hackathon. We
 
 Our first milestone is **offline replay of a recorded session**. The later live agent operates inside revel8’s AI-twin simulator. The planned UI lets a viewer move through time and see the conversation, available evidence, changes in findings, and observed information disclosures at each turn.
 
-This README defines our parts and how they connect. The current checkout contains project documentation, not a runnable application. The responsibilities below are the team’s implementation plan; proposed interfaces and UI features are not implemented yet.
+This README defines our parts and how they connect. The current checkout includes a small, standalone Python analysis fixture; it is not an integrated application. The responsibilities below are the team’s implementation plan. Shared interfaces remain proposals, and the storage, controller, live runtime, and UI are not implemented here.
+
+### Run Anushree's offline analysis fixture
+
+With Python 3.10+ from the repository root (no dependencies or credentials required):
+
+```sh
+python3 -m stopreplay_analysis
+python3 -m stopreplay_analysis.evaluation --reference
+python3 -m unittest discover -s tests -v
+```
+
+The synthetic example produces a Room A finding and a source-backed Room B revision, while preserving the earlier view. It uses deterministic fake responses and no network or storage. See [the provisional analysis handoff](docs/analysis-handoff.md) for inputs, outputs, limitations, validation, and questions for Cem, Shaurya, Gary, and Adrian. The full end-to-end acceptance check below remains pending.
+
+Versioned analysis instructions and nine synthetic quality scenarios are also ready for the shared runtime. The evaluation command checks hand-authored reference responses; it does not measure a real model. See [analysis quality preparation](docs/analysis-quality.md) for the callback interface, evaluation coverage, and semantic-review limitations.
 
 ## Team ownership at a glance
 
@@ -331,7 +345,7 @@ Record the chosen provider, model version, prompt version, parameters, and schem
 
 ## Shared handoff and parallel development
 
-Retain the initial event fields below. Any additions are proposals until the producer and consuming owner agree. There are no implemented schema files or endpoints to document yet.
+Retain the initial event fields below. Any additions are proposals until the producer and consuming owner agree. The standalone analysis types are implemented locally as a provisional contract; there are no agreed shared schemas or implemented service endpoints yet.
 
 | Field | Meaning |
 | --- | --- |
