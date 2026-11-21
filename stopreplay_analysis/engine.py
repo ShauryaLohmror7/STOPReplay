@@ -100,6 +100,9 @@ def _validate_context(request: AnalysisRequest) -> dict[str, Event]:
                  "invalid_input", "History finding ID does not match its event and analysis identity.")
         _require(trigger.event_id in {citation.event_id for citation in finding.evidence},
                  "invalid_evidence", "History finding must cite its triggering event.")
+        if finding.status == "unresolved":
+            _require(finding.revises is None and len({c.event_id for c in finding.evidence}) >= 2,
+                     "invalid_evidence", "Unresolved history needs both sides and cannot revise a finding.")
         if finding.revises is not None:
             target = findings.get(finding.revises)
             _require(target is not None and target.sequence < finding.sequence,
@@ -178,8 +181,9 @@ def _decode(raw: Any, request: AnalysisRequest, events: dict[str, Event],
 
 
 class Analyzer:
-    def __init__(self, adapter: ModelAdapter):
+    def __init__(self, adapter: ModelAdapter, *, semantic_verifier=None):
         self.adapter = adapter
+        self.semantic_verifier = semantic_verifier
 
     def analyze_incremental(self, event: Event, *, analysis_id: str,
                             previous_events: Sequence[Event] = (),
@@ -201,7 +205,11 @@ class Analyzer:
             # Do not expose provider response bodies or configuration in public errors.
             raise AnalysisError("provider_failure", "The model adapter failed.") from None
         events[event.event_id] = event
-        return _decode(raw, request, events, runtime)
+        result = _decode(raw, request, events, runtime)
+        if self.semantic_verifier is not None:
+            from .guardrails import verify_result
+            verify_result(request, result, self.semantic_verifier)
+        return result
 
     def analyze_initial(self, events: Sequence[Event], *, analysis_id: str) -> tuple[AnalysisResult, ...]:
         """Analyze one run in sequence order; collapse identical fixture deliveries.
