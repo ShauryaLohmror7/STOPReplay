@@ -61,6 +61,13 @@ class Storage:
         )
         return rows[0] if rows else None
 
+    def get_sources(self, run_id: str) -> list[dict]:
+        return self._rows(
+            "select run_id, source_ref, origin, url, publisher, locator, excerpt "
+            "from sources where run_id=%s order by source_ref",
+            (run_id,),
+        )
+
     # -- events --------------------------------------------------------------
     def import_event(self, event: Mapping[str, Any]) -> str:
         """'inserted' | 'duplicate'; raises EventConflict on same id, new content."""
