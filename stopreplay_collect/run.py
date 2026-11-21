@@ -72,6 +72,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--synthetic-authorized", action="store_true",
                         help="allow sensitive/private/credential facts (authorized synthetic data)")
     parser.add_argument("--limit", type=int)
+    parser.add_argument("--must-include", action="append", default=[], metavar="TERM",
+                        help="disambiguation: keep only pages containing this term (repeatable)")
+    parser.add_argument("--include-domain", action="append", default=[], metavar="DOMAIN",
+                        help="keep only results from this domain (repeatable)")
+    parser.add_argument("--exclude-domain", action="append", default=[], metavar="DOMAIN",
+                        help="drop results from this domain (repeatable)")
     args = parser.parse_args(argv)
 
     _load_env()
@@ -84,7 +90,9 @@ def main(argv: list[str] | None = None) -> int:
 
     request = ResearchRequest(
         source_run=args.run, subject=args.subject, query=args.query,
-        synthetic_authorized=args.synthetic_authorized, limit=args.limit, params=params,
+        synthetic_authorized=args.synthetic_authorized, limit=args.limit,
+        must_include=args.must_include, include_domains=args.include_domain,
+        exclude_domains=args.exclude_domain, params=params,
     )
 
     try:
@@ -100,6 +108,7 @@ def main(argv: list[str] | None = None) -> int:
         "adapter": report.adapter, "source_run": report.source_run,
         "summary": report.summary(),
         "accepted": report.accepted,
+        "filtered": report.filtered,
         "rejected": report.rejected,
         "conflicting": report.conflicting,
         "retrieval_failures": report.retrieval_failures,

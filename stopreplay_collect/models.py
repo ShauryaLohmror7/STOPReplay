@@ -32,6 +32,10 @@ class ResearchRequest:
     query: str | None = None
     synthetic_authorized: bool = False   # gate for sensitive/private/credential
     limit: int | None = None
+    # Disambiguation anchors — keep the right person, drop famous namesakes:
+    must_include: list[str] = field(default_factory=list)   # ALL must appear in the page
+    include_domains: list[str] = field(default_factory=list)  # only these domains
+    exclude_domains: list[str] = field(default_factory=list)  # never these domains
     params: dict[str, Any] = field(default_factory=dict)
 
 
@@ -104,6 +108,7 @@ class ImportReport:
     sources_registered: int = 0
     accepted: list[dict] = field(default_factory=list)
     duplicates: list[dict] = field(default_factory=list)
+    filtered: list[dict] = field(default_factory=list)           # off-target (disambiguation)
     rejected: list[dict] = field(default_factory=list)            # validation failures
     conflicting: list[dict] = field(default_factory=list)         # source/content conflicts
     retrieval_failures: list[dict] = field(default_factory=list)
@@ -115,6 +120,7 @@ class ImportReport:
             "sources_registered": self.sources_registered,
             "accepted": len(self.accepted),
             "duplicates": len(self.duplicates),
+            "filtered": len(self.filtered),
             "rejected": len(self.rejected),
             "conflicting": len(self.conflicting),
             "retrieval_failures": len(self.retrieval_failures),

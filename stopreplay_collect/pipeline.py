@@ -11,6 +11,7 @@ from stopreplay_db.storage import Storage
 
 from .base import CollectionAdapter
 from .models import DraftFact, ImportReport, ResearchRequest
+from .util import relevance_reason
 from .validation import validate_fact, validate_source
 
 
@@ -37,6 +38,13 @@ class CollectionPipeline:
             errors = validate_source(source)
             if errors:
                 report.rejected.append({"source_ref": source.source_ref, "errors": errors})
+                continue
+            off_target = relevance_reason(
+                source.excerpt, source.locator, source.url,
+                request.must_include, request.include_domains, request.exclude_domains)
+            if off_target:
+                report.filtered.append({"source_ref": source.source_ref,
+                                        "url": source.url, "reason": off_target})
                 continue
             try:
                 outcome = self.storage.register_source(source.as_dict(request.source_run))

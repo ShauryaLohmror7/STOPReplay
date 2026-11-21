@@ -104,6 +104,40 @@ def test_unresolved_source_rejected(storage):
     assert any("unresolved source_ref" in e for e in report.rejected[0]["errors"])
 
 
+def test_must_include_filters_wrong_namesake(storage):
+    out = CollectionOutput(sources=[
+        DraftSource(source_ref="https://a.example/1", origin="public_web",
+                    url="https://a.example/1",
+                    excerpt="Tom Mueller, propulsion engineer, SpaceX and Impulse Space."),
+        DraftSource(source_ref="https://b.example/2", origin="public_web",
+                    url="https://b.example/2",
+                    excerpt="Tom Müller is Co-CEO at revel8, an AI security company."),
+    ])
+    report = CollectionPipeline(storage).run(
+        _StaticAdapter(out), ResearchRequest(RUN, "tom", must_include=["revel8"]))
+    assert report.summary()["sources_registered"] == 1
+    assert report.summary()["filtered"] == 1
+    assert storage.get_source(RUN, "https://b.example/2") is not None   # the revel8 one
+    assert storage.get_source(RUN, "https://a.example/1") is None       # the namesake
+    assert "missing required term" in report.filtered[0]["reason"]
+
+
+def test_exclude_and_include_domains(storage):
+    out = CollectionOutput(sources=[
+        DraftSource(source_ref="https://en.wikipedia.org/x", origin="public_web",
+                    url="https://en.wikipedia.org/x", excerpt="revel8 mention"),
+        DraftSource(source_ref="https://www.revel8.ai/team", origin="public_web",
+                    url="https://www.revel8.ai/team", excerpt="revel8 team"),
+    ])
+    report = CollectionPipeline(storage).run(
+        _StaticAdapter(out),
+        ResearchRequest(RUN, "tom", include_domains=["revel8.ai"],
+                        exclude_domains=["wikipedia.org"]))
+    assert report.summary()["sources_registered"] == 1
+    assert report.summary()["filtered"] == 1
+    assert storage.get_source(RUN, "https://www.revel8.ai/team") is not None
+
+
 def test_inferred_source_requires_locator(storage):
     out = CollectionOutput(
         sources=[DraftSource(source_ref="i1", origin="inferred", excerpt="guess")],
