@@ -19,7 +19,7 @@ import sys
 
 from stopreplay_db import Storage, db
 
-from .adapters import FirecrawlAdapter
+from .adapters import FirecrawlAdapter, GitHubAdapter
 from .extract import extract_facts
 from .models import CollectionOutput, ResearchRequest
 from .pipeline import CollectionPipeline
@@ -29,7 +29,7 @@ from .static import StaticAdapter
 
 
 def run_recon(storage: Storage, subject: str, seed_text: str, *, source_run: str = "recon",
-              limit: int = 5, authorized: bool = False):
+              limit: int = 5, authorized: bool = False, github_strict: bool = True):
     analysis = analyze_seed(subject, seed_text)
     pipe = CollectionPipeline(storage)
     # 1. seed -> foundation facts
@@ -41,13 +41,18 @@ def run_recon(storage: Storage, subject: str, seed_text: str, *, source_run: str
         FirecrawlAdapter(),
         ResearchRequest(source_run, subject, query=analysis.query, limit=limit,
                         must_include=analysis.must_include))
-    # 3. extract facts from the scraped sources
+    # 3. GitHub (octosuite) -> matched profile facts (self-disambiguating)
+    github_report = pipe.run(
+        GitHubAdapter(anchors=analysis.must_include, org_domains=analysis.include_domains,
+                      strict=github_strict),
+        ResearchRequest(source_run, subject, query=analysis.name or subject))
+    # 4. extract facts from every collected source
     extracted = extract_facts(storage.get_sources(source_run), subject,
                               name=analysis.name, org_domains=analysis.include_domains)
     extract_report = pipe.run(
         StaticAdapter(CollectionOutput(facts=extracted), "extract"),
         ResearchRequest(source_run, subject))
-    return analysis, seed_report, web_report, extract_report
+    return analysis, seed_report, web_report, github_report, extract_report
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -58,6 +63,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--limit", type=int, default=5)
     parser.add_argument("--authorized", action="store_true",
                         help="store authorised private seed attributes (e.g. date_of_birth)")
+    parser.add_argument("--github-loose", action="store_true",
+                        help="also accept a GitHub profile on full-name match alone "
+                             "(no org anchor); lower confidence, risks a namesake")
     args = parser.parse_args(argv)
 
     _load_env()
@@ -68,9 +76,10 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     with conn:
-        analysis, seed_report, web_report, extract_report = run_recon(
+        analysis, seed_report, web_report, github_report, extract_report = run_recon(
             Storage(conn), args.subject, args.seed, source_run=args.run,
-            limit=args.limit, authorized=args.authorized)
+            limit=args.limit, authorized=args.authorized,
+            github_strict=not args.github_loose)
 
     print(json.dumps({
         "subject": args.subject,
@@ -81,6 +90,8 @@ def main(argv: list[str] | None = None) -> int:
         },
         "seed_facts": {"summary": seed_report.summary(), "accepted": seed_report.accepted},
         "web_recon": {"summary": web_report.summary(), "filtered": web_report.filtered},
+        "github": {"summary": github_report.summary(), "accepted": github_report.accepted,
+                   "retrieval_failures": github_report.retrieval_failures},
         "extracted_facts": {"summary": extract_report.summary(),
                             "accepted": extract_report.accepted},
     }, indent=2, default=str))

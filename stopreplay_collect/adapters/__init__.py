@@ -12,6 +12,7 @@ from __future__ import annotations
 
 from .brave import BraveSearchAdapter
 from .firecrawl import FirecrawlAdapter
+from .github import GitHubAdapter
 from .identity import IdentityAdapter
 
-__all__ = ["IdentityAdapter", "BraveSearchAdapter", "FirecrawlAdapter"]
+__all__ = ["IdentityAdapter", "BraveSearchAdapter", "FirecrawlAdapter", "GitHubAdapter"]
