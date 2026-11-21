@@ -105,6 +105,22 @@ LANES_CATALOG: Dict[str, Dict[str, Any]] = {
         "primary_channel": "sms",
         "persona": Persona("CityExpress Logistics", "Automated Dispatch System", "CityExpress Courier", "Local courier delivery dispatch"),
         "landing_page": "https://cityexpress-dispatch-hub.net/track"
+    },
+    "LANE_13_GARY_DOUBLE_TWIST": {
+        "title": "Gary's Double Twist: Quarantined Suspicious Login Alert",
+        "domain": "security_twist",
+        "win_type": "credential",
+        "primary_channel": "email",
+        "persona": Persona("IT Security Incident Desk", "Automated SecOps", "Corporate Cloud Security Center", "External corporate identity provider"),
+        "landing_page": "https://account-verify-support.net/restore-access"
+    },
+    "LANE_14_SECURITY_TRAINING_REWARD": {
+        "title": "Mandatory Cyber Security Training & Bonus Voucher",
+        "domain": "employee_compliance",
+        "win_type": "credential",
+        "primary_channel": "email",
+        "persona": Persona("Corporate HR & Compliance", "Training Administrator", "Employee Engagement Team", "Internal corporate perks and training portal"),
+        "landing_page": "https://employee-perks-reward-portal.com/bonus-claim"
     }
 }
 

@@ -243,6 +243,49 @@ ELSE
 
 ---
 
+#### Lane 13: Gary's Double Twist / IT Quarantine Warning (CEO & Executive Special)
+* **Best Target:** Julius, Robert, Tom, or any corporate executive.
+* **Origin:** Team brainstorming doc ("Hairy Gary's double twist idea").
+* **Win Type:** `credential` (Account Restoration Portal).
+* **Target Channel:** `email`.
+* **Persona:** `{"name": "IT Incident Response", "role": "Automated SecOps", "org": "Cloud Identity Defense Center", "why_credible": "External identity provider alert"}`.
+* **The Play:**
+  * **Touch 1:** Send an obvious, clumsy notification or password reset alert.
+  * **Touch 2:** Send an official-looking follow-up from security:
+    > **Subject:** [SECURITY ALERT] Unauthorized login blocked — Confirm your identity if this was NOT you  
+    > **Body:** Our automated monitoring detected an anomalous login attempt from IP 185.220.101.4 (Tor Exit Node) on your account. If this was NOT you, please review your active session log and restore account integrity immediately: `https://account-verify-support.net/restore-access`  
+    > **Registered Page Fields:** `["email", "password", "verification_code"]`.
+
+---
+
+#### Lane 14: The Mandatory Security Training Completion Bonus (Employee & Stranger Special)
+* **Best Target:** Non-executives, employees, or corporate staff.
+* **Origin:** Team brainstorming doc ("Fake security training exercise").
+* **Win Type:** `credential` (Employee Perks Portal).
+* **Target Channel:** `email`.
+* **Persona:** `{"name": "Corporate Training & People Ops", "role": "Training Coordinator", "org": "Employee Learning Portal", "why_credible": "Internal HR perks administrator"}`.
+* **The Play:**
+  * **Touch 1:** Official corporate directive announcement regarding mandatory annual cybersecurity awareness simulation.
+  * **Touch 2:** Send the congratulatory follow-up:
+    > **Subject:** Congratulations! You successfully passed the 2026 Annual Security Simulation  
+    > **Body:** Great job! You correctly identified our scheduled security exercise. As part of our company engagement initiative, claim your €50 food/coffee voucher on the employee perks dashboard: `https://employee-perks-reward-portal.com/bonus-claim`  
+    > **Registered Page Fields:** `["employee_id", "company_email", "password"]`.
+
+---
+
+## 3.1 The Live Conversation Superpower (The "1-Touch 10-Turns" Hack)
+
+Per revel8's official `docs.md`:
+> *"A conversation costs one touch and allows at most 10 turns. To the person, a whole call is one contact, however long it lasts."*
+
+This is the most powerful mechanical efficiency hack in the entire competition:
+* When using **`phone_call`**, **`teams_call`**, or **`live_chat`**, your agent can exchange up to **10 back-and-forth dialogue turns** with the AI twin.
+* **Touch Cost:** **Only 1 Touch spent from your 10-touch budget!**
+* **Speed Score:** Ending with a Disclosure or Credential win during a call registers as an incident on **Touch 1**, yielding the maximum possible Speed score ($5 \times \frac{\text{fewest}}{\text{1}} = 5$ points).
+
+
+---
+
 ## 4. Multi-Turn Adaptive State Machine (Handling Gray Zones)
 
 To score maximum points for **Architecture & Persistence (40 pts)**, the orchestrator classifies target reactions into 5 psychological states and executes the appropriate strategy:
