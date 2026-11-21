@@ -19,7 +19,7 @@ python3 -m unittest discover -s tests -v
 
 The synthetic example produces a Room A finding and a source-backed Room B revision, while preserving the earlier view. It uses deterministic fake responses and no network or storage. See [the provisional analysis handoff](docs/analysis-handoff.md) for inputs, outputs, limitations, validation, and questions for Cem, Shaurya, Gary, and Adrian. The full end-to-end acceptance check below remains pending.
 
-Versioned analysis instructions and nine synthetic quality scenarios are also ready for the shared runtime. The evaluation command checks hand-authored reference responses; it does not measure a real model. See [analysis quality preparation](docs/analysis-quality.md) for the callback interface, evaluation coverage, and semantic-review limitations.
+Versioned analysis instructions and twelve synthetic quality scenarios are also ready for the shared runtime. The evaluation command checks hand-authored reference responses; it does not measure a real model. See [analysis quality preparation](docs/analysis-quality.md) for the callback interface, evaluation coverage, and semantic-review limitations.
 
 ## Team ownership at a glance
 

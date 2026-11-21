@@ -5,7 +5,7 @@ Status: offline development tooling on Anushree's `analysis` branch. The provisi
 ## What is ready
 
 - `stopreplay_analysis/prompting.py`: versioned evidence-analysis instructions, an output schema guide, and a callback adapter for Shaurya's shared runtime.
-- `fixtures/analysis-quality.json`: nine synthetic scenarios, twelve events, original synthetic source text, structural expectations, hand-authored reference responses, and semantic review questions.
+- `fixtures/analysis-quality.json`: twelve synthetic scenarios, seventeen events, original synthetic source text, structural expectations, hand-authored reference responses, and semantic review questions.
 - `stopreplay_analysis/evaluation.py`: a runner that accepts the existing `ModelAdapter` interface and reports failures per scenario.
 
 The instructions ask the model to attribute source claims, distinguish observation from inference, preserve corrections, handle unresolved disagreement, and avoid unsupported relationship/disclosure claims. They treat instructions embedded in evidence as source content. These are instructions to be evaluated, not a guarantee of model compliance.
@@ -17,7 +17,7 @@ python3 -m unittest discover -s tests -v
 python3 -m stopreplay_analysis.evaluation --reference
 ```
 
-Verified: 37 unit tests pass; all nine reference scenarios pass their automatic checks. Reference mode uses hand-authored responses and makes no model calls. It verifies the harness and examples, not real model quality.
+Verified: 39 unit tests pass; all twelve reference scenarios pass their automatic checks. Reference mode uses hand-authored responses and makes no model calls. It verifies the harness and examples, not real model quality.
 
 The original `python3 -m stopreplay_analysis` room demo still works and matches its saved expected output.
 
@@ -34,6 +34,9 @@ The original `python3 -m stopreplay_analysis` room demo still works and matches 
 | Public fact repeated | Repeating a public fact does not establish internal disclosure |
 | Instructions inside source | Source commands are treated as data |
 | Bounded silence | No observed reply is limited to the observation window |
+| Repeated information | A separate event repeating a claim is not automatically a correction or duplicate delivery |
+| Partial correction | A room correction preserves the original time and cites both records |
+| Redacted submission | A field label does not reveal its value, validity, or an official outcome |
 
 The people, text, and interaction logs are synthetic. The logs are prose examples, not documented revel8 API payloads. Source references resolve through the dataset's `sources` object.
 
@@ -74,3 +77,11 @@ For a real model evaluation, retain the report with the actual provider/model/pr
 ## Remaining dependencies
 
 Cem/Shaurya/Gary can review the existing handoff when available. Meanwhile this preparation is independent of their implementations. A real quality measurement requires the agreed shared model configuration and adapter. Actual incident confirmation still requires the documented simulator outcome/provenance contract and Gary's reporting agreement.
+
+## Reference review and dataset v2
+
+A development review of all nine original reference cases found their claims appropriately bounded by the supplied synthetic sources, with two overly narrow acceptance rules: `possible_internal_information` now permits an attributed observation as well as a qualified inference, and `instructions_inside_source` permits an observation describing the command as well as `no_change`. Neither relaxation permits asserting the commanded claim; semantic review remains required.
+
+`analysis-quality-v2` adds repeated information, a partial correction retaining the original time, and a submission with a redacted value. These are synthetic prose, not documented simulator payloads. The partial correction requires citations to both the original time and its correction. The repeated-record case distinguishes a genuine separate event from duplicate delivery. The redacted-field case distinguishes the field's label from a known or valid credential.
+
+The output contract and prompt remain unchanged. There are now 12 scenarios and 17 events. All 39 unit tests pass, and all 12 reference scenarios pass their structural checks. These counts do not establish model accuracy. See [the review worksheet](model-review-worksheet.md) for the per-case reference review and a blank evaluation record to use once the shared runtime is available. The reference review is an assistant development review, not an independent assessment of model outputs.
