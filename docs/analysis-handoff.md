@@ -180,3 +180,20 @@ Cem's proposed storage boundary covers immutable findings, source resolution wit
 - Shaurya and Gary still need to review the revised output before it becomes a shared interface.
 
 Validation after this change: 35 unit tests pass, all nine reference scenarios pass automatic checks, and the CLI matches `fixtures/room.expected.json`. Real model quality and end-to-end integration remain unverified.
+
+## Follow-up to Cem and Adrian's revised database reply
+
+The analysis module and fixtures are now on `origin/analysis`. The current output is `analysis-proposal-v1.1`, with deterministic `finding_id` and integer `finding_index: 0`. Using that ID as the primary key for an actual finding fits the analysis contract. The revised database reply still describes the older, unpushed v1 proposal; please review the current branch before pinning the schema.
+
+`fixtures/storage-handoff.expected.json` supplies the requested conflict example, plus a genuine `no_change` example. Both include normalized events, synthetic source records, and complete serialized analysis results. They are drawn from the `unresolved_conflict` and `instructions_inside_source` cases in `fixtures/analysis-quality.json`, using `ReferenceAdapter` and `evaluate`. They are hand-authored reference examples validated by analysis, not real simulator results or evidence of a working database.
+
+- The conflict cites two events in order, has `status: unresolved`, includes uncertainty, and does not revise the earlier finding.
+- The genuine `no_change` result has `finding: null` and non-null runtime metadata. It must still be recorded as processed. There is no finding ID, index, or evidence to insert for it. This differs from a duplicate skip, whose runtime is null.
+
+Remaining database questions:
+
+1. The proposed `claims` table uses `finding_id` as a non-null primary key for every result, including `no_change`. What identifies a result with no finding? Prefer a result key `(run_id, analysis_id, event_id)` with a separate nullable finding relationship, as in the original reply. A storage-only result key is also possible, but do not fabricate a finding or return one in analysis context. Preserve the result's `schema_version` as well as runtime metadata.
+2. Please share `data-schema-spec-revised.md` and a concrete `get_analysis_context` JSON response, including citation ordering and superseded findings. The Python entry point accepts `Event` and `Finding` objects; JSON returned by Supabase needs a decoding adapter, including immutable citation tuples. The actual response shape and adapter owner still need agreement with Shaurya.
+3. Is `source_ref` globally unique, or scoped to a run? The revised reply uses a global primary key and `get_source(source_ref)`, whereas the earlier proposal used `(run_id, source_ref)`. Adrian and Cem must define collision handling; analysis retains the five existing event fields.
+
+The revised reply's API descriptions have not been independently verified in this module. A preserved simulator interaction can confirm that interaction; it does not automatically establish credential disclosure or an official incident. A real ingested `page.submitted` sample, its preserved original and normalization mapping, and Gary/Shaurya's interpretation agreement are still needed before adding confirmed-outcome semantics. No API payload is invented by these fixtures.
