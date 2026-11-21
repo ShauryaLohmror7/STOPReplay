@@ -15,7 +15,7 @@ python3 -m unittest discover -s tests -v
 
 No installation, external dependencies, credentials, provider calls, or database are required. The example emits JSON to stdout; it writes no history. `fixtures/room.json` contains the original synthetic source text, source locators, and all three README deliveries.
 
-Verified locally: 44 tests pass, including 26 analysis checks, two history-fixture checks, eleven quality/prompt checks, and five evaluation-report checks. Three deliveries produce two results: Room A citing `e1`, followed by Room B citing `e2` and revising the first finding. The sequence-1 example view retains Room A and does not contain the correction. Tests also cover conflicts, inference uncertainty, no change, duplicates, conflicting IDs, wrong-run/future/missing citations, fabricated quotes, bad revisions, malformed output, adapter failures, and separate reanalysis identities.
+Verified locally: 85 tests pass, including 26 analysis checks, two history-fixture checks, eleven quality/prompt checks, five evaluation-report checks, nine semantic-verifier/history checks, eleven simulator-outcome checks, and 21 contextual-projection checks. The last three groups are described in [the semantic verifier, outcomes, and projections update](#update-semantic-verifier-simulator-outcomes-and-contextual-projections--2026-11-21). Three deliveries produce two results: Room A citing `e1`, followed by Room B citing `e2` and revising the first finding. The sequence-1 example view retains Room A and does not contain the correction. Tests also cover conflicts, inference uncertainty, no change, duplicates, conflicting IDs, wrong-run/future/missing citations, fabricated quotes, bad revisions, malformed output, adapter failures, and separate reanalysis identities.
 
 Versioned analysis instructions, an injected completion callback, and twelve synthetic evaluation scenarios are now available without changing this event/finding contract. See [analysis quality preparation](analysis-quality.md). These additions can be reviewed when teammates are available; their reference checks do not establish real model quality.
 
@@ -31,7 +31,7 @@ References reviewed: `Brief.pdf` (pages 1-2), `revel8-Agentic-Social-Engineer-Ch
 - The challenge requires scored agent execution to be autonomous and confined to the simulator. Development approval is separate from approving individual scored contacts. This module makes no contact decisions or submissions.
 - Synthetic room data can demonstrate correction handling, but cannot substitute for the actual run thread required for the final demo.
 
-These documents did not supply the simulator API URL, authentication schema, or structured outcome fields. Nothing here invents those interfaces.
+These documents did not supply the simulator API URL, authentication schema, or structured outcome fields. The public Target API documentation was found later at `https://target-api.apps.01.cf.eu01.stackit.cloud/docs.md`; see the update at the end of this document. Nothing here invents interfaces beyond what that page documents.
 
 ## Accepted event input
 
@@ -131,7 +131,7 @@ Reanalysis must use a new `analysis_id`. Persisted output conflicts under the sa
 - The model finding contains only `statement`, `kind`, `evidence`, `revises`, and `uncertainty`. Identity, scope, and status are assigned after validation.
 - For `no_change`, `finding` is null. For other outcomes it is required. See `fake.py` for a runnable response example.
 - Translate a provider refusal into `ModelRefusal`; propagate `TimeoutError` for timeout. Other adapter exceptions become `provider_failure`. Provider error bodies are not exposed in public error messages.
-- Timeout enforcement, JSON parsing, provider configuration, retry decisions, async execution, prompt transport, and network clients belong to the shared runtime/controller. No separate provider client is introduced here.
+- Timeout enforcement, JSON parsing, provider configuration, retry decisions, async execution, prompt transport, and network clients belong to the shared runtime/controller. No separate model provider client is introduced here. `outcomes.py` does contain a read-only simulator events reader; its ownership is an open question for Shaurya (see the final update).
 - `prompting.py` provides proposed versioned analysis instructions and an optional `PromptedAdapter` callback wrapper for the shared runtime. It treats source text as data and explains observations, inference, uncertainty, and revision semantics. The original room fake adapter still uses no natural-language prompt. Real model compliance remains to be evaluated.
 
 `AnalysisError.to_dict()` provides `{code, message}`. Codes are `invalid_input`, `event_conflict`, `invalid_config`, `invalid_output`, `invalid_evidence`, `invalid_revision`, `refusal`, `timeout`, and `provider_failure`. No failure returns a partial finding. Controller checkpoint policy must not treat failed analysis as successful processing.
@@ -147,7 +147,7 @@ Proposed interpretation rules for review:
 | Link opened | Observed interaction; no credential-entry claim |
 | Public information repeated | Public information; no internal-disclosure count |
 | Internal-looking text, provenance/public status uncertain | Analyst inference or unresolved uncertainty |
-| Documented structured simulator outcome preserved by ingestion | Potential basis for a separate simulator-confirmed label, once the actual API contract is reviewed |
+| Documented structured simulator outcome preserved by ingestion | Potential basis for a separate simulator-confirmed label. `outcomes.py` maps the documented event types; the label itself still needs Gary's agreement |
 | No reaction in supplied context | No observed reaction in that context; no invented outcome or finality |
 
 The organizers' scoring records/jury determine official incidents. Do not calculate topic hits, hidden hooks, or official scores from these findings. Distinct/cumulative disclosure counting, item identity, public-status evidence, and confirmation authority need Gary/Cem/Shaurya agreement and sample events.
@@ -223,3 +223,47 @@ Two regression tests verify the saved output, no future information in earlier c
 Current quality preparation: dataset `analysis-quality-v2` now has 12 synthetic scenarios and 17 events; 39 unit tests pass. See `docs/analysis-quality.md` and `docs/model-review-worksheet.md`. Storage fields and runtime callback signatures are unchanged.
 
 The evaluation runner now supports saved reports with dataset/code provenance and failure isolation; 44 tests pass. See `docs/analysis-quality.md` for the CLI and `save_report` API. This changes only evaluation artifacts, not storage output or runtime callback contracts.
+
+## Update: semantic verifier, simulator outcomes, and contextual projections — 2026-11-21
+
+Three additions sit beside the v1.1 contract. They do not change the event, finding, or result fields, the storage boundary, or the runtime callback. Each is untested against a real model, a live simulator session, or a database.
+
+### Optional semantic verifier (`guardrails.py`)
+
+`Analyzer(adapter, semantic_verifier=fn)` calls `fn(request, result)` after all deterministic validation passes, including for `no_change` results returned by the model. The verifier must return `SemanticVerdict(supported=True, explanation="...")` with a nonempty explanation; anything else withholds the result as `invalid_output`. A verifier exception becomes `provider_failure` with no details. Duplicate-delivery skips call neither the model nor the verifier. Without a verifier, behavior is unchanged.
+
+The verifier is trusted application code supplied by the caller, never a field read from model output. **Its own accuracy is unmeasured.** If it is model-based, it needs the same shared runtime and evaluation as the analyzer.
+
+History validation is also stricter: a supplied `unresolved` finding must cite at least two distinct events and must not revise anything, matching what analysis itself emits for a conflict.
+
+### Simulator outcomes (`outcomes.py`)
+
+Event shapes follow the public Target API docs: `GET /v1/sessions/{sid}/events` returns `{"events": [...]}`, authenticated with `Authorization: Bearer <TEAM_KEY>`. The documented types are `reply`, `link.opened`, `page.submitted`, and `attachment.opened`. Secret fields in a submission are returned as the literal `"(entered, not shown)"`. Conversation events carry `conversation_id` instead of `message_id`.
+
+- `map_recorded_events(payload, session_id=...)` maps an export or fixture. Its results are always `verification: "unverified_recording"`, whatever the payload claims, and never carry objective evidence.
+- `read_authenticated_outcomes(session_id=..., team_key=...)` performs one GET to the fixed HTTPS origin. It sends no writes and does not follow redirects or retry. Only this path can mark a submission with a redacted secret as `objective_evidence: "credentials"`, following the docs' statement that a secret field counts toward the credentials objective. A field named `password` with a visible value is not treated as credential evidence.
+- Identical redeliveries collapse; the same event ID with different content is rejected. Unknown event types are kept as `unmapped`. Each outcome has `source_ref` `target-api:{session_id}:{event_id}` and a canonical payload hash.
+- `official_incident` is always null. The docs define no official outcome, incident, or score field in any response; scoring happens only in eval and is not returned.
+
+Tests use the documented example shapes with a fake HTTPS connection. **No real session has been read.** The docs also state a limit of 60 requests per minute, retries on 429/502/503/504 only, and an `Idempotency-Key` header for sends. Those belong to the shared simulator client.
+
+**Ownership question for Shaurya:** the README assigns one shared simulator client to integration. The HTTP reader here could move into that client, leaving analysis with only `map_recorded_events`-style mapping. Please decide before the controller depends on it.
+
+### Contextual projections (`contextual.py`)
+
+Read-only views built from explicit structured annotations with verbatim citations. They are not personality inference and not storage contract v1.1 (schema marker `analysis-context-proposal-v1`).
+
+| Function | Produces | Does not do |
+| --- | --- | --- |
+| `analyze_profiles` | Target facts in fixed categories (`role`, `organization`, `project`, `talk`, `co_presenter`, `colleague`, `uses_tool`, `event_registration`), freshness from the **source date** against a per-category policy, `co_presenter`/`colleague` relationship edges, and an `assertability` decision with blocking reasons | Infer friendship or trust. `eligible_with_attribution` still requires attribution; unknown freshness, inference, pending review, supersession, or possible conflicts block it |
+| `track_session` | A sender's identity claims and commitments within one session, with revisions and `possible_inconsistency` flags | Verify identities or fulfilled commitments; carry state across sessions |
+| `cluster_methods` | Contacts grouped by declared method family, plus pairs with high token overlap | Judge semantic equivalence or effectiveness; recommend a tactic |
+| `summarize_engagement` | Per-contact counts of authenticated outcomes and reply word counts | Infer interest, trust, sentiment, or a pivot. Unverified recordings are listed as excluded |
+
+All four take `as_of_sequence`. Records whose evidence arrives after that sequence are hidden from the view, and a revision that arrives later does not supersede the earlier fact in an earlier view. A citation to an event missing from the run is still an error. Semantic review uses the same injected-verifier pattern; without one, facts stay `pending` and a revision never takes effect, so both values remain and are flagged.
+
+**Open semantic question for Gary:** `role`, `organization`, and `uses_tool` are compared as single-valued slots, so two different tools for one person are flagged as possible conflicting claims. That suits role and organization; it may be too strict for tools.
+
+### Fix made while adding tests
+
+The projections originally rejected an earlier-turn view whenever any record cited later evidence, which would break time-machine scrubbing. They now hide such records instead; a regression test covers each function. An unreachable duplicate-context check in `engine.py` was also removed (the existing future-context check already enforces it).

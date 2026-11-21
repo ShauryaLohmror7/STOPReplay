@@ -17,7 +17,7 @@ python3 -m unittest discover -s tests -v
 python3 -m stopreplay_analysis.evaluation --reference
 ```
 
-Verified: 44 unit tests pass; all twelve reference scenarios pass their automatic checks. Reference mode uses hand-authored responses and makes no model calls. It verifies the harness and examples, not real model quality.
+Verified: 85 unit tests pass; all twelve reference scenarios pass their automatic checks. Reference mode uses hand-authored responses and makes no model calls. It verifies the harness and examples, not real model quality.
 
 The original `python3 -m stopreplay_analysis` room demo still works and matches its saved expected output.
 
@@ -70,13 +70,15 @@ Automatic checks cover the existing validator plus accepted outcome/kind, requir
 
 A structurally valid statement such as “credentials were entered” can cite a real link-open record and still be wrong. A regression test demonstrates this limitation: automatic checks can pass while semantic review remains pending.
 
+An optional fail-closed `semantic_verifier` on `Analyzer` (see `guardrails.py` and the analysis handoff) can withhold results at run time that a trusted checker does not confirm. It does not change this harness: the verifier's own accuracy is unmeasured, and a model-based verifier needs the same evaluation.
+
 Every report therefore has `model_quality_verified: false` and a `pending` semantic review status for every case. The runner never silently upgrades those values. Inspect each generated statement, its cited text, and the case's review questions before recording a separate development evaluation verdict. Do not label reference-mode counts as model accuracy.
 
 For a real model evaluation, retain the report with the actual provider/model/prompt/parameters, inspect unsupported claims and missed changes, and revise the versioned prompt if needed. Use more representative evidence when Adrian and Shaurya provide it. This is pre-run development evaluation; it is not a human approval step during scored simulator contacts.
 
 ## Remaining dependencies
 
-Cem/Shaurya/Gary can review the existing handoff when available. Meanwhile this preparation is independent of their implementations. A real quality measurement requires the agreed shared model configuration and adapter. Actual incident confirmation still requires the documented simulator outcome/provenance contract and Gary's reporting agreement.
+Cem/Shaurya/Gary can review the existing handoff when available. Meanwhile this preparation is independent of their implementations. A real quality measurement requires the agreed shared model configuration and adapter. The simulator's event shapes are now documented and mapped in `outcomes.py`, but the docs define no official incident or score field. Actual incident confirmation still requires a real authenticated session read and Gary's reporting agreement.
 
 ## Reference review and dataset v2
 
