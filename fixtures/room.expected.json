@@ -1,0 +1,119 @@
+{
+  "synthetic": true,
+  "deliveries": 3,
+  "logical_events": 2,
+  "results": [
+    {
+      "run_id": "demo",
+      "analysis_id": "room-demo-v1",
+      "event_id": "e1",
+      "sequence": 1,
+      "outcome": "new",
+      "finding": {
+        "finding_id": "f_e08c1fbbe1a1cadc863772cea58b5c474e4d517730f37504a67d6119c23ddf3f",
+        "finding_index": 0,
+        "run_id": "demo",
+        "analysis_id": "room-demo-v1",
+        "sequence": 1,
+        "statement": "The agenda says the demo is in Room A.",
+        "kind": "observation",
+        "status": "supported",
+        "evidence": [
+          {
+            "event_id": "e1",
+            "source_ref": "agenda-v1",
+            "quote": "The demo is in Room A."
+          }
+        ],
+        "revises": null,
+        "uncertainty": null
+      },
+      "reason": "The source directly states the room.",
+      "runtime": {
+        "provider": "local-fake",
+        "model_version": "room-fixture-v1",
+        "prompt_version": "room-fixture-v1",
+        "parameters": {}
+      },
+      "schema_version": "analysis-proposal-v1.1"
+    },
+    {
+      "run_id": "demo",
+      "analysis_id": "room-demo-v1",
+      "event_id": "e2",
+      "sequence": 2,
+      "outcome": "revision",
+      "finding": {
+        "finding_id": "f_e9e31b29d9b9686a968d236d598e5a9b6e4f4acf017ad091359cdcd467e1353d",
+        "finding_index": 0,
+        "run_id": "demo",
+        "analysis_id": "room-demo-v1",
+        "sequence": 2,
+        "statement": "The corrected agenda says the demo is in Room B.",
+        "kind": "observation",
+        "status": "supported",
+        "evidence": [
+          {
+            "event_id": "e2",
+            "source_ref": "agenda-v2",
+            "quote": "Correction: the demo is in Room B."
+          }
+        ],
+        "revises": "f_e08c1fbbe1a1cadc863772cea58b5c474e4d517730f37504a67d6119c23ddf3f",
+        "uncertainty": null
+      },
+      "reason": "An explicit agenda correction revises the earlier finding.",
+      "runtime": {
+        "provider": "local-fake",
+        "model_version": "room-fixture-v1",
+        "prompt_version": "room-fixture-v1",
+        "parameters": {}
+      },
+      "schema_version": "analysis-proposal-v1.1"
+    }
+  ],
+  "snapshots_by_sequence": {
+    "1": [
+      {
+        "finding_id": "f_e08c1fbbe1a1cadc863772cea58b5c474e4d517730f37504a67d6119c23ddf3f",
+        "finding_index": 0,
+        "run_id": "demo",
+        "analysis_id": "room-demo-v1",
+        "sequence": 1,
+        "statement": "The agenda says the demo is in Room A.",
+        "kind": "observation",
+        "status": "supported",
+        "evidence": [
+          {
+            "event_id": "e1",
+            "source_ref": "agenda-v1",
+            "quote": "The demo is in Room A."
+          }
+        ],
+        "revises": null,
+        "uncertainty": null
+      }
+    ],
+    "2": [
+      {
+        "finding_id": "f_e9e31b29d9b9686a968d236d598e5a9b6e4f4acf017ad091359cdcd467e1353d",
+        "finding_index": 0,
+        "run_id": "demo",
+        "analysis_id": "room-demo-v1",
+        "sequence": 2,
+        "statement": "The corrected agenda says the demo is in Room B.",
+        "kind": "observation",
+        "status": "supported",
+        "evidence": [
+          {
+            "event_id": "e2",
+            "source_ref": "agenda-v2",
+            "quote": "Correction: the demo is in Room B."
+          }
+        ],
+        "revises": "f_e08c1fbbe1a1cadc863772cea58b5c474e4d517730f37504a67d6119c23ddf3f",
+        "uncertainty": null
+      }
+    ]
+  }
+}
