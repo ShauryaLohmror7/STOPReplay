@@ -15,7 +15,7 @@ python3 -m unittest discover -s tests -v
 
 No installation, external dependencies, credentials, provider calls, or database are required. The example emits JSON to stdout; it writes no history. `fixtures/room.json` contains the original synthetic source text, source locators, and all three README deliveries.
 
-Verified locally: 39 tests pass, including 26 analysis checks, two history-fixture checks, and eleven quality/prompt checks. Three deliveries produce two results: Room A citing `e1`, followed by Room B citing `e2` and revising the first finding. The sequence-1 example view retains Room A and does not contain the correction. Tests also cover conflicts, inference uncertainty, no change, duplicates, conflicting IDs, wrong-run/future/missing citations, fabricated quotes, bad revisions, malformed output, adapter failures, and separate reanalysis identities.
+Verified locally: 44 tests pass, including 26 analysis checks, two history-fixture checks, eleven quality/prompt checks, and five evaluation-report checks. Three deliveries produce two results: Room A citing `e1`, followed by Room B citing `e2` and revising the first finding. The sequence-1 example view retains Room A and does not contain the correction. Tests also cover conflicts, inference uncertainty, no change, duplicates, conflicting IDs, wrong-run/future/missing citations, fabricated quotes, bad revisions, malformed output, adapter failures, and separate reanalysis identities.
 
 Versioned analysis instructions, an injected completion callback, and twelve synthetic evaluation scenarios are now available without changing this event/finding contract. See [analysis quality preparation](analysis-quality.md). These additions can be reviewed when teammates are available; their reference checks do not establish real model quality.
 
@@ -221,3 +221,5 @@ Each expected step contains its input event, the complete `context_before` in Ce
 Two regression tests verify the saved output, no future information in earlier context, genuine no-change runtime metadata, and JSON history reconstructed as Python objects. Removing the superseded revision target is rejected. All 37 tests pass, including the nine reference quality scenarios. Cem can compare actual database context against this example once storage exists; no database behavior is claimed by these tests.
 
 Current quality preparation: dataset `analysis-quality-v2` now has 12 synthetic scenarios and 17 events; 39 unit tests pass. See `docs/analysis-quality.md` and `docs/model-review-worksheet.md`. Storage fields and runtime callback signatures are unchanged.
+
+The evaluation runner now supports saved reports with dataset/code provenance and failure isolation; 44 tests pass. See `docs/analysis-quality.md` for the CLI and `save_report` API. This changes only evaluation artifacts, not storage output or runtime callback contracts.

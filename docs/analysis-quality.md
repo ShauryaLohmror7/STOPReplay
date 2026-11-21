@@ -17,7 +17,7 @@ python3 -m unittest discover -s tests -v
 python3 -m stopreplay_analysis.evaluation --reference
 ```
 
-Verified: 39 unit tests pass; all twelve reference scenarios pass their automatic checks. Reference mode uses hand-authored responses and makes no model calls. It verifies the harness and examples, not real model quality.
+Verified: 44 unit tests pass; all twelve reference scenarios pass their automatic checks. Reference mode uses hand-authored responses and makes no model calls. It verifies the harness and examples, not real model quality.
 
 The original `python3 -m stopreplay_analysis` room demo still works and matches its saved expected output.
 
@@ -85,3 +85,23 @@ A development review of all nine original reference cases found their claims app
 `analysis-quality-v2` adds repeated information, a partial correction retaining the original time, and a submission with a redacted value. These are synthetic prose, not documented simulator payloads. The partial correction requires citations to both the original time and its correction. The repeated-record case distinguishes a genuine separate event from duplicate delivery. The redacted-field case distinguishes the field's label from a known or valid credential.
 
 The output contract and prompt remain unchanged. There are now 12 scenarios and 17 events. All 39 unit tests pass, and all 12 reference scenarios pass their structural checks. These counts do not establish model accuracy. See [the review worksheet](model-review-worksheet.md) for the per-case reference review and a blank evaluation record to use once the shared runtime is available. The reference review is an assistant development review, not an independent assessment of model outputs.
+
+## Reproducible saved reports
+
+Save the complete reference self-check to a new file:
+
+```sh
+python3 -m stopreplay_analysis.evaluation --reference --output /tmp/stopreplay-reference-report.json
+```
+
+The CLI also prints JSON to stdout. It exits 0 when all cases pass, 1 for failed case checks, and 2 if the requested report cannot be saved. The output directory must exist; an existing file is never overwritten. Choose a fresh filename for each run.
+
+For a shared model, call `report = evaluate(adapter)` and `save_report(report, path)` from `stopreplay_analysis.evaluation`. This uses the injected runtime; no provider SDK or new network client is introduced.
+
+Report version `analysis-evaluation-v2` records UTC start/end times, configured runtime metadata (also available when model calls fail), dataset version, a canonical SHA-256 of the actual evaluated cases, Git revision, a dirty flag for analysis/fixture/test files, and a hash of the analysis Python sources. The dirty flag excludes unrelated files such as `.DS_Store`. Git information can be null outside a checkout. A custom/modified case list receives `dataset_scope: custom_cases` and a null dataset version rather than claiming the bundled version. Keep custom inputs and the matching source checkout with the report; hashes identify content but do not reconstruct it or guarantee deterministic model behavior.
+
+Each case includes its input events, valid result bodies, safe error codes/messages, unprocessed-step count, and review questions. Invalid model responses and provider error bodies are intentionally not copied into reports. An invalid event stops its case while later cases continue. Empty cases/suites and duplicate case IDs raise `ValueError`; malformed fixture structure is a developer error, not a model score. Report results use JSON arrays so saved/reloaded reports compare directly, while analysis objects retain immutable tuples.
+
+Compare model configurations only on matching evaluated-case hashes and code versions; inspect actual runtime parameters and failures before interpreting differences. Runtime metadata describes the configured adapter, not independent provider attestation. Automatic success still leaves every semantic review pending and `model_quality_verified: false`.
+
+Validation: 44 unit tests pass. New regression coverage checks provenance changes, saved failure reports, overwrite refusal, invalid events/responses, refusal/timeout/provider failures, preservation of later case results, and rejection of empty or duplicate cases. No real-model or database run was performed.

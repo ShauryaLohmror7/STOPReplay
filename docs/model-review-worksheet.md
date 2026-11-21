@@ -24,7 +24,7 @@ Two acceptance rules were broadened as recorded above. This reduces false failur
 ## Copy this section for each actual model run
 
 - Report artifact/path: pending
-- Git commit and dataset version: pending (`analysis-quality-v2`)
+- Git commit, dirty flag, Python-source hash, dataset version, and evaluated-case hash: copy from report `provenance` (`analysis-quality-v2` for the bundled cases)
 - Provider and exact model version: pending
 - Prompt/schema version and actual parameters: pending
 - Execution timestamp and development run identifier: pending
