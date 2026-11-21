@@ -262,6 +262,8 @@ reanalysis, and live execution distinct. Do not invent simulator API behavior.
 
 Gary can prototype reports against fixtures before the backend exists. Reporting must consume persisted analysis; it should not generate a new interpretation every time a component renders.
 
+The [reporting display rules](docs/reporting-display-rules.md) and [synthetic replay fixtures](fixtures/reporting.expected.json) define the expected timeline and evidence views for UI integration.
+
 **First deliverable works when:** someone can explain the Room A → Room B correction, inspect its source, and return to turn 1 without seeing future information.
 
 ### Brief for Codex / Claude Code / Qwen Code
