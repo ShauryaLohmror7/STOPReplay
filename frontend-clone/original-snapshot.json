@@ -1,0 +1,23 @@
+{
+  "App.tsx": "24e9c8146554cc186e3b94ab1e9485f4dbd5d0f5ea35bb3bce8a02a4d84ff5d2",
+  "main.tsx": "0e12de3e14df04e479ba0d9adbb218b3fd240a503d1e5956b4234276f3927a72",
+  "index.html": "06de9b8491293b6fcdbc4a973f74a63b383102100c58069da042eb264699e3ef",
+  "README.md": "fbd95e42d24c8c836821bb1173e2000567ced11705e8b8f36a95f5e9f322cc44",
+  ".gitignore": "390cad491b5e3a35f1da0ee7aab6a5645609a8c758a0ce369a31a87838713321",
+  "package-lock.json": "095bacb87c278d3af58aeec3bd2b78f60eacb13f30cf7b764801cb0ce75defdb",
+  "package.json": "9fc33959b7e77c15d7732d54cfb71e13985c3548bf8f2ced58fc82905c29ff04",
+  "components.json": "221917d813cdf71505e2f90e733bd4c09004984717318ce96c9b1c79b6121893",
+  "portrait-asset.json": "0fb91cdc19593018addd75a53d847540859c1d78e33ed9814bc34bd7756f472e",
+  "tsconfig.json": "61e356db4e3c59b63570af5bc8280225eeb225ed868b51853511d06397e9a212",
+  "vite.config.ts": "49c01e424d9079ec15b68fe89a84a779761bff57e4a2b986ad99d3bb501b6644",
+  "styles/globals.css": "eafe9a50b3ca8e3b2583e00cca7091344d448ec5717344c603911587062e4ef9",
+  "components/demo.tsx": "4735f87cdb70cc769f51b8663a8170daf6dfb54d89a339456773935752185196",
+  "public/favicon.svg": "747910c99bc0dd6d2e5bdadfb9dad7bad9f110de52e3edc0237d316d7b45cc6f",
+  "lib/utils.ts": "7c8c3dfc0cdd370d44932828eb067ef771c8fe7996693221d5d4b90af6d54f2d",
+  "lib/portrait-particles.ts": "cfae34a26949f8b09031501232362ed9c1e0437a55d2bbb0c08121487ae92e5a",
+  "public/portraits/electric-gaze.mp4": "a02afd7a0a241d6b8f3d3850dafb176974886819dc9d20938a2560048f68a6aa",
+  "public/portraits/electric-gaze.webp": "5bdbfcab1cd067dc6d5c4821029bed9531c3857f49f56a79cb7f3a1604a003aa",
+  "public/portraits/subject-01.png": "818458a8830b553a125656179527f86eb1650cda66aec945a123ed36f2fc33e5",
+  "components/ui/portrait-reveal.tsx": "a01de7e5b12319167b9c6c8523f15e62688448ddf315485dc0a315770bc2195f",
+  "components/ui/electric-gaze.tsx": "13896a800d1d82701d3db44563d895c9fe86d7f007cc6e96a1008b4613a3d9a5"
+}

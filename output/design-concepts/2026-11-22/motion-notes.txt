@@ -1,0 +1,107 @@
+STOPReplay — visual directions and motion notes
+Created: 2026-11-22
+Status: Four generated static design concepts. Motion below is proposed, not implemented or tested.
+Image generation: Built-in image_gen. Exact prompts are in generation-prompts.json.
+All depicted people and session content are fictional demo material.
+
+RECOMMENDATION
+Use 02 Ghost Twin as the main visual identity and profile/replay composition.
+Borrow 01 Particle Archive's explicit event slices for deeper timeline inspection.
+Use 03 Replay Corridor as an optional presentation view of the same stored session.
+04 Exposure Atlas is an alternative light-lavender direction, particularly strong for evidence inspection.
+Choose one primary visual language before implementation; these are alternatives, not four mandatory modes.
+
+REFERENCE INTERPRETATION
+- Emircan Caglar: https://emircancaglar.com/
+  Inspected its opening and scroll-driven machine-cathedral scene in the browser.
+  Borrow depth controlled by user progress, an intentional entry transition, and sparse fixed navigation.
+  For STOPReplay, traversal corresponds to recorded turns and source-backed changes.
+- Santioni Spirits: https://santionispirits.com/
+  The site did not render in the reference browser. Reviewed the creators' case study instead:
+  https://lbbonline.com/news/the-notturno-experience-how-we-built-santioni-spirits-launch
+  Borrow transitions between scene and readable interface, restrained narrative staging, and a few memorable interactive moments.
+- Lando Norris: https://landonorris.com/
+  Reviewed the accessible page content; did not verify its animation in-browser.
+  A secondary reference for chapter hierarchy and separating distinct areas of an experience.
+- Hex Dump ASCII reference:
+  https://21st.dev/@mechox31/components/test
+- Dither portrait reference:
+  https://21st.dev/@serafimcloud/components/electric-gaze
+  Both descriptions identify animated ASCII art baked to looping video.
+  Their visual treatment inspires the portraits. They do not establish support for arbitrary evidence-driven particles or replay scrubbing.
+  Exact integration requires inspecting the component source. A live particle or shader treatment would need to be implemented for historical-state control.
+
+SHARED ART DIRECTION
+Near-black aubergine #0D0B14, pale lilac #DCD2F4, muted purple #A78BD8.
+Light alternative: pale lavender #E6DDF2, paper lilac #F0EBF5, ink #14101F.
+Code-style typography throughout. Use an easily readable monospaced face for conversations.
+Use glass for the timeline thumb, a selected time plane, and limited floating controls.
+Maintain opaque or nearly opaque backgrounds behind dense text.
+The screenshots are art direction, not verified color-contrast specifications.
+
+01 — PARTICLE ARCHIVE
+Meaning: each slice is a recorded turn; highlighted particle groups correspond to evidence available by that turn.
+Entry: previously recorded slices assemble in sequence over roughly 600–900 ms, then settle.
+Scrub: rotate/translate the archive to intersect the selected slice with a stationary glass plane.
+Selection: the corresponding transcript passage and source reference highlight together.
+Disclosure: one short trail travels from the selected event to its disclosure row, once when crossing the event.
+Rewind: future evidence disappears from the selected historical state; the historical event remains stored.
+Hover: isolate an event group and reveal its time, type and evidence link.
+Idle: very slight particle drift within bounds, preserving readable selection and exact event identity.
+Best fit: the main time-machine screen and architecture explanation.
+
+02 — GHOST TWIN
+Meaning: the portrait identifies the simulated person; labels and attached evidence groups represent the known state.
+Entry: ASCII portrait resolves once; evidence labels join from their source events.
+Scrub: a narrow optical slice moves across the portrait while its evidence annotations update.
+A small controlled change in point-cloud perspective can suggest time travel without moving the text.
+Keep the portrait identity stable. Evidence visibility encodes time; face completeness is not a risk or psychological score.
+Disclosure: its label lights once and a small particle group connects to the quoted message.
+Click source: open the underlying message or record in an inspector; retain the current replay position.
+Rewind: restore the earlier annotations, transcript, disclosure list and count together.
+Best fit: the strongest single-screen identity for the pitch and the main replay experience.
+
+03 — REPLAY CORRIDOR
+Meaning: the time machine consists of the actual recorded conversation turns.
+Entry: a restrained camera move enters the recorded thread.
+Scrub: the selected sheet comes forward; previous sheets recede in depth.
+When selected, the reading surface settles face-on. Full message content should be available in a stable flat reading pane.
+Significant turns can carry supplied labels such as pushback, adaptation, correction and confirmed disclosure.
+Those labels must come from reporting data, not a new model interpretation created during rendering.
+Jump controls move directly to the next or previous turning point.
+Best fit: an optional stage/demo presentation of the same replay, with full navigation still available.
+
+04 — EXPOSURE ATLAS
+Meaning: sourced observations, analysis and disclosed facts form a historically accurate map around the AI twin.
+Entry: portrait resolves; nodes appear in recorded order, then stop moving.
+Scrub: nodes and links restore to those available at the selected turn.
+Hover: a single relevant evidence path is emphasized.
+Select: the path opens the supporting source and focuses the corresponding transcript passage.
+Use graph links only for actual evidence, revision or outcome relationships; proximity alone must not imply causation.
+Best fit: profiles and evidence inspection, or an alternative lighter main workspace.
+
+PROJECT-WIDE APPLICATION
+Home: five modest stage indicators (Collect, Store, Analyze, Simulate, Replay), selected run, status and recent outcomes.
+Transition into a run: the selected session's small portrait or particle mark expands into its replay view.
+Logs: stable, readable chronological rows with channel, time, operation status and expandable detail.
+Profiles: pixel portrait plus source-backed information and separate observation/inference status.
+Time Machine: a single selected turn drives portrait/archive, transcript, findings, logs and metrics.
+Attacks: scenario and per-run rows with timestamp, channel, outcome, run count and success denominator.
+Opening an attack run moves to the matching recorded session; it does not execute the run.
+Preserve navigation identity and typography across all five pages.
+
+MOTION AND DATA RULES FOR IMPLEMENTATION
+- User input updates the selected turn immediately. Motion follows selection rather than delaying data.
+- Avoid animating metric interpolation through values unsupported by the selected turn.
+- Give event-specific animations a brief duration, then settle for reading.
+- Reduced-motion mode keeps the same data, selection and controls with stationary visualizations.
+- Provide keyboard previous/next, play/pause and direct event selection.
+- Live arrivals preserve the current inspected position until Follow live is selected.
+- Scrubbing reads persisted history. It creates no new model calls or simulator actions.
+- Public knowledge, inferred findings and confirmed disclosure remain distinct.
+- Count unique confirmed disclosures separately from new disclosures this turn.
+- Percentage examples in the concepts use a fictional known denominator: 3 of 10 tracked items.
+  If the real denominator is unknown, show the count.
+- Exact reporting fields and disclosure definitions remain to be agreed with Gary and Anushree;
+  historical storage reads remain Cem's boundary. No shared fields or backend schemas were changed.
+- Any platform implementation will need performance, keyboard, contrast and reduced-motion verification.
