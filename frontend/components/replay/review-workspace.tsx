@@ -1,15 +1,17 @@
 import { useEffect, useState, type MouseEvent } from 'react'
-import { Crosshair, Terminal, Users } from 'lucide-react'
+import { Crosshair, Database, Terminal, Users } from 'lucide-react'
 import { restoreReplayPosition, type ReplayPosition } from '@/lib/replay-runs'
 import ReplayWorkspace from './replay-workspace'
 import { Founders, Methods } from './replay-catalog'
+import { SourcesCatalog } from './sources-catalog'
 import './terminal-replay.css'
 
 const positionKey = 'stopreplay-clone.replay-position.v2'
 const oldPositionKey = 'stopreplay-clone.replay-position.v1'
 const sections = [
   { id: 'conversations', label: 'Terminal', icon: Terminal },
-  { id: 'methods', label: 'Attack methods', icon: Crosshair },
+  { id: 'sources', label: 'Sources', icon: Database },
+  { id: 'methods', label: 'Attacks', icon: Crosshair },
   { id: 'founders', label: 'Founders', icon: Users },
 ] as const
 type Section = typeof sections[number]['id']
@@ -73,6 +75,13 @@ export default function ReviewWorkspace() {
         ))}
       </nav>
       {section === 'conversations' && <ReplayWorkspace key={position.runId} position={position} onPositionChange={setPosition} />}
+      {section === 'sources' && (
+        <SourcesCatalog
+          key={position.runId}
+          runId={position.runId}
+          onSelectRun={(runId) => setPosition({ runId, turn: 0 })}
+        />
+      )}
       {section === 'methods' && <Methods onOpen={(runId, turn) => { setPosition({ runId, turn }); navigate('conversations') }} />}
       {section === 'founders' && <Founders />}
     </div>

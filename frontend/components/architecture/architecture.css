@@ -277,6 +277,41 @@
   font: 650 14px/1.35 var(--site-ui);
   letter-spacing: 0;
 }
+
+/* Pixelated Channel Icons */
+.channel-network--lock .channel-logo {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.channel-network--lock .channel-logo img,
+.channel-network--lock .channel-logo svg {
+  width: 26px;
+  height: 26px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  filter: contrast(115%) brightness(105%);
+}
+
+.channel-network--lock .channel-logo img.is-app-icon {
+  border-radius: 3px;
+}
+
+/* Authentic pixel screen mosaic grid overlay over channel icons */
+.channel-network--lock .channel-logo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.45) 0px, rgba(0, 0, 0, 0.45) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.45) 0px, rgba(0, 0, 0, 0.45) 1px, transparent 1px, transparent 3px);
+  background-size: 3px 3px;
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+}
 @media (max-width: 760px) {
   .architecture-page .architecture-controls { top: 9px; padding-top: 0; }
   .architecture-page .channel-summary { font-size: 13px; }

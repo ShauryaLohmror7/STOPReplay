@@ -1,0 +1,512 @@
+/* Sources & Recon Intelligence Tab Styles */
+.sources-catalog {
+  width: min(100%, 1660px);
+  margin-inline: auto;
+  min-width: 0;
+  padding: clamp(16px, 2.8vw, 40px);
+  color: var(--terminal-ink, #b6e8c1);
+  font: 13px/1.6 'IBM Plex Mono', monospace;
+}
+
+/* ── Section Title & Subhead ── */
+.sources-catalog .terminal-header {
+  border-bottom: 1px solid var(--terminal-grid, #243329);
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+}
+
+.sources-catalog .terminal-header h1 span {
+  color: var(--terminal-green, #78ff97);
+}
+
+.sources-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--terminal-muted, #8da792);
+}
+
+.sources-hero-meta strong {
+  color: #d1ffd9;
+  font-weight: 500;
+}
+
+.sources-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 2px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: #0f2416;
+  border: 1px solid #1f4f2c;
+  color: var(--terminal-green, #78ff97);
+}
+
+/* ── Channels Ribbon & Facts Convergence Stream ── */
+.sources-stream-section {
+  background: #0a110d;
+  border: 1px solid var(--terminal-grid, #243329);
+  padding: 24px 20px 20px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.sources-stream-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.sources-stream-header h2 {
+  font: 400 16px/1.2 'Departure Mono', monospace;
+  color: var(--terminal-green, #78ff97);
+  margin: 0;
+  letter-spacing: -0.03em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sources-stream-header span {
+  font-size: 11px;
+  color: var(--terminal-muted, #8da792);
+}
+
+/* Channel Pills */
+.sources-channels-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.channel-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #0d1a12;
+  border: 1px solid #233a2a;
+  padding: 8px 14px;
+  border-radius: 3px;
+  transition: all 180ms ease;
+  position: relative;
+}
+
+.channel-pill:hover {
+  border-color: var(--terminal-green, #78ff97);
+  background: #11261a;
+  transform: translateY(-1px);
+}
+
+.channel-pill-icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 2px;
+  background: #112417;
+  border: 1px solid #1f472b;
+  color: var(--terminal-green, #78ff97);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Terminal Green Outline / Monochrome Logo Style */
+.channel-terminal-logo {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  /* Filter: converts any SVG into the terminal green (#78ff97) */
+  filter: brightness(0) saturate(100%) invert(84%) sepia(26%) saturate(830%) hue-rotate(71deg) brightness(104%) contrast(102%);
+  transition: filter 200ms ease, transform 200ms ease;
+}
+
+/* Hover or selected channel pill reveals the authentic full-color logo */
+.channel-pill:hover .channel-terminal-logo,
+.channel-pill[data-selected] .channel-terminal-logo {
+  filter: none;
+  transform: scale(1.1);
+}
+
+.channel-pill-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.channel-pill-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: #c9f5d3;
+}
+
+.channel-pill-count {
+  font-size: 11px;
+  color: var(--terminal-muted, #8da792);
+}
+
+.channel-pill-count strong {
+  color: var(--terminal-green, #78ff97);
+}
+
+/* Sleek Stream Convergence Bridge */
+.convergence-bridge {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 6px;
+  padding-top: 14px;
+}
+
+.convergence-lines-svg {
+  width: 100%;
+  height: 38px;
+  overflow: visible;
+}
+
+.convergence-path {
+  stroke: #254d31;
+  stroke-width: 1.5;
+  fill: none;
+  stroke-dasharray: 4 4;
+  animation: stream-dash 20s linear infinite;
+}
+
+@keyframes stream-dash {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.convergence-hub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: #0d2215;
+  border: 1px solid #2a633b;
+  padding: 14px 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(120, 255, 151, 0.15);
+}
+
+.hub-metric-group {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.hub-metric {
+  display: flex;
+  flex-direction: column;
+}
+
+.hub-metric-label {
+  font-size: 11px;
+  color: var(--terminal-muted, #8da792);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hub-metric-value {
+  font: 400 24px/1.1 'Departure Mono', monospace;
+  color: var(--terminal-green, #78ff97);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.hub-metric-value small {
+  font-size: 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  color: #8da792;
+}
+
+.hub-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #a4e5b2;
+  background: #08170e;
+  border: 1px solid #1e4b29;
+  padding: 6px 12px;
+  border-radius: 2px;
+}
+
+.hub-pulse {
+  width: 8px;
+  height: 8px;
+  background: var(--terminal-green, #78ff97);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--terminal-green, #78ff97);
+  animation: hub-pulse-anim 2s ease infinite;
+}
+
+@keyframes hub-pulse-anim {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* ── Practical Numbers / Categories Grid ── */
+.sources-metrics-section {
+  margin-bottom: 36px;
+}
+
+.sources-section-title {
+  font: 400 18px/1.2 'Departure Mono', monospace;
+  color: var(--terminal-green, #78ff97);
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sources-section-desc {
+  font-size: 12px;
+  color: var(--terminal-muted, #8da792);
+  margin: 0 0 18px;
+}
+
+.practical-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.practical-card {
+  background: #09100c;
+  border: 1px solid var(--terminal-grid, #243329);
+  padding: 16px 18px;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 150ms ease;
+}
+
+.practical-card:hover {
+  border-color: #3b6647;
+}
+
+.practical-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 12px;
+}
+
+.practical-card-icon {
+  color: var(--terminal-green, #78ff97);
+  background: #0e1e14;
+  padding: 6px;
+  border-radius: 2px;
+  border: 1px solid #1a3823;
+}
+
+.practical-card-number {
+  font: 400 28px/1 'Departure Mono', monospace;
+  color: #e5ffe9;
+}
+
+.practical-card-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #c0ecc9;
+  margin-bottom: 4px;
+}
+
+.practical-card-detail {
+  font-size: 11px;
+  color: var(--terminal-muted, #8da792);
+}
+
+.practical-image-strip {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed #1c3323;
+}
+
+.practical-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 2px;
+  object-fit: cover;
+  border: 1px solid #33613e;
+  background: #060b08;
+}
+
+/* ── Analysis Intelligence Section ── */
+.sources-analysis-section {
+  background: #080f0b;
+  border: 1px solid var(--terminal-grid, #243329);
+  padding: 26px 22px;
+  margin-bottom: 36px;
+}
+
+.analysis-header-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--terminal-grid, #243329);
+  margin-bottom: 20px;
+}
+
+.analysis-lane-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lane-tag {
+  font: 400 14px/1 'Departure Mono', monospace;
+  color: #08110b;
+  background: var(--terminal-green, #78ff97);
+  padding: 6px 10px;
+  border-radius: 2px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.weaponized-count {
+  font-size: 12px;
+  color: #a4e5b2;
+}
+
+.weaponized-count strong {
+  color: var(--terminal-green, #78ff97);
+}
+
+.analysis-hook-box {
+  background: #0d1e14;
+  border: 1px solid #234d2f;
+  padding: 14px 16px;
+  margin-bottom: 24px;
+  border-left: 3px solid var(--terminal-green, #78ff97);
+}
+
+.analysis-hook-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--terminal-muted, #8da792);
+  margin-bottom: 4px;
+  letter-spacing: 0.05em;
+}
+
+.analysis-hook-text {
+  font-size: 13px;
+  color: #d8ffde;
+  margin: 0;
+}
+
+/* Inferences List */
+.inferences-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.inference-card {
+  background: #0b1610;
+  border: 1px solid #1c3624;
+  padding: 16px 18px;
+  border-radius: 2px;
+  transition: border-color 150ms ease;
+}
+
+.inference-card:hover {
+  border-color: #3b6647;
+}
+
+.inference-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.inference-card-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #e5ffe9;
+}
+
+.inference-kind-badge {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  border-radius: 2px;
+  border: 1px solid currentColor;
+}
+
+.inference-kind-badge.observation {
+  color: var(--terminal-green, #78ff97);
+  background: #0c2013;
+  border-color: #21542e;
+}
+
+.inference-kind-badge.inference {
+  color: #5ce6ff;
+  background: #091e24;
+  border-color: #174852;
+}
+
+.inference-quote {
+  margin: 8px 0 10px;
+  padding-left: 12px;
+  border-left: 2px solid #33613e;
+  font-style: italic;
+  color: #b5d9bc;
+  font-size: 12px;
+}
+
+.inference-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 11px;
+  color: var(--terminal-muted, #8da792);
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed #172a1d;
+}
+
+.inference-source-cite {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #7bdc8a;
+}
+
+.inference-uncertainty {
+  color: #a0baa4;
+}
+
+/* Empty State */
+.sources-empty-state {
+  padding: 48px 24px;
+  text-align: center;
+  background: #0a110d;
+  border: 1px dashed var(--terminal-grid, #243329);
+  color: var(--terminal-muted, #8da792);
+}
+
+.sources-empty-state h3 {
+  color: var(--terminal-green, #78ff97);
+  font: 400 20px 'Departure Mono', monospace;
+  margin: 0 0 8px;
+}

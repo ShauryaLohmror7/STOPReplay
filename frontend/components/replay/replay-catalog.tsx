@@ -49,7 +49,7 @@ function MethodSprite({ sprite, palette }: { sprite: readonly string[]; palette:
 export function Methods({ onOpen }: { onOpen: (runId: string, turn: number) => void }) {
   return (
     <section className="terminal-catalog" aria-labelledby="methods-title">
-      <h1 id="methods-title">Attack methods</h1>
+      <h1 id="methods-title">Attacks</h1>
       <p className="terminal-muted">Methods and outcomes in the sample recordings.</p>
       <div className="method-list">
         {methods.map(method => {

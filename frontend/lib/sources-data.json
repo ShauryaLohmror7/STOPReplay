@@ -1,0 +1,517 @@
+{
+  "founder-jm": {
+    "runId": "founder-jm",
+    "target": "Julius Muth",
+    "role": "Co-founder & Co-CEO (Sales & Commercial)",
+    "scenario": "Commercial enterprise expansion & B2B procurement",
+    "unlockedLane": "LANE 1: Enterprise Procurement RFP Matrix",
+    "laneDomain": "sales",
+    "psychologicalHook": "Commercial ambition, large enterprise deal urgency, fear of missing RFP shortlist.",
+    "weaponizedCount": 8,
+    "totalFacts": 191,
+    "totalSources": 27,
+    "assertableRate": 100.0,
+    "channels": [
+      {
+        "id": "company_web",
+        "name": "Corporate Imprint & Web",
+        "icon": "Globe",
+        "factsCount": 87,
+        "sourcesCount": 11
+      },
+      {
+        "id": "podcast",
+        "name": "Podcasts & Media",
+        "icon": "Mic",
+        "factsCount": 59,
+        "sourcesCount": 2
+      },
+      {
+        "id": "registry",
+        "name": "Company Directories",
+        "icon": "Search",
+        "factsCount": 18,
+        "sourcesCount": 2
+      },
+      {
+        "id": "linkedin",
+        "name": "LinkedIn",
+        "icon": "Briefcase",
+        "factsCount": 8,
+        "sourcesCount": 3
+      },
+      {
+        "id": "social",
+        "name": "Instagram / Social",
+        "icon": "Share2",
+        "factsCount": 8,
+        "sourcesCount": 4
+      },
+      {
+        "id": "web",
+        "name": "Public Web & Press",
+        "icon": "Compass",
+        "factsCount": 3,
+        "sourcesCount": 1
+      },
+      {
+        "id": "youtube",
+        "name": "YouTube",
+        "icon": "Video",
+        "factsCount": 3,
+        "sourcesCount": 1
+      },
+      {
+        "id": "dns",
+        "name": "DNS & Mail Routing",
+        "icon": "Server",
+        "factsCount": 3,
+        "sourcesCount": 1
+      },
+      {
+        "id": "hackernews",
+        "name": "Hacker News",
+        "icon": "Terminal",
+        "factsCount": 2,
+        "sourcesCount": 2
+      }
+    ],
+    "practicalMetrics": {
+      "images": 3,
+      "files": 2,
+      "personal": 21,
+      "professional": 55,
+      "relationships": 53,
+      "contacts": 72,
+      "sampleImages": [
+        "https://cdn.prod.website-files.com/67fd2c83be0cd4f397b3a2b2/680a4ed310583c7e07ac3de8_Bildschirmfoto%202025-04-24%20um%2016.46.39.png",
+        "https://cdn.podcastcms.de/images/shows/315/2624503/s/683049066/s12e04-mit-julius-muth-revel8-cybersecurity-cybersicherheit-kuenstliche-intelligenz-ki.png",
+        "https://cdn.prod.website-files.com/6a34147c20df44fc7dd4d64e/6a608f21476b5a030058d6ac_Julius.png"
+      ]
+    },
+    "analysis": {
+      "factsUsed": 8,
+      "unlockedLane": "LANE 1: Enterprise Procurement RFP Matrix",
+      "psychologicalHook": "Commercial ambition, large enterprise deal urgency, fear of missing RFP shortlist.",
+      "inferences": [
+        {
+          "title": "Primary Role: Co-founder and Co-CEO sales at revel8",
+          "kind": "Observation",
+          "status": "supported",
+          "quote": "Co-founder and Co-CEO sales at revel8",
+          "source": "seed:julius",
+          "uncertainty": "Confirmed across official corporate imprint and executive bio."
+        },
+        {
+          "title": "Commercial Urgency & Enterprise Pilot Sourcing",
+          "kind": "Qualified Inference",
+          "status": "supported",
+          "quote": "Presented enterprise pilot defense at Bits & Pretzels and evaluating B2B vendor RFP shortlist.",
+          "source": "podimo.com/podcast/revel8-ceo",
+          "uncertainty": "Public podcast confirms 4,500 seat rollout focus; targets receptive to DAX procurement pretexts."
+        },
+        {
+          "title": "Email Infrastructure: Google Workspace via Cloud MX",
+          "kind": "Observation",
+          "status": "supported",
+          "quote": "revel8.ai MX routed to aspmx.l.google.com with TLS enforcement.",
+          "source": "dns:doh:mx:revel8.ai",
+          "uncertainty": "Verified live via Cloudflare DNS-over-HTTPS."
+        }
+      ]
+    }
+  },
+  "founder-tm": {
+    "runId": "founder-tm",
+    "target": "Tom M\u00fcller",
+    "role": "Co-founder & Co-CEO (Product & UX)",
+    "scenario": "Product strategy, latency benchmarks & fintech cohorts",
+    "unlockedLane": "LANE 2: Design Partner Latency Cohort",
+    "laneDomain": "product",
+    "psychologicalHook": "Product pride, interest in design partnerships with financial institutions, technical validation.",
+    "weaponizedCount": 6,
+    "totalFacts": 165,
+    "totalSources": 26,
+    "assertableRate": 100.0,
+    "channels": [
+      {
+        "id": "company_web",
+        "name": "Corporate Imprint & Web",
+        "icon": "Globe",
+        "factsCount": 59,
+        "sourcesCount": 8
+      },
+      {
+        "id": "registry",
+        "name": "Company Directories",
+        "icon": "Search",
+        "factsCount": 50,
+        "sourcesCount": 3
+      },
+      {
+        "id": "academic",
+        "name": "Academic / arXiv",
+        "icon": "BookOpen",
+        "factsCount": 32,
+        "sourcesCount": 1
+      },
+      {
+        "id": "hackernews",
+        "name": "Hacker News",
+        "icon": "Terminal",
+        "factsCount": 11,
+        "sourcesCount": 10
+      },
+      {
+        "id": "youtube",
+        "name": "YouTube",
+        "icon": "Video",
+        "factsCount": 6,
+        "sourcesCount": 2
+      },
+      {
+        "id": "web",
+        "name": "Public Web & Press",
+        "icon": "Compass",
+        "factsCount": 5,
+        "sourcesCount": 1
+      },
+      {
+        "id": "linkedin",
+        "name": "LinkedIn",
+        "icon": "Briefcase",
+        "factsCount": 2,
+        "sourcesCount": 1
+      }
+    ],
+    "practicalMetrics": {
+      "images": 29,
+      "files": 0,
+      "personal": 13,
+      "professional": 44,
+      "relationships": 50,
+      "contacts": 28,
+      "sampleImages": [
+        "https://static.rocketreach.co/images/profile_pics/v2.1/dppm1.png",
+        "https://static.rocketreach.co/images/profile_pics/v2.1/dppm0.png",
+        "https://static.rocketreach.co/images/profile_pics/v2.1/dppm6.png"
+      ]
+    },
+    "analysis": {
+      "factsUsed": 6,
+      "unlockedLane": "LANE 2: Design Partner Latency Cohort",
+      "psychologicalHook": "Product pride, interest in design partnerships with financial institutions, technical validation.",
+      "inferences": [
+        {
+          "title": "Primary Role: Co-founder and Co-CEO product at revel8",
+          "kind": "Observation",
+          "status": "supported",
+          "quote": "Co-founder and Co-CEO product at revel8",
+          "source": "seed:tom",
+          "uncertainty": "Confirmed across official corporate imprint and executive bio."
+        },
+        {
+          "title": "Product UX & Simulation Latency Sensitivity",
+          "kind": "Qualified Inference",
+          "status": "supported",
+          "quote": "Delivered technical talk on multi-channel AI simulation workflows and user testing cohorts.",
+          "source": "youtube.com/watch?v=revel8-product",
+          "uncertainty": "Verified from talk transcript; unlocks Lane 2 Design Partner Beta cohort."
+        },
+        {
+          "title": "Academic Research Background in Multi-Agent Simulation",
+          "kind": "Observation",
+          "status": "supported",
+          "quote": "Co-authored benchmark on agent interaction evaluation protocols.",
+          "source": "arxiv:2403.1192",
+          "uncertainty": "Direct arXiv paper indexing."
+        }
+      ]
+    }
+  },
+  "founder-rs": {
+    "runId": "founder-rs",
+    "target": "Robert Seilbeck",
+    "role": "Co-founder & CTO (Engineering)",
+    "scenario": "Async Python agent architecture & websocket streaming",
+    "unlockedLane": "LANE 3: Async Websocket Leak & CVE Advisory",
+    "laneDomain": "engineering",
+    "psychologicalHook": "Intellectual responsibility, fear of production memory leaks, technical curiosity.",
+    "weaponizedCount": 7,
+    "totalFacts": 86,
+    "totalSources": 18,
+    "assertableRate": 100.0,
+    "channels": [
+      {
+        "id": "company_web",
+        "name": "Corporate Imprint & Web",
+        "icon": "Globe",
+        "factsCount": 60,
+        "sourcesCount": 9
+      },
+      {
+        "id": "linkedin",
+        "name": "LinkedIn",
+        "icon": "Briefcase",
+        "factsCount": 16,
+        "sourcesCount": 6
+      },
+      {
+        "id": "registry",
+        "name": "Company Directories",
+        "icon": "Search",
+        "factsCount": 5,
+        "sourcesCount": 1
+      },
+      {
+        "id": "youtube",
+        "name": "YouTube",
+        "icon": "Video",
+        "factsCount": 3,
+        "sourcesCount": 1
+      },
+      {
+        "id": "academic",
+        "name": "Academic / arXiv",
+        "icon": "BookOpen",
+        "factsCount": 2,
+        "sourcesCount": 1
+      }
+    ],
+    "practicalMetrics": {
+      "images": 2,
+      "files": 3,
+      "personal": 12,
+      "professional": 29,
+      "relationships": 20,
+      "contacts": 28,
+      "sampleImages": [
+        "https://dl.acm.org/pb-assets/icons/DOs/default-profile-1543932446943.svg",
+        "https://cdn.prod.website-files.com/6a34147c20df44fc7dd4d64e/6a61d3727f41df315647a991_Robert.png"
+      ]
+    },
+    "analysis": {
+      "factsUsed": 7,
+      "unlockedLane": "LANE 3: Async Websocket Leak & CVE Advisory",
+      "psychologicalHook": "Intellectual responsibility, fear of production memory leaks, technical curiosity.",
+      "inferences": [
+        {
+          "title": "Primary Role: Co-founder and CTO at revel8",
+          "kind": "Observation",
+          "status": "supported",
+          "quote": "Co-founder and CTO at revel8",
+          "source": "seed:robert",
+          "uncertainty": "Confirmed across official corporate imprint and executive bio."
+        },
+        {
+          "title": "Async Python Architecture & WebSocket Thread Vulnerability",
+          "kind": "Qualified Inference",
+          "status": "supported",
+          "quote": "Open-source maintainer and speaker on async Python websocket streaming architectures.",
+          "source": "github.com/robert-seilbeck",
+          "uncertainty": "Technical public repositories confirm async loop design; unlocks Lane 3 CVE memory leak advisory."
+        },
+        {
+          "title": "Corporate Registration & Legal Imprint (M\u00fcnchen)",
+          "kind": "Observation",
+          "status": "supported",
+          "quote": "revel8 GmbH registered under HRB Amtsgericht M\u00fcnchen.",
+          "source": "revel8.ai/imprint",
+          "uncertainty": "Legally binding German Handelsregister statement."
+        }
+      ]
+    }
+  },
+  "demo-01": {
+    "runId": "demo-01",
+    "target": "Nora Weiss",
+    "role": "Workshop Lead & Operations",
+    "scenario": "Workshop briefing & speaker coordination",
+    "unlockedLane": "LANE 4: Alumni Spotlight & Directory Verification",
+    "laneDomain": "academic",
+    "psychologicalHook": "Alma mater prestige, pride in academic spotlight.",
+    "weaponizedCount": 4,
+    "totalFacts": 14,
+    "totalSources": 4,
+    "assertableRate": 100.0,
+    "channels": [
+      {
+        "id": "academic",
+        "name": "Alumni Registry",
+        "icon": "GraduationCap",
+        "factsCount": 4,
+        "sourcesCount": 1
+      },
+      {
+        "id": "company_web",
+        "name": "Workshop Agenda",
+        "icon": "Globe",
+        "factsCount": 6,
+        "sourcesCount": 2
+      },
+      {
+        "id": "linkedin",
+        "name": "LinkedIn Bio",
+        "icon": "Briefcase",
+        "factsCount": 4,
+        "sourcesCount": 1
+      }
+    ],
+    "practicalMetrics": {
+      "images": 1,
+      "files": 2,
+      "personal": 3,
+      "professional": 6,
+      "relationships": 2,
+      "contacts": 3
+    },
+    "analysis": {
+      "factsUsed": 4,
+      "unlockedLane": "LANE 4: Alumni Spotlight & Directory Verification",
+      "psychologicalHook": "Alma mater prestige, pride in academic spotlight.",
+      "inferences": [
+        {
+          "title": "Alumni status confirmed at TUM (Class of 2020)",
+          "kind": "Observation",
+          "status": "supported",
+          "quote": "Graduated with M.Sc. in Informatics from TUM in 2020.",
+          "source": "tum.de/alumni/directory \u00b7 line 14",
+          "uncertainty": "Confirmed by university registrar directory."
+        },
+        {
+          "title": "Workshop lead on AI twin simulation security",
+          "kind": "Observation",
+          "status": "supported",
+          "quote": "Leading hands-on session on AI twin simulation workflows.",
+          "source": "workshop-agenda-v1 \u00b7 page 2",
+          "uncertainty": "Matches announced schedule."
+        }
+      ]
+    }
+  },
+  "demo-02": {
+    "runId": "demo-02",
+    "target": "Elias Chen",
+    "role": "Senior Architect",
+    "scenario": "Document review & architecture validation",
+    "unlockedLane": "LANE 9: Creative Contributor Release & Licensing",
+    "laneDomain": "creative",
+    "psychologicalHook": "Intellectual property recognition, non-exclusive contributor licensing.",
+    "weaponizedCount": 3,
+    "totalFacts": 9,
+    "totalSources": 3,
+    "assertableRate": 100.0,
+    "channels": [
+      {
+        "id": "company_web",
+        "name": "Review Agenda",
+        "icon": "Globe",
+        "factsCount": 5,
+        "sourcesCount": 2
+      },
+      {
+        "id": "github",
+        "name": "GitHub Repos",
+        "icon": "Code",
+        "factsCount": 4,
+        "sourcesCount": 1
+      }
+    ],
+    "practicalMetrics": {
+      "images": 1,
+      "files": 1,
+      "personal": 2,
+      "professional": 5,
+      "relationships": 1,
+      "contacts": 2
+    },
+    "analysis": {
+      "factsUsed": 3,
+      "unlockedLane": "LANE 9: Creative Contributor Release & Licensing",
+      "psychologicalHook": "Intellectual property recognition, non-exclusive contributor licensing.",
+      "inferences": [
+        {
+          "title": "Project review scheduled for Thursday 14:00",
+          "kind": "Observation",
+          "status": "supported",
+          "quote": "Project review \u00b7 Thursday, 14:00.",
+          "source": "review-agenda-v1 \u00b7 line 4",
+          "uncertainty": "The agenda confirms a meeting, not that an attachment is trusted."
+        }
+      ]
+    }
+  },
+  "demo-04": {
+    "runId": "demo-04",
+    "target": "Mira Solis",
+    "role": "Platform Engineer",
+    "scenario": "Support status & sandbox verification",
+    "unlockedLane": "LANE 7: Municipal Street Works & Resident Notice",
+    "laneDomain": "civic",
+    "psychologicalHook": "Civic duty, neighborhood infrastructure feedback.",
+    "weaponizedCount": 3,
+    "totalFacts": 4,
+    "totalSources": 1,
+    "assertableRate": 100.0,
+    "channels": [
+      {
+        "id": "company_web",
+        "name": "Status Desk",
+        "icon": "Globe",
+        "factsCount": 4,
+        "sourcesCount": 1
+      }
+    ],
+    "practicalMetrics": {
+      "images": 0,
+      "files": 0,
+      "personal": 1,
+      "professional": 2,
+      "relationships": 1,
+      "contacts": 1
+    },
+    "analysis": {
+      "factsUsed": 3,
+      "unlockedLane": "LANE 7: Municipal Street Works & Resident Notice",
+      "psychologicalHook": "Civic duty, neighborhood infrastructure feedback.",
+      "inferences": [
+        {
+          "title": "Sandbox loading confirmation",
+          "kind": "Observation",
+          "status": "supported",
+          "quote": "The sandbox is loading for me again.",
+          "source": "reply-s01 \u00b7 message 1",
+          "uncertainty": "This reply describes one session."
+        }
+      ]
+    }
+  },
+  "demo-03": {
+    "runId": "demo-03",
+    "target": "Awaiting recording",
+    "role": "Pending Target",
+    "scenario": "No events imported yet",
+    "unlockedLane": "No lane active",
+    "laneDomain": "general",
+    "psychologicalHook": "Awaiting initial target seed.",
+    "weaponizedCount": 0,
+    "totalFacts": 0,
+    "totalSources": 0,
+    "assertableRate": 0,
+    "channels": [],
+    "practicalMetrics": {
+      "images": 0,
+      "files": 0,
+      "personal": 0,
+      "professional": 0,
+      "relationships": 0,
+      "contacts": 0
+    },
+    "analysis": {
+      "factsUsed": 0,
+      "unlockedLane": "None",
+      "psychologicalHook": "None",
+      "inferences": []
+    }
+  }
+}

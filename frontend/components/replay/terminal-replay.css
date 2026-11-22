@@ -6,7 +6,7 @@
   --terminal-grid: #243329;
   --terminal-bg: #080b09;
   display: grid;
-  grid-template-columns: 174px minmax(0, 1fr);
+  grid-template-columns: 138px minmax(0, 1fr);
   min-height: calc(100dvh - 62px);
   color: var(--terminal-ink);
   background: var(--terminal-bg);
@@ -18,7 +18,7 @@
   flex-direction: column;
   align-items: stretch;
   gap: 5px;
-  padding: 34px 14px;
+  padding: 34px 12px;
   border-right: 1px solid var(--terminal-grid);
 }
 
@@ -30,6 +30,7 @@
   border: 1px solid transparent;
   color: var(--terminal-muted);
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .terminal-menu a:hover,
