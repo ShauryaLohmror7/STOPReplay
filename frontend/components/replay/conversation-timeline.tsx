@@ -1,8 +1,8 @@
 import { AudioLines, Pause, Play, RotateCcw } from 'lucide-react'
-import type { RecordedTurn } from '@/lib/replay-runs'
+import type { PracticeStep } from '@/lib/practice-replay'
 
 type ConversationTimelineProps = {
-  turns: readonly RecordedTurn[]
+  turns: readonly PracticeStep[]
   index: number
   playing: boolean
   onSeek: (index: number) => void
@@ -24,7 +24,7 @@ export function ConversationTimeline({ turns, index, playing, onSeek, onPlayback
     <footer className="conversation-player" aria-label="Conversation timeline">
       <div className="conversation-player-label">
         <span><AudioLines size={15} aria-hidden="true" />Turn timeline</span>
-        <div><span className="conversation-clock-turn">{String(index + 1).padStart(2, '0')} / {String(turns.length).padStart(2, '0')}</span><time className="conversation-clock" dateTime={turn.time}>{turn.time}</time></div>
+        <div><span className="conversation-clock-turn">{String(index + 1).padStart(2, '0')} / {String(turns.length).padStart(2, '0')}</span><time className="conversation-clock" dateTime={turn.sentAt}>{turn.sentAt.slice(5, 10)} · {turn.time}</time></div>
       </div>
       <div className="conversation-transport">
         {last > 0 && (
@@ -43,7 +43,7 @@ export function ConversationTimeline({ turns, index, playing, onSeek, onPlayback
               })}
             </svg>
             {turns.map((event, marker) => (
-              <span className={`conversation-marker${marker <= index && event.incident ? ' conversation-marker--incident' : ''}`} key={event.id} style={{ left: `${(last > 0 ? marker / last : 0.5) * 100}%` }} />
+              <span className={"conversation-marker"} key={event.id} style={{ left: `${(last > 0 ? marker / last : 0.5) * 100}%` }} />
             ))}
             <span className="conversation-track-fill" style={{ width: `${progress * 100}%` }} />
             <span className="conversation-playhead" style={{ left: `${progress * 100}%` }}><i /><i /><i /></span>

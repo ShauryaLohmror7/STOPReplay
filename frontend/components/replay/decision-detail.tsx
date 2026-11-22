@@ -1,20 +1,18 @@
 import { useLayoutEffect, useRef, type MouseEvent } from 'react'
 import { ArrowUpRight, X } from 'lucide-react'
-import type { RecordedTurn } from '@/lib/replay-runs'
+import type { PracticeStep, RecordedDecision } from '@/lib/practice-replay'
 import { SourceMark } from './source-mark'
 
-export type Decision = {
-  title: string
-  reason: string
+export type Decision = RecordedDecision & {
   kind: 'taken' | 'skipped'
-  turn: RecordedTurn
+  turn: PracticeStep
   origin: HTMLButtonElement
 }
 
 export function DecisionRail({ kind, options, onOpen }: {
   kind: Decision['kind']
-  options: readonly Pick<Decision, 'title' | 'reason'>[]
-  onOpen: (option: Pick<Decision, 'title' | 'reason'>, origin: HTMLButtonElement) => void
+  options: readonly RecordedDecision[]
+  onOpen: (option: RecordedDecision, origin: HTMLButtonElement) => void
 }) {
   const label = kind === 'taken' ? 'Decisions taken' : 'Decisions not taken'
 
@@ -35,19 +33,9 @@ export function DecisionRail({ kind, options, onOpen }: {
   )
 }
 
-function httpSource(source: string) {
-  try {
-    const url = new URL(source)
-    return url.protocol === 'https:' || url.protocol === 'http:' ? url.href : undefined
-  } catch {
-    return undefined
-  }
-}
-
 export function DecisionDetail({ decision, onDismiss }: { decision: Decision; onDismiss: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null)
-  const { turn, origin, kind, title, reason } = decision
-  const href = httpSource(turn.finding.source)
+  const { turn, origin, kind, title, reason, source } = decision
 
   useLayoutEffect(() => {
     const dialogNode = dialog.current
@@ -79,15 +67,11 @@ export function DecisionDetail({ decision, onDismiss }: { decision: Decision; on
       <p className="decision-reason">{reason}</p>
       <div className="decision-source">
         <h3>Evidence at this turn</h3>
-        <p>{turn.finding.title}</p>
-        <blockquote>{turn.finding.quote}</blockquote>
-        <div className="decision-citation">
-          <SourceMark source={turn.finding.source} />
-          {href ? <a href={href} target="_blank" rel="noreferrer">{turn.finding.source}</a> : <span>{turn.finding.source}</span>}
-        </div>
-        <p className="terminal-muted">{turn.finding.uncertainty}</p>
+        <p>{turn.reaction}</p>
+        <blockquote>{turn.reply}</blockquote>
+        <div className="decision-citation"><SourceMark source={source} /><span>{source}</span></div>
       </div>
-      <p className="decision-disclaimer">Demo annotation · synthetic recording</p>
+      <p className="decision-disclaimer">Recorded practice · evidence summary</p>
     </dialog>
   )
 }
