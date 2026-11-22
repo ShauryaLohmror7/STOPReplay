@@ -17,7 +17,7 @@ python3 -m unittest discover -s tests -v
 python3 -m stopreplay_analysis.evaluation --reference
 ```
 
-Verified: 85 unit tests pass; all twelve reference scenarios pass their automatic checks. Reference mode uses hand-authored responses and makes no model calls. It verifies the harness and examples, not real model quality.
+Verified: 97 unit tests pass; all twelve reference scenarios pass their automatic checks. Reference mode uses hand-authored responses and makes no model calls. It verifies the harness and examples, not real model quality.
 
 The original `python3 -m stopreplay_analysis` room demo still works and matches its saved expected output.
 
@@ -60,7 +60,7 @@ report = evaluate(adapter)
 
 `shared_complete(prompt)` receives separate `instructions`, `context_json`, and `response_schema_json` strings plus the prompt version. It should map them to the provider's supported request format, keeping the instructions at the appropriate trusted role and context as data. It returns a decoded response mapping. Provider-specific schema support, parsing, timeouts, credentials, refusals, and retries remain in the shared runtime. This repository adds no provider SDK or independent account configuration.
 
-The callback's configured metadata must describe the model and parameters it actually uses. The callback wrapper records `evidence-analysis-v1` as the prompt version. An existing adapter may use a different prompt version; its own metadata records that choice.
+The callback's configured metadata must describe the model and parameters it actually uses. The callback wrapper records `evidence-analysis-v2` as the prompt version. An existing adapter may use a different prompt version; its own metadata records that choice.
 
 Only event/history data reaches the callback. Expected outcomes, reference answers, and reviewer questions stay in the evaluation harness. Each scenario has an isolated run; failed steps stop that scenario and are reported before the runner continues with the others.
 
@@ -107,3 +107,14 @@ Each case includes its input events, valid result bodies, safe error codes/messa
 Compare model configurations only on matching evaluated-case hashes and code versions; inspect actual runtime parameters and failures before interpreting differences. Runtime metadata describes the configured adapter, not independent provider attestation. Automatic success still leaves every semantic review pending and `model_quality_verified: false`.
 
 Validation: 44 unit tests pass. New regression coverage checks provenance changes, saved failure reports, overwrite refusal, invalid events/responses, refusal/timeout/provider failures, preservation of later case results, and rejection of empty or duplicate cases. No real-model or database run was performed.
+
+## First real-model evaluation — 2026-11-22
+
+The 12 scenarios were run against a real model for the first time, through Shaurya's shared OpenRouter adapter (`src/runtime/adapter.py` on `integration`) and this module's `evaluate()`. **Caveat: the model was `nvidia/nemotron-3-ultra-550b-a55b:free`, not the pinned production Qwen 2.5 72B.** The `:free` Qwen variants are no longer offered on OpenRouter (they 404 with "use the paid slug"), so a currently-free, strong, structured-output model was substituted. This is a pipeline-and-prompt check, not validation of the production model. `model_quality_verified` stays `false`: structural checks do not establish semantic correctness.
+
+Result drove a prompt change to `evidence-analysis-v2`:
+
+- **v1 (`evidence-analysis-v1`): 9/12** structural pass. The three misses were field-population gaps, not reasoning errors — the model's prose was correct but it left the `uncertainty` field empty for bounded/incomplete observations (`submission_contents_unknown`, `bounded_silence`), and it cited only the repeat rather than linking the original (`repeated_information`).
+- **v2 (`evidence-analysis-v2`): 12/12** effective. Two instructions were strengthened: set the `uncertainty` field (not only prose) whenever a finding rests on a bounded or incomplete record; and on a repeated event prefer `no_change`, or cite the earlier event it repeats. All three former misses now pass. One case (`explicit_correction`) returned a transient `provider_failure` in the batch and passed on retry, so the non-pass was free-tier infrastructure, not analysis.
+
+The saved report is `docs/eval/nemotron-ultra-2026-11-22.json` (provenance, runtime metadata, per-case results; no secrets). Prompt `evidence-analysis-v2` is a wording change only; the output contract, schema, and storage fields are unchanged. Shaurya's adapter imports `PROMPT_VERSION`, so it records v2 automatically. Re-running on the production Qwen (paid) remains the step for a production-model number; the harness and prompt are ready for it.

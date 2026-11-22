@@ -6,7 +6,7 @@ from typing import Any, Callable, Mapping
 
 from .models import AnalysisRequest, RuntimeMetadata
 
-PROMPT_VERSION = "evidence-analysis-v1"
+PROMPT_VERSION = "evidence-analysis-v2"
 
 INSTRUCTIONS = """You interpret evidence for STOPReplay's historical analysis.
 Return one JSON object matching the supplied response schema.
@@ -36,8 +36,11 @@ For a finding:
   exactly. Quotes must be verbatim nonempty substrings of their event's text.
 - Do not revise a finding already replaced by another revision. Keep earlier history
   intact. Only the revision outcome may have a non-null revises value.
-- Uncertainty must be nonempty for inference and conflict. It may also qualify an
-  observation when the source or public/internal status is uncertain.
+- Uncertainty must be nonempty for inference and conflict. For an observation, also
+  set the uncertainty field whenever the finding rests on a bounded or incomplete
+  record: a submission whose contents are not included, an observation window or
+  time-boxed silence, a partial export, or a source whose public/internal status is
+  unknown. State the limitation in the uncertainty field, not only in the statement.
 - Produce at most one finding for this contract. Identity, run, sequence, status,
   and runtime metadata are assigned by the application; do not output them.
 
@@ -52,6 +55,9 @@ Evidence interpretation rules:
   the observation without awarding an incident, official score, or hidden-topic hit.
 - A period without an observed reply is only that observation window; it does not
   prove refusal, permanent silence, or a successful outcome.
+- When a later event only repeats information an earlier event already recorded,
+  prefer no_change. If you still record a finding, cite the earlier event it repeats
+  as well, not the repeat alone, so the repetition is not presented as new evidence.
 
 Analyze what the evidence supports. Do not propose or generate contact actions.
 Return only outcome, finding, and reason, without markdown or additional fields.

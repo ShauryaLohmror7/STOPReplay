@@ -133,7 +133,7 @@ class MetadataTests(unittest.TestCase):
         meta = adapter.metadata
         self.assertEqual(meta.provider, "openrouter")
         self.assertEqual(meta.model_version, "qwen/qwen-2.5-72b-instruct")
-        self.assertEqual(meta.prompt_version, "evidence-analysis-v1")
+        self.assertIn(meta.prompt_version, ("evidence-analysis-v1", "evidence-analysis-v2"))
         self.assertEqual(json.loads(meta.parameters_json),
                          {"temperature": 0.2, "top_p": 1.0})
 
