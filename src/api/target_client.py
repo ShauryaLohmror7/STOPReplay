@@ -73,10 +73,16 @@ class TargetClient:
         res = self._request("GET", "/channels")
         return res.get("channels", [])
 
-    def start_session(self, scenario_id: str = "practice") -> Dict[str, Any]:
+    def start_session(self, scenario_or_target: str = "practice", practice: bool = True) -> Dict[str, Any]:
         """POST /v1/sessions"""
+        scenario_id = scenario_or_target if scenario_or_target in ("practice", "eval") else ("practice" if practice else "eval")
         payload = {"scenario_id": scenario_id}
-        return self._request("POST", "/sessions", payload)
+        res = self._request("POST", "/sessions", payload)
+        if "touch_budget" not in res:
+            res["touch_budget"] = 30 if scenario_id == "practice" else 10
+        if "touches_used" not in res:
+            res["touches_used"] = 0
+        return res
 
     def send_message(
         self,
@@ -110,6 +116,67 @@ class TargetClient:
 
         key = idempotency_key or str(uuid.uuid4())
         return self._request("POST", f"/sessions/{session_id}/messages", payload, idempotency_key=key, timeout=120)
+
+    def send_contact(
+        self,
+        session_id: str,
+        channel: str,
+        sender_name: str,
+        sender_address: str,
+        message: str,
+        subject: Optional[str] = None,
+        attachment: Optional[str] = None,
+        story_time: Optional[str] = None,
+        to_target_id: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Unified contact method called by RunController.
+        Dispatches to send_message and maps revel8's return events into normalized format.
+        """
+        target = to_target_id or "julius"
+        attachments = [attachment] if attachment else None
+
+        api_res = self.send_message(
+            session_id=session_id,
+            to_target_id=target,
+            channel=channel,
+            sender_name=sender_name,
+            sender_address=sender_address,
+            body=message,
+            subject=subject,
+            attachments=attachments,
+            sent_at=story_time
+        )
+
+        events = api_res.get("events", [])
+        reply_text = None
+        dominant_event_type = None
+
+        for ev in events:
+            ev_type = ev.get("type")
+            if ev_type in ("attachment.opened", "link.opened", "page.submitted"):
+                dominant_event_type = ev_type
+            elif ev_type == "reply" and not reply_text:
+                reply_text = ev.get("body")
+                if not dominant_event_type:
+                    dominant_event_type = "reply"
+
+        if not dominant_event_type:
+            dominant_event_type = "silence" if not events else events[0].get("type")
+
+        return {
+            "message_id": api_res.get("message_id", str(uuid.uuid4())),
+            "session_id": session_id,
+            "touches_used": api_res.get("touches_used", 1),
+            "events": events,
+            "event_type": dominant_event_type,
+            "reply": reply_text
+        }
+
+    def get_session_events(self, session_id: str) -> List[Dict[str, Any]]:
+        """GET /v1/sessions/{session_id}/events"""
+        res = self._request("GET", f"/sessions/{session_id}/events")
+        return res.get("events", []) if isinstance(res, dict) else []
 
     def register_landing_page(
         self,

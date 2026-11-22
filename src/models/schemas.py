@@ -82,6 +82,10 @@ class Hook:
     required_facts: List[str] = field(default_factory=list)
     ramp: int = 1  # 1 = rapport/probe, 2 = mutual context, 3 = payload delivery
     status: str = "candidate"  # candidate|active|burned|succeeded
+    landing_page_url: Optional[str] = None
+    landing_page_fields: List[str] = field(default_factory=list)
+    landing_page_title: Optional[str] = None
+    attachment: Optional[str] = None
 
     def to_dict(self) -> Dict[str, Any]:
         d = asdict(self)

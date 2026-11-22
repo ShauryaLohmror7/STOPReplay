@@ -44,7 +44,8 @@ class MockSimulatorClient:
         message: str,
         subject: Optional[str] = None,
         attachment: Optional[str] = None,
-        story_time: Optional[str] = None
+        story_time: Optional[str] = None,
+        to_target_id: Optional[str] = None
     ) -> Dict[str, Any]:
         sess = self.sessions.get(session_id)
         if not sess:
@@ -57,17 +58,22 @@ class MockSimulatorClient:
         reply_text = "Thanks for reaching out! Let me take a look at the details."
         event_type = "reply"
 
+        events: List[Dict[str, Any]] = []
+
         if attachment:
             event_type = "attachment.opened"
             reply_text = f"I have opened and reviewed {attachment}. Looks promising!"
+            events.append({"id": f"e_{uuid.uuid4().hex[:6]}", "type": "attachment.opened", "filename": attachment})
         elif "http" in message:
             event_type = "link.opened"
+            events.append({"id": f"e_{uuid.uuid4().hex[:6]}", "type": "link.opened", "url": "https://portal-verify.org"})
 
         ev = {
             "message_id": msg_id,
             "session_id": session_id,
             "event_type": event_type,
             "reply": reply_text,
+            "events": events,
             "timestamp": time.time(),
             "touches_used": sess["touches_used"]
         }
@@ -77,7 +83,18 @@ class MockSimulatorClient:
     def get_session_events(self, session_id: str) -> List[Dict[str, Any]]:
         return self.events_log.get(session_id, [])
 
-    def register_landing_page(self, path: str, domain: str, html_content: str) -> Dict[str, Any]:
-        url = f"https://{domain.rstrip('/')}/{path.lstrip('/')}"
-        self.landing_pages[url] = html_content
-        return {"status": "registered", "url": url}
+    def register_landing_page(
+        self,
+        session_id: str = "",
+        url: Optional[str] = None,
+        title: Optional[str] = None,
+        fields: Optional[List[str]] = None,
+        html: Optional[str] = None,
+        text: Optional[str] = None,
+        path: Optional[str] = None,
+        domain: Optional[str] = None,
+        **kwargs
+    ) -> Dict[str, Any]:
+        final_url = url or f"https://{str(domain).rstrip('/')}/{str(path).lstrip('/')}"
+        self.landing_pages[final_url] = html or text or "mock landing page"
+        return {"status": "registered", "url": final_url, "page_id": f"p_{uuid.uuid4().hex[:8]}"}

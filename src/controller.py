@@ -31,11 +31,24 @@ class RunController:
         # 1. Start Session
         sess = self.api.start_session(profile.subject_id, practice=practice)
         session_id = sess["session_id"]
-        touch_budget = sess["touch_budget"]
+        touch_budget = sess.get("touch_budget", 30 if practice else 10)
 
         # 2. Strategy Selection (Dynamic Lane Match)
         lane_id = self.selector.select_lane(profile)
         hook = self.selector.build_hook(lane_id, profile)
+
+        # Register landing page if lane requires one
+        if hook.landing_page_url and hasattr(self.api, "register_landing_page"):
+            try:
+                self.api.register_landing_page(
+                    session_id=session_id,
+                    url=hook.landing_page_url,
+                    title=hook.landing_page_title or "Portal Sign-In",
+                    fields=hook.landing_page_fields or ["email", "password"]
+                )
+            except Exception as e:
+                # Log but do not crash run if registration fails
+                print(f"[RunController] Warning: Landing page registration: {e}")
 
         conversation_history: List[Dict[str, Any]] = []
         incident_reached = False
@@ -74,7 +87,8 @@ class RunController:
                 sender_address=f"{hook.persona.name.lower().replace(' ', '.')}@{hook.persona.org.lower().replace(' ', '-')}.org",
                 message=draft["body"],
                 subject=draft.get("subject"),
-                attachment=draft.get("attachment")
+                attachment=draft.get("attachment"),
+                to_target_id=profile.subject_id
             )
 
             # 6. Commit Turn Checkpoint

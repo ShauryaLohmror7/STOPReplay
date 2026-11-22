@@ -28,27 +28,44 @@ from ..util import domain_of
 
 
 class OctoGitHubClient:
-    """Thin wrapper over octosuite's GitHub client (imported lazily)."""
+    """Thin wrapper over octosuite or httpx GitHub client."""
 
     def __init__(self):
-        from octosuite.api.github import BASE_URL, GitHub
-        self._gh = GitHub()
-        self._base = BASE_URL
+        try:
+            from octosuite.api.github import BASE_URL, GitHub
+            self._gh = GitHub()
+            self._base = BASE_URL
+        except ImportError:
+            self._gh = None
+            self._base = "https://api.github.com"
+
+    def _get(self, url: str, params: dict | None = None) -> Any:
+        if self._gh:
+            return self._gh.get(url, params or {})
+        import httpx
+        headers = {"User-Agent": "STOPReplay-Recon/1.0", "Accept": "application/vnd.github.v3+json"}
+        try:
+            r = httpx.get(url, params=params, headers=headers, timeout=10.0)
+            if r.status_code == 200:
+                return r.json()
+            return {}
+        except Exception:
+            return {}
 
     def search_users(self, query: str, limit: int = 6) -> list[dict]:
-        data = self._gh.get(f"{self._base}/search/users", {"q": query, "per_page": limit})
+        data = self._get(f"{self._base}/search/users", {"q": query, "per_page": limit})
         return data.get("items", []) if isinstance(data, dict) else []
 
     def get_user(self, login: str) -> dict:
-        data = self._gh.get(f"{self._base}/users/{login}")
+        data = self._get(f"{self._base}/users/{login}")
         return data if isinstance(data, dict) else {}
 
     def get_user_repos(self, login: str, limit: int = 5) -> list[dict]:
-        data = self._gh.get(f"{self._base}/users/{login}/repos", {"sort": "updated", "per_page": limit})
+        data = self._get(f"{self._base}/users/{login}/repos", {"sort": "updated", "per_page": limit})
         return data if isinstance(data, list) else []
 
     def get_user_events(self, login: str, limit: int = 10) -> list[dict]:
-        data = self._gh.get(f"{self._base}/users/{login}/events/public", {"per_page": limit})
+        data = self._get(f"{self._base}/users/{login}/events/public", {"per_page": limit})
         return data if isinstance(data, list) else []
 
 

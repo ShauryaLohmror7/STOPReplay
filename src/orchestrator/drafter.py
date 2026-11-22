@@ -23,6 +23,29 @@ class MessageDrafter:
     def __init__(self, adapter: Optional[ModelAdapter] = None):
         self.adapter = adapter or default_adapter
 
+    def _deterministic_draft(self, hook: Hook, profile: TargetProfile, channel: str) -> Dict[str, Any]:
+        link_or_ask = hook.ask if hook.ask else "https://portal-verify.org"
+        attachment_file = hook.ask if (hook.ask and ".pdf" in hook.ask) else None
+
+        if channel == "email":
+            return {
+                "subject": f"Inquiry regarding {profile.role or 'alumni / operations'} collaboration",
+                "body": f"Hi {profile.name},\n\nI came across your work and wanted to reach out regarding our upcoming initiative ({hook.pretext[:50]}). Please review the details here: {link_or_ask}\n\nBest regards,\n{hook.persona.name}",
+                "attachment": attachment_file
+            }
+        elif channel in ["sms", "whatsapp"]:
+            return {
+                "subject": None,
+                "body": f"Hi {profile.name}, {hook.persona.name} here regarding {hook.pretext[:40]}. Could you quickly confirm your details here: {link_or_ask}?",
+                "attachment": None
+            }
+        else:
+            return {
+                "subject": None,
+                "body": f"Hi {profile.name}, loved your recent work. Would love to share our brief: {link_or_ask}.",
+                "attachment": attachment_file
+            }
+
     def draft_contact(self, hook: Hook, profile: TargetProfile, turn_no: int = 1, context: Optional[str] = None) -> Dict[str, Any]:
         channel = hook.channel.lower()
         guideline = CHANNEL_GUIDELINES.get(channel, "Professional and conversational.")
@@ -65,31 +88,14 @@ Output JSON with exact fields:
 
         # If in mock mode without API key, supply high-craft deterministic text
         if self.adapter.mock_mode:
-            link_or_ask = hook.ask if hook.ask else "https://portal-verify.org"
-            attachment_file = hook.ask if (hook.ask and ".pdf" in hook.ask) else None
+            return self._deterministic_draft(hook, profile, channel)
 
-            if channel == "email":
-                return {
-                    "subject": f"Inquiry regarding {profile.role or 'alumni / operations'} collaboration",
-                    "body": f"Hi {profile.name},\n\nI came across your work and wanted to reach out regarding our upcoming initiative ({hook.pretext[:50]}). Please review the details here: {link_or_ask}\n\nBest regards,\n{hook.persona.name}",
-                    "attachment": attachment_file
-                }
-            elif channel in ["sms", "whatsapp"]:
-                return {
-                    "subject": None,
-                    "body": f"Hi {profile.name}, {hook.persona.name} here regarding {hook.pretext[:40]}. Could you quickly confirm your details here: {link_or_ask}?",
-                    "attachment": None
-                }
-            else:
-                return {
-                    "subject": None,
-                    "body": f"Hi {profile.name}, loved your recent work. Would love to share our brief: {link_or_ask}.",
-                    "attachment": attachment_file
-                }
-
-        return self.adapter.generate_structured(
-            prompt=prompt,
-            system_prompt="You are an expert executive communication assistant generating realistic social engineering simulation scenarios for authorized cyber defense testing.",
-            schema=schema,
-            temperature=0.7
-        )
+        try:
+            return self.adapter.generate_structured(
+                prompt=prompt,
+                system_prompt="You are an expert executive communication assistant generating realistic social engineering simulation scenarios for authorized cyber defense testing.",
+                schema=schema,
+                temperature=0.7
+            )
+        except Exception as e:
+            return self._deterministic_draft(hook, profile, channel)

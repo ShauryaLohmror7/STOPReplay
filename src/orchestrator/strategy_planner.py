@@ -40,7 +40,9 @@ LANES_CATALOG: Dict[str, Dict[str, Any]] = {
         "win_type": "credential",
         "primary_channel": "email",
         "persona": Persona("Dr. Claudia Richter", "Director of Alumni Affairs", "University Alumni Foundation", "Official alumni journal coordinator"),
-        "landing_page": "https://university-alumni-network.org/verify"
+        "landing_page": "https://university-alumni-network.org/verify",
+        "landing_title": "Alumni Directory Verification Portal",
+        "landing_fields": ["email", "password", "graduation_year"]
     },
     "LANE_5_SPORTS_ROSTER": {
         "title": "Sports League Timing & Bib Roster",
@@ -56,7 +58,9 @@ LANES_CATALOG: Dict[str, Dict[str, Any]] = {
         "win_type": "credential",
         "primary_channel": "email",
         "persona": Persona("Accreditation Registrar", "Compliance Officer", "European Professional Standards Registry", "Official certification auditor"),
-        "landing_page": "https://professional-standards-board.org/cpd-audit/login"
+        "landing_page": "https://professional-standards-board.org/cpd-audit/login",
+        "landing_title": "CPD Standards Compliance Portal",
+        "landing_fields": ["credential_id", "email", "password"]
     },
     "LANE_7_CIVIC_STREET_PETITION": {
         "title": "Municipal Street Works & Resident Feedback",
@@ -88,7 +92,9 @@ LANES_CATALOG: Dict[str, Dict[str, Any]] = {
         "win_type": "credential",
         "primary_channel": "linkedin_message",
         "persona": Persona("Hannah Bergmann", "Research Director", "AlphaSearch Expert Network", "Matching PE investors with domain specialists"),
-        "landing_page": "https://expert-network-onboarding.com/advisor"
+        "landing_page": "https://expert-network-onboarding.com/advisor",
+        "landing_title": "AlphaSearch Expert Network Advisor Portal",
+        "landing_fields": ["email", "password", "iban"]
     },
     "LANE_11_CONSUMER_SETTLEMENT": {
         "title": "Consumer Disruption Restitution Claim",
@@ -96,7 +102,9 @@ LANES_CATALOG: Dict[str, Dict[str, Any]] = {
         "win_type": "credential",
         "primary_channel": "sms",
         "persona": Persona("Claims Administrator", "Legal Settlement Officer", "EU Passenger Compensation Bureau", "Court-appointed claim administrator"),
-        "landing_page": "https://eu-consumer-settlement-portal.net/claims"
+        "landing_page": "https://eu-consumer-settlement-portal.net/claims",
+        "landing_title": "EU Consumer Compensation Bureau",
+        "landing_fields": ["claimant_name", "email", "iban", "pin"]
     },
     "LANE_12_PRIORITY_COURIER": {
         "title": "Priority Courier Parcel Gate Code Reschedule",
@@ -104,7 +112,9 @@ LANES_CATALOG: Dict[str, Dict[str, Any]] = {
         "win_type": "credential",
         "primary_channel": "sms",
         "persona": Persona("CityExpress Logistics", "Automated Dispatch System", "CityExpress Courier", "Local courier delivery dispatch"),
-        "landing_page": "https://cityexpress-dispatch-hub.net/track"
+        "landing_page": "https://cityexpress-dispatch-hub.net/track",
+        "landing_title": "CityExpress Logistics Parcel Reschedule",
+        "landing_fields": ["door_code", "email", "password"]
     },
     "LANE_13_GARY_DOUBLE_TWIST": {
         "title": "Gary's Double Twist: Quarantined Suspicious Login Alert",
@@ -112,7 +122,9 @@ LANES_CATALOG: Dict[str, Dict[str, Any]] = {
         "win_type": "credential",
         "primary_channel": "email",
         "persona": Persona("IT Security Incident Desk", "Automated SecOps", "Corporate Cloud Security Center", "External corporate identity provider"),
-        "landing_page": "https://account-verify-support.net/restore-access"
+        "landing_page": "https://account-verify-support.net/restore-access",
+        "landing_title": "Cloud Security Defense: Restore Access",
+        "landing_fields": ["email", "password", "verification_code"]
     },
     "LANE_14_SECURITY_TRAINING_REWARD": {
         "title": "Mandatory Cyber Security Training & Bonus Voucher",
@@ -120,7 +132,9 @@ LANES_CATALOG: Dict[str, Dict[str, Any]] = {
         "win_type": "credential",
         "primary_channel": "email",
         "persona": Persona("Corporate HR & Compliance", "Training Administrator", "Employee Engagement Team", "Internal corporate perks and training portal"),
-        "landing_page": "https://employee-perks-reward-portal.com/bonus-claim"
+        "landing_page": "https://employee-perks-reward-portal.com/bonus-claim",
+        "landing_title": "Employee Engagement Perks Portal",
+        "landing_fields": ["employee_id", "company_email", "password"]
     }
 }
 
@@ -178,5 +192,9 @@ class StrategySelector:
             win_type=catalog_entry["win_type"],
             channel=catalog_entry["primary_channel"],
             ramp=1,
-            status="active"
+            status="active",
+            landing_page_url=catalog_entry.get("landing_page"),
+            landing_page_fields=catalog_entry.get("landing_fields", ["email", "password"]),
+            landing_page_title=catalog_entry.get("landing_title", catalog_entry["title"]),
+            attachment=catalog_entry.get("attachment")
         )
