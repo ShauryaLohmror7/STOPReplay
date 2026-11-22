@@ -10,6 +10,8 @@ export type PortraitRevealProps = {
   imageAlt?: string
   className?: string
   children?: ReactNode
+  onExitProgress?: (value: number) => void
+  onEntered?: () => void
 }
 
 export function PortraitReveal({
@@ -17,19 +19,31 @@ export function PortraitReveal({
   imageAlt = "Electric Gaze: a coarse ASCII portrait with a cyan light across the eyes",
   className,
   children,
+  onExitProgress,
+  onEntered,
 }: PortraitRevealProps) {
+  const sectionRef = useRef<HTMLElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const sceneRef = useRef<PortraitScene | null>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const reducedMotion = useReducedMotion()
   const [status, setStatus] = useState<"loading" | "ready" | "static" | "error">("loading")
   const [complete, setComplete] = useState(false)
+  const [videoReady, setVideoReady] = useState(false)
   const assembly = useMotionValue(0)
+  const departure = useMotionValue(0)
+  const departingRef = useRef(false)
+  const exitAnimationRef = useRef<ReturnType<typeof animate> | null>(null)
+  const exitCallbacks = useRef({onExitProgress,onEntered})
+  exitCallbacks.current = {onExitProgress,onEntered}
+  const labelOpacity = useTransform(departure,[0,.25],[1,0])
+  const labelX = useTransform(departure,[0,1],["0vw","-35vw"])
+  const finalOpacity = useTransform(()=>Math.max(0,Math.min(1,(assembly.get()-.9)*10))*(1-Math.min(1,departure.get()*9)))
+  const particleOpacity = useTransform(()=>departure.get()>0?1:1-Math.max(0,Math.min(1,(assembly.get()-.9)*10)))
   const animationRef = useRef<ReturnType<typeof animate> | null>(null)
   const targetRef = useRef(0)
-  const finalOpacity = useTransform(assembly, [0.9, 1], [0, 1])
-  const particleOpacity = useTransform(assembly, [0.9, 1], [1, 0])
   const showStill = Boolean(reducedMotion) || status === "static"
+  useEffect(() => { sectionRef.current?.focus({preventScroll:true}) }, [])
 
   const reveal = useCallback((target: number) => {
     if (targetRef.current === target) return
@@ -41,32 +55,64 @@ export function PortraitReveal({
     })
   }, [assembly, reducedMotion, status])
 
+  const depart = useCallback(() => {
+    if (departingRef.current || !exitCallbacks.current.onEntered) return
+    departingRef.current = true
+    videoRef.current?.pause()
+    sceneRef.current?.prepareHeadline(document.querySelector<HTMLElement>('[data-streak-headline]'))
+    exitAnimationRef.current = animate(departure,1,{
+      duration: reducedMotion || status === "static" ? 0 : 2.4, ease: "linear",
+      onComplete: () => exitCallbacks.current.onEntered?.(),
+    })
+  },[departure,reducedMotion,status])
+
   useEffect(() => {
     if (status !== "ready" && status !== "static") return
-    let touchY = 0
-    const wheel = (event: WheelEvent) => { if (Math.abs(event.deltaY) > 4) reveal(event.deltaY > 0 ? 1 : 0) }
-    const touchStart = (event: TouchEvent) => { touchY = event.touches[0].clientY }
-    const touchMove = (event: TouchEvent) => {
-      const delta = touchY - event.touches[0].clientY
-      if (Math.abs(delta) > 12) { reveal(delta > 0 ? 1 : 0); touchY = event.touches[0].clientY }
+    let touchY = 0, wheelDistance = 0
+    const gesture = (direction: number) => {
+      if (departingRef.current) return
+      if (direction > 0 && assembly.get() >= 1) depart()
+      else if (assembly.get() < 1 || direction < 0) reveal(direction > 0 ? 1 : 0)
     }
-    const key = (event: KeyboardEvent) => {
-      if ((event.target as HTMLElement).closest("button,a,input,textarea,select")) return
-      if (["ArrowDown", "PageDown", " ", "End"].includes(event.key)) reveal(1)
-      if (["ArrowUp", "PageUp", "Home"].includes(event.key)) reveal(0)
+    const wheel = (event: WheelEvent) => {
+      event.preventDefault()
+      const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1
+      const delta = event.deltaY * unit
+      if (delta === 0) return
+      // Trackpads begin with tiny deltas. Accept the whole gesture without requiring a pause.
+      if (Math.sign(delta) !== Math.sign(wheelDistance)) wheelDistance = 0
+      wheelDistance += delta
+      if (Math.abs(wheelDistance) >= 2) {
+        gesture(wheelDistance)
+        wheelDistance = 0
+      }
     }
-    window.addEventListener("wheel", wheel, {passive:true})
-    window.addEventListener("touchstart", touchStart, {passive:true})
-    window.addEventListener("touchmove", touchMove, {passive:true})
-    window.addEventListener("keydown", key)
-    return () => {
-      animationRef.current?.stop()
-      window.removeEventListener("wheel", wheel)
-      window.removeEventListener("touchstart", touchStart)
-      window.removeEventListener("touchmove", touchMove)
-      window.removeEventListener("keydown", key)
+    const touchStart=(event:TouchEvent)=>{touchY=event.touches[0].clientY}
+    const touchMove=(event:TouchEvent)=>{
+      const delta=touchY-event.touches[0].clientY
+      if(Math.abs(delta)>10){gesture(delta);touchY=event.touches[0].clientY}
     }
-  }, [reveal, status])
+    const key=(event:KeyboardEvent)=>{
+      if((event.target as HTMLElement).closest('button,a,input,textarea,select'))return
+      if(['ArrowDown','PageDown',' ','End'].includes(event.key)){event.preventDefault();gesture(1)}
+      if(['ArrowUp','PageUp','Home'].includes(event.key)){event.preventDefault();gesture(-1)}
+    }
+    window.addEventListener('wheel',wheel,{passive:false})
+    window.addEventListener('touchstart',touchStart,{passive:true})
+    window.addEventListener('touchmove',touchMove,{passive:true})
+    window.addEventListener('keydown',key)
+    return()=>{
+      window.removeEventListener('wheel',wheel)
+      window.removeEventListener('touchstart',touchStart)
+      window.removeEventListener('touchmove',touchMove)
+      window.removeEventListener('keydown',key)
+    }
+  },[reveal,depart,status,assembly])
+  useEffect(()=>()=>{animationRef.current?.stop();exitAnimationRef.current?.stop()},[])
+  useMotionValueEvent(departure,'change',value=>{
+    sceneRef.current?.setExit(value)
+    exitCallbacks.current.onExitProgress?.(value)
+  })
 
   useMotionValueEvent(assembly, "change", (value) => {
     sceneRef.current?.setProgress(value)
@@ -121,28 +167,34 @@ export function PortraitReveal({
     const video = videoRef.current
     if (!video) return
     if (complete && !reducedMotion) void video.play().catch(() => {})
-    else { video.pause(); video.currentTime = 0 }
+    else { video.pause(); video.currentTime = 0; setVideoReady(false) }
   }, [complete, reducedMotion])
 
   return (
     <>
-      <section className={cn("portrait-story", className)} aria-label="Interactive portrait introduction">
+      <section ref={sectionRef} tabIndex={-1} className={cn("portrait-story", className)} aria-label="Interactive portrait introduction">
         <div className="portrait-stage">
-          {complete && <header className="intro-header">
+          {complete && <motion.header className="intro-header" style={{opacity:labelOpacity,x:labelX}}>
             <span className="wordmark" aria-label="STOP Replay">
               STOP<span className="wordmark-slash">/</span>REPLAY<span className="wordmark-period">.</span>
             </span>
-          </header>}
+          </motion.header>}
           <div className="portrait-art" role="img" aria-label={imageAlt}>
             <motion.canvas ref={canvasRef} className="portrait-canvas" style={{opacity: showStill ? 0 : particleOpacity}} aria-hidden="true" />
             <motion.div className="original-art" style={{opacity: finalOpacity}}>
-              {showStill ? <img src={imageSrc} alt="" /> : <video
+              <img src={imageSrc} alt="" />
+              {!showStill && <video
                 ref={videoRef} src="/portraits/electric-gaze.mp4" poster={imageSrc}
+                style={{position:'absolute',inset:0,opacity:videoReady?1:0}}
+                onTimeUpdate={event=>{if(event.currentTarget.currentTime>0)setVideoReady(true)}}
+                onError={()=>setVideoReady(false)}
                 loop muted playsInline preload="auto" aria-hidden="true"
               />}
             </motion.div>
           </div>
-          {complete && <p className="intro-tagline">A thousand traces. One human.</p>}
+          {status==="error"&&<div className="asset-status"><p>The portrait couldn’t load.</p><button className="retry-button" onClick={()=>exitCallbacks.current.onEntered?.()}>Explore the architecture</button></div>}
+          <button className="intro-gesture-surface" onClick={()=>complete?depart():reveal(1)} disabled={status==='loading'||status==='error'} aria-label={complete?'Explore the architecture':'Reveal portrait'}><span className="sr-only">{complete?'Explore the architecture':'Reveal portrait'}</span></button>
+          {complete && <motion.p className="intro-tagline" style={{opacity:labelOpacity,x:labelX}}>A thousand traces. One human.</motion.p>}
         </div>
       </section>
       {children ? <div className="intro-continuation">{children}</div> : null}

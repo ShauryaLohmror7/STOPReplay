@@ -4,23 +4,19 @@ Team STOP’s project for the revel8 challenge at the START Munich Hackathon. We
 
 Our first milestone is **offline replay of a recorded session**. The later live agent operates inside revel8’s AI-twin simulator. The planned UI lets a viewer move through time and see the conversation, available evidence, changes in findings, and observed information disclosures at each turn.
 
-This README defines our parts and how they connect. The current checkout includes a small, standalone Python analysis fixture, a preserved frontend portrait intro, and an experimental replay UI using synthetic data; these are not an integrated application. The responsibilities below are the team’s implementation plan. Shared interfaces remain proposals, and the replay UI is not connected to storage or the live runtime.
+This README defines our parts and how they connect. The frontend branch includes the interactive replay UI with synthetic recordings, alongside the standalone Python analysis fixture. The responsibilities below are the team’s implementation plan.
 
 ### Run the frontend
 
-Frontend work is maintained on the `frontend` branch. The active experimental UI is in `frontend-clone/`; `frontend/` preserves the original intro.
-
-With Node.js 22.12+ from the repository root:
+The `frontend` branch contains the app in `frontend/`. From that branch’s repository root, with Node.js 22.12+:
 
 ```sh
-cd frontend-clone
+cd frontend
 npm ci
 npm run dev
 ```
 
-The clone runs at **http://127.0.0.1:5190/**. A scroll gesture starts the four-second pixel portrait reveal; a subsequent scroll transitions into the replay workspace. Open **http://127.0.0.1:5190/?view=replay** to inspect the panels directly. It uses synthetic local turns with no model or simulator calls. `npm run build` checks TypeScript and creates the production bundle; `npm test` checks historical replay semantics. See [clone setup and verification limits](frontend-clone/README.md) and [UI specification](frontend-clone/docs/ui-spec.md).
-
-To run the preserved original, use the same commands from `frontend/`, which serves port **5188**. See [original frontend documentation](frontend/README.md).
+Open [Intro](http://127.0.0.1:5190/), [Architecture](http://127.0.0.1:5190/?view=architecture), or [Replay](http://127.0.0.1:5190/?view=replay). Run `npm run build` for the production bundle and `npm test` to check replay behavior. See the [frontend guide](frontend/README.md) and [UI specification](frontend/docs/ui-spec.md).
 
 ### Run Anushree's offline analysis fixture
 
