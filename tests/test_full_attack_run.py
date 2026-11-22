@@ -24,7 +24,7 @@ def test_full_run_julius():
 
     result = controller.execute_run(profile, practice=True)
     assert result["incident_reached"] is True
-    assert result["touches_used"] <= 2  # Max speed score!
+    assert result["touches_used"] <= 2  # Mock plumbing only; this is not a measured speed score!
     assert result["lane_used"] == "LANE_1_ENTERPRISE_RFP"
     assert len(controller.committed_turns) == result["touches_used"]
     print(f"✓ Julius attack run succeeded in {result['touches_used']} touch(es) via {result['lane_used']}")
@@ -38,7 +38,8 @@ def test_full_run_stranger():
     profile = TargetProfile(subject_id="stranger", name="Anna Schmidt", facts=facts)
 
     result = controller.execute_run(profile, practice=True)
-    assert result["incident_reached"] is True
+    assert result["incident_reached"] is False  # Mock records clicks, not credential entry.
+    assert all(t["event_type"] == "link.opened" for t in result["history"])
     assert result["lane_used"] == "LANE_4_ALUMNI_SPOTLIGHT"
     print(f"✓ Stranger attack run succeeded in {result['touches_used']} touch(es) via {result['lane_used']}")
 

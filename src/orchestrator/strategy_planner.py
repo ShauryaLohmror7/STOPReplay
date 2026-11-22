@@ -142,55 +142,32 @@ LANES_CATALOG: Dict[str, Dict[str, Any]] = {
 class StrategySelector:
     """Selects the best attack lane dynamically based on target facts."""
 
+    def __init__(self, source_metadata=None):
+        self.source_metadata = source_metadata
+
+    def assess(self, profile, history=(), *, as_of=None):
+        from src.orchestrator.topic_ranking import rank_topics
+        return rank_topics(profile, source_metadata=self.source_metadata, history=history, as_of=as_of)
+
     def select_lane(self, profile: TargetProfile) -> str:
-        role_text = (profile.role or "").lower()
-        facts_text = " ".join([f.claim.lower() for f in profile.facts if f.assertable])
-
-        # 1. Specialized Professional Matches
-        if any(w in role_text or w in facts_text for w in ["sales", "commercial", "revenue", "business development"]):
-            return "LANE_1_ENTERPRISE_RFP"
-        if any(w in role_text or w in facts_text for w in ["product", "design", "ux", "cpo"]):
-            return "LANE_2_DESIGN_PARTNER_BETA"
-        if any(w in role_text or w in facts_text for w in ["cto", "tech", "engineer", "developer", "software", "architect"]):
-            return "LANE_3_CVE_ASYNC_LEAK"
-
-        # 2. Fact-driven Universal Matches
-        for fact in profile.facts:
-            if not fact.assertable:
-                continue
-            cat = fact.category.lower()
-            claim = fact.claim.lower()
-
-            if cat == "credential" and any(u in claim for u in ["university", "tum", "lmu", "alumni", "college", "degree"]):
-                return "LANE_4_ALUMNI_SPOTLIGHT"
-            if cat == "interest" and any(s in claim for s in ["marathon", "running", "cycling", "strava", "tennis", "sports"]):
-                return "LANE_5_SPORTS_ROSTER"
-            if cat == "credential" and any(c in claim for c in ["cpa", "pmp", "aws", "certified", "license", "bar"]):
-                return "LANE_6_PROFESSIONAL_CPD_AUDIT"
-            if cat == "contact" and any(loc in claim for loc in ["resident", "district", "street", "neighborhood", "munich"]):
-                return "LANE_7_CIVIC_STREET_PETITION"
-            if cat == "relationship" and "former" in claim:
-                return "LANE_8_FORMER_COLLEAGUE"
-            if cat == "project" and any(p in claim for p in ["blog", "article", "photo", "paper", "author"]):
-                return "LANE_9_CREATIVE_CONTRIBUTOR_RELEASE"
-
-        # 3. Universal Fallbacks
-        if len(profile.facts) > 0:
-            return "LANE_10_SPECIALIST_ADVISORY"
-        return "LANE_12_PRIORITY_COURIER"
+        return self.assess(profile)["selected_lane"]
 
     def build_hook(self, lane_id: str, profile: TargetProfile) -> Hook:
         catalog_entry = LANES_CATALOG[lane_id]
-        facts_summary = "; ".join(profile.get_assertable_claims()[:3])
+        assessment = self.assess(profile)
+        candidate = next((c for c in assessment["candidates"] if c["lane_id"] == lane_id), None)
+        evidence = candidate["evidence"] if candidate else []
+        facts_summary = "; ".join(e["claim"] for e in evidence[:3])
 
         return Hook(
             id=f"hook_{lane_id.lower()}_{profile.subject_id}",
             subject=profile.subject_id,
-            pretext=f"{catalog_entry['title']} tailored for {profile.name}. Known verified facts: {facts_summary}",
+            pretext=f"{catalog_entry['title']} tailored for {profile.name}. Available public-source claims: {facts_summary}",
             persona=catalog_entry["persona"],
             ask=catalog_entry.get("attachment") or catalog_entry.get("landing_page") or "Internal disclosure inquiry",
             win_type=catalog_entry["win_type"],
             channel=catalog_entry["primary_channel"],
+            required_facts=[e["fact_id"] for e in evidence],
             ramp=1,
             status="active",
             landing_page_url=catalog_entry.get("landing_page"),

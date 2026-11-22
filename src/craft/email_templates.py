@@ -1,8 +1,8 @@
 """
 HTML Email Templates for STOPReplay attack lanes.
 Each template produces a full HTML email body with inline CSS —
-no external resources, so it renders in every email client and in
-the revel8 twin renderer.
+no external resources. Browser previews are checked separately; individual
+email clients and the revel8 twin renderer still need compatibility verification.
 
 Usage:
     from src.craft.email_templates import build_html_email
@@ -31,29 +31,36 @@ def _wrap(inner: str, logo_line: str = "", footer: str = "") -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Message</title>
+<style>
+  td{{overflow-wrap:anywhere;word-break:break-word}}
+  @media(max-width:620px){{
+    .email-cell{{padding:20px!important}}
+    .header-note{{float:none!important;display:block;line-height:1.5!important;margin-top:8px}}
+  }}
+</style>
 </head>
 <body style="margin:0;padding:0;background:{_BODY_BG};{_FONT}">
 <table width="100%" cellpadding="0" cellspacing="0" style="background:{_BODY_BG};padding:30px 0;">
   <tr><td align="center">
-    <table width="600" cellpadding="0" cellspacing="0" style="background:{_CARD_BG};border-radius:6px;border:1px solid {_BORDER};overflow:hidden;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;table-layout:fixed;background:{_CARD_BG};border-radius:6px;border:1px solid {_BORDER};overflow:hidden;">
 
       <!-- HEADER / LOGO BAR -->
       <tr>
-        <td style="background:{_PRIMARY};padding:18px 32px;">
+        <td class="email-cell" style="background:{_PRIMARY};color:#fff;font-size:18px;font-weight:600;line-height:1.4;padding:18px 32px;">
           {logo_line}
         </td>
       </tr>
 
       <!-- BODY -->
       <tr>
-        <td style="padding:32px;color:#1a1a1a;font-size:15px;line-height:1.6;">
+        <td class="email-cell" style="padding:32px;color:#1a1a1a;font-size:15px;line-height:1.6;">
           {inner}
         </td>
       </tr>
 
       <!-- FOOTER -->
       <tr>
-        <td style="background:#f8f9fa;border-top:1px solid {_BORDER};padding:18px 32px;font-size:12px;color:{_MUTED};">
+        <td class="email-cell" style="background:#f8f9fa;border-top:1px solid {_BORDER};padding:18px 32px;font-size:12px;color:{_MUTED};">
           {footer}
         </td>
       </tr>
@@ -79,17 +86,17 @@ def _lane1_email(hook, profile, story: Dict[str, Any]) -> str:
     industry = story.get("industry", "Automotive & Industrial Logistics")
 
     logo_line = f"""<span style="color:#ffffff;font-size:20px;font-weight:700;letter-spacing:1px;">
-        DAX <span style="color:#f4c430;">Sourcing</span> Group
+        {org}
       </span>
-      <span style="float:right;color:#adb5bd;font-size:11px;line-height:36px;">Enterprise Security Procurement</span>"""
+      <span class="header-note" style="float:right;color:#adb5bd;font-size:11px;line-height:36px;">Enterprise Security Procurement</span>"""
 
     inner = f"""
       <p style="margin:0 0 8px;">Dear {name},</p>
 
-      <p>My name is <strong>{sender}</strong>, Head of Enterprise Sourcing at <strong>{org}</strong>.
+      <p>My name is <strong>{sender}</strong>, {hook.persona.role} at <strong>{org}</strong>.
       We are conducting a structured vendor evaluation for our {industry} division
       (~{seats} workforce seats across EU operations) and your company,
-      <strong>revel8</strong>, has been shortlisted.</p>
+      <strong>{story.get("target_org", "your organization")}</strong>, has been shortlisted.</p>
 
       <p>Our internal steering committee requires all shortlisted vendors to complete
       <strong>Section 3</strong> of the attached RFP evaluation matrix
@@ -125,7 +132,7 @@ def _lane1_email(hook, profile, story: Dict[str, Any]) -> str:
 
       <p style="margin-top:24px;">Kind regards,</p>
       <p style="margin:0;"><strong style="color:{_PRIMARY};">{sender}</strong><br>
-      <span style="color:{_MUTED};font-size:13px;">Head of Enterprise Sourcing | {org}</span><br>
+      <span style="color:{_MUTED};font-size:13px;">{hook.persona.role} | {org}</span><br>
       <a href="mailto:{colleague}" style="color:{_MUTED};font-size:13px;">{colleague}</a></p>
     """
 
@@ -147,17 +154,17 @@ def _lane2_email(hook, profile, story: Dict[str, Any]) -> str:
     org = hook.persona.org
 
     logo_line = f"""<span style="color:#ffffff;font-size:18px;font-weight:700;">
-        European <span style="color:#7ee8a2;">FinTech</span> Collective
+        {org}
       </span>"""
 
     inner = f"""
       <p>Hi {name},</p>
 
-      <p>I'm <strong>{sender}</strong>, VP Product Innovation at <strong>{org}</strong>.
+      <p>I'm <strong>{sender}</strong>, {hook.persona.role} at <strong>{org}</strong>.
       We're assembling a <em>12-company design-partner cohort</em> to co-develop and
       pressure-test our next-generation multi-channel simulation benchmarking platform.</p>
 
-      <p>Your work at revel8 — particularly around agentic social engineering simulations —
+      <p>Your work at {story.get("target_org", "your organization")}
       is exactly the kind of forward-thinking we're looking for in this cohort.</p>
 
       <p><strong>What's involved (3-week commitment):</strong></p>
@@ -172,7 +179,7 @@ def _lane2_email(hook, profile, story: Dict[str, Any]) -> str:
 
       <p>Best,<br>
       <strong style="color:{_PRIMARY};">{sender}</strong><br>
-      <span style="color:{_MUTED};font-size:13px;">VP Product Innovation | {org}</span></p>
+      <span style="color:{_MUTED};font-size:13px;">{hook.persona.role} | {org}</span></p>
     """
     footer = f"© 2026 {org}. Confidential — shared with selected design partners only."
     return _wrap(inner, logo_line, footer)
@@ -286,7 +293,7 @@ def _nda_email(hook, profile, story: Dict[str, Any]) -> str:
     attachment = story.get("nda_filename", "Mutual_NDA_revel8_DAX.pdf")
 
     logo_line = f"""<span style="color:#ffffff;font-size:20px;font-weight:700;letter-spacing:1px;">
-        DAX <span style="color:#f4c430;">Sourcing</span> Group
+        {org}
       </span>
       <span style="float:right;color:#adb5bd;font-size:11px;line-height:36px;">Legal & Procurement</span>"""
 
@@ -303,10 +310,9 @@ def _nda_email(hook, profile, story: Dict[str, Any]) -> str:
 
       <p><strong>Key points of the NDA:</strong></p>
       <ul style="padding-left:20px;line-height:2;">
-        <li>Mutual — protects both revel8 and {org} equally</li>
+        <li>Mutual — protects both {story.get("target_org", "your organization")} and {org} equally</li>
         <li>Duration: 24 months from signature date</li>
         <li>Scope: Limited to the {industry} vendor evaluation only</li>
-        <li>Governing law: German commercial law (§ 86 HGB)</li>
       </ul>
 
       <p>Please sign and return by <strong style="color:{_ACCENT};">{deadline}</strong>
@@ -348,8 +354,15 @@ def build_html_email(lane_id: str, hook, profile, story: Optional[Dict[str, Any]
     builder = _LANE_BUILDERS.get(lane_id)
     if builder:
         return builder(hook, profile, story)
-    # Generic fallback
-    return _lane1_email(hook, profile, story)
+    # Unsupported lanes must not borrow unrelated procurement claims.
+    from html import escape
+    from src.orchestrator.strategy_planner import LANES_CATALOG
+    title = LANES_CATALOG.get(lane_id, {}).get("title", "Message")
+    action = hook.landing_page_url or hook.attachment or hook.ask
+    inner = (f"<p>Dear {escape(profile.name)},</p>"
+             f"<p>{escape(title)}</p><p>{escape(action)}</p>"
+             f"<p>{escape(hook.persona.name)}<br>{escape(hook.persona.role)}</p>")
+    return _wrap(inner, escape(hook.persona.org), escape(hook.persona.org))
 
 
 def build_sms_body(hook, profile, story: Optional[Dict[str, Any]] = None) -> str:

@@ -1,7 +1,8 @@
 """
 Mock Simulator Client for offline testing and rehearsal.
-Implements the exact same interface as TargetClient, with simulated AI twin responses
-and zero external network requests.
+Implements the controller's basic contact interface with deterministic fixture
+responses and zero external network requests. It does not predict effectiveness
+or implement the live client's idempotent recovery protocol.
 """
 
 from typing import List, Dict, Any, Optional

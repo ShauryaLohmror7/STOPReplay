@@ -4,13 +4,8 @@ Reads a raw session JSON from logs/runs/{session_id}.json and produces:
   - logs/runs/{session_id}_timeline.json  (Gary's UI format)
   - Prints a human-readable disclosure summary to stdout
 
-Disclosure Classification Logic:
-  - reply containing "nda" / "sign" / "agreement"  → Legal Process Disclosed
-  - reply containing seats / enterprise / "4,500"   → Business Scope Leaked
-  - reply containing "team" / "solutions" / "sales" → Org Structure Leaked
-  - attachment.opened event                          → Action Win ✓
-  - page.submitted event                             → Credential Win ✓
-  - link.opened event                                → Link Engagement
+Recorded replies are not automatically classified as internal disclosures.
+Official outcomes are unavailable in local exports.
 
 Usage:
     python -m src.reporting s_c00cecfdaf
@@ -28,120 +23,99 @@ from datetime import datetime, timezone
 
 LOGS_DIR = os.path.join(os.path.dirname(__file__), "..", "logs", "runs")
 
-# Keyword → disclosure category mappings
-_DISCLOSURE_RULES: List[tuple] = [
-    (["attachment.opened"], "🏆 Action Win — Attachment Opened"),
-    (["page.submitted"], "🏆 Credential Win — Form Submitted"),
-    (["link.opened"], "🔗 Link Engagement — URL Clicked"),
-    (["nda", "sign", "agreement", "legal", "contract"], "⚖️ Legal Process Disclosed"),
-    (["4,500", "4500", "seats", "enterprise", "deployment", "workforce"],
-     "📊 Business Scope Leaked"),
-    (["solutions team", "sales team", "account exec", "dedicated team", "loop in"],
-     "🏢 Internal Org Structure Leaked"),
-    (["email", "voice", "deepfake", "simulation", "sweet spot", "capabilities"],
-     "💡 Product Capabilities Disclosed"),
-    (["automotive", "logistics", "financial", "industry", "sector"],
-     "🏭 Client Industry Confirmed"),
-    (["december", "deadline", "submit", "timeline", "evaluation"],
-     "📅 Timeline / Procurement Process Disclosed"),
-]
+from src.session_evidence import summarize_events
+from src.run_journal import write_snapshot
 
 
 def _classify_reply(text: str, event_type: Optional[str] = None) -> List[str]:
-    """Return list of disclosure category strings for a given twin reply."""
-    categories = []
-    text_lower = (text or "").lower()
-    # First check event types (wins)
-    for keywords, label in _DISCLOSURE_RULES:
-        if event_type and event_type in keywords:
-            categories.append(label)
-            continue
-        if any(kw in text_lower for kw in keywords):
-            categories.append(label)
-    return list(dict.fromkeys(categories))  # deduplicate, preserve order
+    """Compatibility helper: reply words are never proof of disclosure."""
+    return summarize_events([{"type": event_type}])["observations"]
 
 
-def _extract_turns(raw: Dict[str, Any]) -> List[Dict[str, Any]]:
-    """Normalize session JSON into a list of turn dicts."""
-    # Try known top-level keys
-    for key in ("turns", "events", "messages"):
-        if key in raw and isinstance(raw[key], list):
+def _extract_turns(raw):
+    for key in ("turns", "messages"):
+        if isinstance(raw.get(key), list):
             return raw[key]
-    return []
+    # An events-only export has no outgoing bodies. Group by contact, preserving
+    # order; never invent missing messages or count each event as a new contact.
+    grouped = {}
+    for event in raw.get("events", []):
+        if not isinstance(event, dict):
+            continue
+        contact = event.get("message_id") or event.get("in_reply_to") or event.get("conversation_id")
+        key = contact or "unassigned_events"
+        turn = grouped.setdefault(key, {"events": [], "contact_id": contact,
+                                       "outgoing_available": False})
+        turn["events"].append(event)
+    return list(grouped.values())
 
 
 def build_timeline(session_id: str, raw: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-    """
-    Build a timeline object from a session log dict or by loading from disk.
-    Returns a dict matching Gary's fixtures/reporting.expected.json format.
-    """
+    """Read-only projection. Missing values stay unknown; exports are unverified."""
     if raw is None:
-        path = os.path.join(LOGS_DIR, f"{session_id}.json")
-        if not os.path.exists(path):
-            raise FileNotFoundError(f"Session log not found: {path}")
-        with open(path) as f:
-            raw = json.load(f)
-
-    turns = _extract_turns(raw)
-    target_id = raw.get("target_id", raw.get("subject_id", "unknown"))
-    session_start = raw.get("started_at", raw.get("created_at",
-                              datetime.now(timezone.utc).isoformat()))
-
-    timeline_turns = []
-    for i, turn in enumerate(turns, start=1):
-        # Support both old and new log formats
-        sent_msg = turn.get("sent") or turn.get("message", {})
-        if isinstance(sent_msg, dict):
-            attacker_body = sent_msg.get("body", sent_msg.get("text", ""))
-            attacker_subject = sent_msg.get("subject")
-            attacker_channel = sent_msg.get("channel", raw.get("channel", "email"))
-        else:
-            attacker_body = str(sent_msg)
-            attacker_subject = None
-            attacker_channel = raw.get("channel", "email")
-
-        reply_body = turn.get("reply") or turn.get("twin_reply", "")
-        event_type = turn.get("event_type") or turn.get("type", "silence")
+        with open(os.path.join(LOGS_DIR, f"{session_id}.json")) as stream:
+            raw = json.load(stream)
+    timeline = []
+    for i, turn in enumerate(_extract_turns(raw), 1):
+        sent = turn.get("sent", turn.get("message"))
+        message = sent if isinstance(sent, dict) else {"body": sent}
         events = turn.get("events", [])
-
-        # Collect all event types for classification
-        all_event_types = [ev.get("type", "") for ev in events if isinstance(ev, dict)]
-        win_event = next((e for e in all_event_types
-                          if e in ("attachment.opened", "page.submitted", "link.opened")), None)
-
-        disclosures = _classify_reply(reply_body, win_event or event_type)
-        is_win = any(w in " ".join(disclosures) for w in ("Win", "Engagement"))
-
-        ts = turn.get("timestamp") or turn.get("sent_at") or f"turn_{i:02d}"
-
-        timeline_turns.append({
-            "turn_no": i,
-            "timestamp": ts,
+        if not events and turn.get("event_type"):
+            # Old logs cannot recover event identities or submitted field values.
+            events = [{"type": turn["event_type"]}]
+        replies = [e for e in events if isinstance(e, dict) and e.get("type") == "reply"]
+        reply = turn.get("reply") or turn.get("twin_reply")
+        if reply is None and replies:
+            reply = "\n\n".join(e.get("body", "") for e in replies)
+        evidence = summarize_events(events)
+        timeline.append({
+            "turn_no": turn.get("turn", i),
+            "timestamp": turn.get("timestamp") or turn.get("sent_at"),
+            "sent_at": turn.get("sent_at"),
+            "story_time_end": turn.get("story_time_end"),
+            "conversation_id": turn.get("conversation_id"),
+            "dialogue": turn.get("dialogue", []),
+            "opening": turn.get("opening"),
+            "grounding": turn.get("grounding"),
+            "evidence_context": turn.get("evidence_context"),
+            "contact_id": turn.get("message_id") or turn.get("contact_id"),
+            "outgoing_available": sent is not None,
             "attacker": {
-                "channel": attacker_channel,
-                "subject": attacker_subject,
-                "body": attacker_body,
+                "channel": turn.get("sent_channel", message.get("channel", raw.get("channel"))),
+                "subject": turn.get("sent_subject", message.get("subject")),
+                "body": message.get("body", message.get("text")),
+                "sender": turn.get("sender", message.get("from")),
+                "attachment": turn.get("attachment"),
             },
-            "twin_reply": reply_body or None,
-            "event_type": event_type,
-            "win_event": win_event,
-            "is_win": is_win,
-            "disclosures": disclosures,
+            "twin_reply": reply,
+            "reply_channels": list(dict.fromkeys(e.get("channel") for e in replies if e.get("channel"))),
+            "event_type": turn.get("event_type"),
+            "events": events,
+            "win_event": None,
+            "is_win": False,
+            "disclosures": [],
+            "topic_assessment": turn.get("topic_assessment"),
+            **evidence,
         })
-
-    # Aggregate summary
-    total_disclosures = [d for t in timeline_turns for d in t["disclosures"]]
-    win_turns = [t for t in timeline_turns if t["is_win"]]
-
     return {
         "session_id": session_id,
-        "target_id": target_id,
-        "started_at": session_start,
-        "total_turns": len(timeline_turns),
-        "objectives_hit": [t["win_event"] for t in win_turns if t["win_event"]],
-        "incident_reached": bool(win_turns),
-        "timeline": timeline_turns,
-        "disclosure_summary": list(dict.fromkeys(total_disclosures)),
+        "target_id": raw.get("target_id", raw.get("subject_id", "unknown")),
+        "started_at": raw.get("started_at", raw.get("created_at")),
+        "mode": raw.get("mode", "unknown"),
+        "verification": "unverified_recording",
+        "total_turns": len(timeline),
+        "touches_used": raw.get("touches_used"),
+        "objectives_hit": [],
+        "incident_reached": None,
+        "official_incident": None,
+        "timeline": timeline,
+        "disclosure_summary": [],
+        "topic_assessment": raw.get("topic_assessment"),
+        "own_angle_status": "unverified",
+        "channel_plan": raw.get("channel_plan"),
+        "channels_used": list(dict.fromkeys(t["attacker"]["channel"] for t in timeline)),
+        "timing_plan": raw.get("timing_plan"),
+        "note": "Recorded observations only. Official outcome and disclosure counts unavailable.",
     }
 
 
@@ -149,8 +123,7 @@ def save_timeline(session_id: str, timeline: Dict[str, Any]) -> str:
     """Save timeline JSON to logs/runs/{session_id}_timeline.json. Returns path."""
     os.makedirs(LOGS_DIR, exist_ok=True)
     path = os.path.join(LOGS_DIR, f"{session_id}_timeline.json")
-    with open(path, "w") as f:
-        json.dump(timeline, f, indent=2)
+    write_snapshot(path, timeline)
     return path
 
 
@@ -160,13 +133,13 @@ def print_timeline(timeline: Dict[str, Any]) -> None:
     target = timeline["target_id"]
     print(f"\n{'═'*64}")
     print(f"  SESSION: {sid}  |  TARGET: {target}")
-    print(f"  Turns: {timeline['total_turns']}  |  Incident: {'✅ YES' if timeline['incident_reached'] else '❌ No'}")
+    print(f"  Turns: {timeline['total_turns']}  |  Official outcome: unavailable")
     print(f"{'═'*64}\n")
 
     for t in timeline["timeline"]:
         turn = t["turn_no"]
         ts = t["timestamp"]
-        ch = t["attacker"]["channel"].upper()
+        ch = (t["attacker"]["channel"] or "unknown").upper()
         subj = f" [{t['attacker']['subject']}]" if t["attacker"].get("subject") else ""
         body_preview = (t["attacker"]["body"] or "")[:100].replace("\n", " ")
         reply_preview = (t["twin_reply"] or "(no reply / silence)")[:120].replace("\n", " ")
@@ -174,8 +147,8 @@ def print_timeline(timeline: Dict[str, Any]) -> None:
         print(f"  TURN {turn:02d}  {ts}  [{ch}]{subj}")
         print(f"  ┌ ATTACKER: {body_preview}{'…' if len(t['attacker']['body'] or '') > 100 else ''}")
         print(f"  └ TWIN:     {reply_preview}")
-        if t["disclosures"]:
-            for d in t["disclosures"]:
+        if t["observations"]:
+            for d in t["observations"]:
                 print(f"      ➤ {d}")
         if t["win_event"]:
             print(f"      ★ WIN EVENT: {t['win_event'].upper()}")
@@ -184,7 +157,7 @@ def print_timeline(timeline: Dict[str, Any]) -> None:
     print(f"  DISCLOSURE SUMMARY:")
     for d in timeline["disclosure_summary"]:
         print(f"    • {d}")
-    print(f"\n  Objectives hit: {timeline['objectives_hit'] or 'None yet'}\n")
+    print("\n  Official objectives: unavailable; see recorded observations above.\n")
 
 
 def main():

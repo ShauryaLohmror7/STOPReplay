@@ -4,9 +4,9 @@ Each page is a full self-contained HTML document with inline CSS.
 Registered via POST /v1/sessions/{session_id}/pages before the message
 that links to them, so the AI twin sees a realistic form.
 
-The `fields` list drives which form inputs appear — any field named
-"password", "pin", "otp", or "verification_code" triggers the
-revel8 `credentials` objective win when submitted.
+The `fields` list drives which form inputs appear. A field name alone does not
+prove an objective: secret entry is observed only when the API returns its
+redaction marker. Basic details do not establish a disclosure.
 
 Usage:
     from src.craft.landing_pages import build_landing_page
@@ -46,9 +46,9 @@ def _wrap_page(title: str, logo_html: str, form_inner: str, submit_label: str = 
 <title>{title}</title>
 <style>
   *{{box-sizing:border-box;margin:0;padding:0}}
-  body{{background:#f0f2f5;{_FONT}min-height:100vh;display:flex;align-items:center;justify-content:center}}
-  .card{{background:#fff;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,.1);width:420px;overflow:hidden}}
-  .hdr{{background:{_PRIMARY};padding:24px 32px;}}
+  body{{background:#f0f2f5;{_FONT}min-height:100vh;display:flex;padding:24px 16px}}
+  .card{{background:#fff;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,.1);width:100%;max-width:420px;margin:auto;overflow:hidden;overflow-wrap:anywhere}}
+  .hdr{{background:{_PRIMARY};color:#fff;font-size:18px;font-weight:600;line-height:1.4;padding:24px 32px;}}
   .body{{padding:32px;}}
   .sub{{color:{_MUTED};font-size:13px;margin-bottom:24px;line-height:1.5}}
   input:focus{{border-color:{_PRIMARY}!important;box-shadow:0 0 0 3px rgba(26,46,90,.12)}}
@@ -56,6 +56,7 @@ def _wrap_page(title: str, logo_html: str, form_inner: str, submit_label: str = 
         font-size:15px;font-weight:600;cursor:pointer;{_FONT}}}
   .btn:hover{{background:#132244}}
   .secure{{text-align:center;font-size:11px;color:{_MUTED};margin-top:14px}}
+  @media(max-width:420px){{.hdr,.body{{padding:24px}}}}
 </style>
 </head>
 <body>
@@ -201,13 +202,22 @@ _PAGE_BUILDERS: Dict[str, Any] = {
 def build_landing_page(lane_id: str, story: Optional[Dict[str, Any]] = None) -> str:
     """
     Returns a full HTML string for the landing page of the given lane.
-    Falls back to the alumni portal for unregistered lanes.
+    Uses catalog fields for lanes without a dedicated template; rejects unknown pages.
     """
     story = story or {}
     builder = _PAGE_BUILDERS.get(lane_id)
     if builder:
         return builder(story)
-    return _lane13_page(story)  # generic-looking security page as default
+    from html import escape
+    from src.orchestrator.strategy_planner import LANES_CATALOG
+    entry = LANES_CATALOG.get(lane_id)
+    if not entry or not entry.get("landing_page"):
+        raise ValueError("No registered page template for this lane.")
+    fields = entry.get("landing_fields", [])
+    form = "".join(_field_html(escape(f), escape(f.replace("_", " ").title()),
+                                "password" if f in {"password", "pin", "otp"} else "text") for f in fields)
+    return _wrap_page(escape(entry["landing_title"]), escape(entry["persona"].org), form,
+                      subtitle=escape(entry["title"]))
 
 
 def get_fields_for_lane(lane_id: str) -> List[str]:
@@ -220,4 +230,5 @@ def get_fields_for_lane(lane_id: str) -> List[str]:
         "LANE_13_GARY_DOUBLE_TWIST": ["email", "password", "verification_code"],
         "LANE_14_SECURITY_TRAINING_REWARD": ["employee_id", "company_email", "password"],
     }
-    return _FIELDS.get(lane_id, ["email", "password"])
+    from src.orchestrator.strategy_planner import LANES_CATALOG
+    return _FIELDS.get(lane_id, LANES_CATALOG.get(lane_id, {}).get("landing_fields", []))

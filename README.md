@@ -4,7 +4,35 @@ Team STOP’s project for the revel8 challenge at the START Munich Hackathon. We
 
 Our first milestone is **offline replay of a recorded session**. The later live agent operates inside revel8’s AI-twin simulator. The planned UI lets a viewer move through time and see the conversation, available evidence, changes in findings, and observed information disclosures at each turn.
 
-This README defines our parts and how they connect. The current checkout includes a small, standalone Python analysis fixture; it is not an integrated application. The responsibilities below are the team’s implementation plan. Shared interfaces remain proposals, and the storage, controller, live runtime, and UI are not implemented here.
+This README defines ownership and the intended handoffs. The checkout now includes collection adapters, Postgres storage/migrations, an evidence analyzer, a simulator client/controller, HTML templates, recorded reporting, and a resumable stored-event analysis coordinator. Live execution writes durable local journals and, when storage is configured, imports each completed contact into the existing source/event tables. Analysis is a separate explicit replay step. The interactive UI is not implemented.
+
+See the [score-readiness plan](docs/score-readiness-plan.md), [current architecture](docs/architecture.md), and [five-minute demo outline](docs/pitch-and-demo.md). The owner sections below retain the team plan; the architecture page distinguishes implemented connections from remaining work.
+
+The [validation and brief rubric reassessment](docs/readiness-validation.md) records remaining live-outcome gaps. The latest backend pass has **316 passing tests plus 119 passing subtests** against disposable Postgres, with no skips.
+
+The [channel, timing, and evidence audit](docs/channel-timing-evidence-audit.md) covers the organizer's scoring clarification and the newer multi-channel controller, resumable ten-utterance calls, source-grounded draft review, and optional simulated Monday-to-Friday follow-ups. New runs discover API channels; `--channel-mode coverage` widens contact coverage, while the default `adaptive` mode answers in-channel before switching. Add `--timing monday-friday --story-start '2026-11-23T09:00:00+01:00'` to use that virtual schedule; no real waiting is needed. Resume uses the saved plan.
+
+### Verify and rehearse safely
+
+```sh
+# Existing virtual environment; no network, credentials, database reset, or repo logs:
+.venv/bin/python -B scripts/test_offline.py
+
+# Explicit offline configuration check; does not open a simulator session:
+python run_live_attack.py --mock --preflight
+
+# Read an existing recording without model calls or writes:
+python -m src.reporting s_68c856279f --print-only
+
+# Export a complete local transcript from a modern journal, including call turns:
+python -m src.transcript_export logs/runs/SESSION_ID.json --output /tmp/transcript.html
+```
+
+Live execution fails explicitly when credentials/model configuration are missing; it never silently substitutes a mock run. `--list-targets` reads scenario metadata. By default, live mode requires storage, reads existing public facts, and invokes collection if no eligible facts exist. `--use-storage` prevents that automatic collection; `--research` explicitly refreshes it. `--metadata-only` is an explicit limited-evidence opt-out. `--preflight` performs these profile checks (and any required collection/database writes) without opening a simulator session. `--resume <journal>` recovers the saved profile/session/request/key and storage sink. See the plan for limitations and owner handoff.
+
+The original database test fixture drops/recreates the public schema: use a disposable database only. The offline runner always disables those tests.
+
+The transcript export is a standalone, read-only HTML view, not the planned application UI. It includes all replies, call utterances, both clocks, source/review details and acknowledged portions of interrupted calls. Pending delivery is labeled uncertain. Recorded message HTML is escaped and cannot execute scripts or load resources.
 
 ### Run Anushree's offline analysis fixture
 
@@ -220,7 +248,7 @@ Keep three modes distinct: **replay** reads stored results, **reanalysis** creat
 
 Shaurya owns the **attack execution part**, as well as integration and the later UI. Anushree supplies source-backed analysis; Shaurya’s decision stage uses that state to choose the next simulator action, submit it through the documented API, consume the reaction, and continue the session. Cem preserves the action/event history, and Gary makes the thread understandable in reporting.
 
-The supplied challenge describes **one revel8 API with a team key**, not separate integrations with real SMS, email, social, or calling providers. The documents say API documentation is on the API start page, but **the start-page URL, authentication format, endpoint paths, and request schemas have not been supplied**. No working API client is present in this checkout.
+The challenge uses **one revel8 API with a team key**, not real SMS/email/calling providers. The current client is `src/api/target_client.py`, based on the organizer documentation captured locally in `docs/api_docs_live.md`. The controller supports message contacts and simulated page registration. Conversation methods exist in the client but are not orchestrated by the controller; do not claim end-to-end call support.
 
 The following channel names come from the supplied challenge. The integration notes are our proposed responsibilities, not verified API field names:
 
@@ -396,7 +424,7 @@ The external repositories are not yet provided. Once available, Adrian and Cem s
 
 ## First end-to-end acceptance check
 
-This check is the shared target; it cannot run until the implementation exists.
+This remains the shared acceptance target. `src/replay.py` now connects stored events, analysis, atomic commits, and historical reads using the existing contracts. Its real Postgres regression is `tests/test_replay_controller.py::test_replay_database_history`; it requires a disposable database. The complete interactive UI check remains pending.
 
 1. Adrian imports `e1`, `e2`, and an identical copy of `e2`, preserving both original sources.
 2. Cem returns exactly two stored events in sequence order.

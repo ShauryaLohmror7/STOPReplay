@@ -62,11 +62,26 @@ def build_story(lane_id: str, profile=None) -> Dict[str, Any]:
     Returns a merged story dict: defaults + lane overrides + profile-derived fields.
     This dict is injected into every drafter prompt as LOCKED STORY FACTS.
     """
-    story = dict(STORY_DEFAULTS)
+    story = dict(STORY_DEFAULTS) if lane_id in {"LANE_1_ENTERPRISE_RFP", "LANE_2_DESIGN_PARTNER_BETA", "NDA_FOLLOWUP"} else {"year": STORY_DEFAULTS["year"]}
     story.update(_LANE_OVERRIDES.get(lane_id, {}))
+    from src.orchestrator.strategy_planner import LANES_CATALOG
+    entry = LANES_CATALOG.get(lane_id)
+    if entry:
+        persona = entry["persona"]
+        story["org"] = persona.org
+        story["sender_name"] = persona.name
+        story["sender_role"] = persona.role
+        story["attachment"] = entry.get("attachment")
+        story["landing_url"] = entry.get("landing_page")
+        if "sender_email" not in _LANE_OVERRIDES.get(lane_id, {}):
+            import re
+            local = re.sub(r"[^a-z0-9]+", ".", persona.name.lower()).strip(".")
+            domain = re.sub(r"[^a-z0-9]+", "-", persona.org.lower()).strip("-")
+            story["sender_email"] = f"{local}@{domain}.com"
     if profile:
         story["target_name"] = getattr(profile, "name", "")
         story["target_id"] = getattr(profile, "subject_id", "")
+        story["target_org"] = getattr(profile, "organization", None) or "your organization"
     return story
 
 
@@ -75,17 +90,7 @@ def story_to_prompt_block(story: Dict[str, Any]) -> str:
     Formats story dict into a prompt injection block for the drafter.
     The drafter MUST include this verbatim in every LLM system prompt.
     """
-    lines = [
-        "LOCKED STORY FACTS (never contradict, never hallucinate alternatives):",
-        f"  - Current year: {story.get('year', '2026')}",
-        f"  - Response / submission deadline: {story.get('deadline', 'December 8, 2026')}",
-        f"  - Client industry: {story.get('industry', 'Automotive & Industrial Logistics')}",
-        f"  - Seat / headcount scope: {story.get('seats', '4,500')} employees (EU-wide)",
-        f"  - Organisation: {story.get('org', 'DAX Sourcing Group')}",
-        f"  - Colleague / second contact: {story.get('colleague_name', 'Sarah Weber')} <{story.get('colleague_email', 's.weber@enterprise-sourcing.org')}>",
-    ]
-    if story.get("nda_filename"):
-        lines.append(f"  - NDA filename: {story['nda_filename']}")
-    if story.get("attachment"):
-        lines.append(f"  - Primary attachment: {story['attachment']}")
-    return "\n".join(lines)
+    import json
+    return ("LOCKED SCENARIO DETAILS (fictional scenario, not verified target facts):\n"
+            + json.dumps(story, ensure_ascii=False, sort_keys=True)
+            + "\nPreserve these details. Do not invent values for missing fields.")

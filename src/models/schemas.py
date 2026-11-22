@@ -163,4 +163,9 @@ class TargetProfile:
     touch_budget: int = 10  # 30 in practice, 10 in eval
 
     def get_assertable_claims(self) -> List[str]:
-        return [f.claim for f in self.facts if f.assertable and f.status == "active"]
+        import math
+        return [f.claim for f in self.facts
+                if f.subject == self.subject_id and f.assertable and f.status == "active"
+                and not f.superseded_by and f.sensitivity == "public" and f.source_ref
+                and type(f.confidence) in (int, float) and math.isfinite(f.confidence)
+                and 0.6 <= f.confidence <= 1]

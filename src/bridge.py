@@ -112,6 +112,25 @@ VERIFIED_FOUNDER_SEEDS: Dict[str, Dict[str, Any]] = {
 }
 
 
+# Preserve historical seed rows for compatibility, but only the organizer's
+# supplied role descriptions are assertable. Extra biographical claims are unverified.
+_DOCUMENTED_ROLES = {
+    "julius": "Co-Founder & Co-CEO, sales at revel8",
+    "tom": "Co-Founder & Co-CEO, product at revel8",
+    "robert": "Co-Founder & CTO at revel8",
+}
+for _subject, _seed in VERIFIED_FOUNDER_SEEDS.items():
+    _seed["role"] = _DOCUMENTED_ROLES[_subject]
+    for _fact in _seed["facts"]:
+        if _fact["category"] == "role":
+            _fact["claim"] = _DOCUMENTED_ROLES[_subject]
+            _fact["source_ref"] = "organizer:challenge:practice-targets"
+        else:
+            _fact["assertable"] = False
+            _fact["confidence"] = 0.0
+
+
+
 def build_profile_from_db(
     storage: Any,
     subject_id: str,
@@ -123,13 +142,17 @@ def build_profile_from_db(
     """
     raw_facts = storage.get_facts(source_run=source_run, subject=subject_id)
     if not raw_facts:
-        return get_target_profile(subject_id=subject_id, name=name)
+        return TargetProfile(subject_id=subject_id, name=name or subject_id.capitalize())
 
     facts: List[Fact] = []
     inferred_role = None
     inferred_name = name
 
     for rf in raw_facts:
+        source = storage.get_source(source_run, rf.get("source_ref", ""))
+        public_source = bool(source and source.get("origin") in {
+            "public_web", "public_talk", "company_site", "social_post", "profile_bio",
+            "github", "public_agenda"})
         f = Fact(
             id=str(rf["id"]),
             subject=rf["subject"],
@@ -137,8 +160,10 @@ def build_profile_from_db(
             category=rf["category"],
             source_run=rf.get("source_run", source_run),
             source_ref=rf.get("source_ref", ""),
-            assertable=rf.get("assertable", True),
-            confidence=float(rf.get("confidence", 1.0)),
+            assertable=(rf.get("assertable") is True and rf.get("status") == "active"
+                        and rf.get("sensitivity") == "public"
+                        and public_source),
+            confidence=float(rf.get("confidence") or 0.0),
             sensitivity=rf.get("sensitivity", "public"),
             corroboration=rf.get("corroboration") or [],
             enables=rf.get("enables") or [],
@@ -147,9 +172,9 @@ def build_profile_from_db(
             superseded_by=rf.get("superseded_by")
         )
         facts.append(f)
-        if f.category == "role" and not inferred_role:
+        if f.assertable and f.category == "role" and not inferred_role:
             inferred_role = f.claim
-        if "full_name" in f.claim and not inferred_name:
+        if f.assertable and f.claim.startswith("full_name:") and not inferred_name:
             inferred_name = f.claim.split(":")[-1].strip()
 
     final_name = inferred_name or subject_id.capitalize()
@@ -213,5 +238,25 @@ def recon_and_build_profile(
     the persisted TargetProfile from the database.
     """
     from stopreplay_collect.recon import run_recon
-    run_recon(storage, subject_id, seed_text, source_run=source_run)
+    run_recon(storage, subject_id, seed_text, source_run=source_run, authorized=False)
     return build_profile_from_db(storage, subject_id, source_run=source_run, name=name)
+
+
+def profile_from_scenario(scenario, target_id, *, storage=None, source_run="recon", research=False):
+    """Consume organizer identity and existing public facts without changing schemas."""
+    target = next((t for t in scenario.get("targets", []) if t.get("id") == target_id), None)
+    if target is None:
+        raise ValueError("Target is not in the selected open scenario.")
+    if research:
+        if storage is None:
+            raise ValueError("Research requires configured storage.")
+        recon_and_build_profile(storage, target_id,
+                                f"{target['name']}, {target.get('role', '')}, {scenario.get('company', '')}",
+                                source_run=source_run, name=target["name"])
+    # Never silently replace a failed storage read with seed facts in this path.
+    profile = (build_profile_from_db(storage, target_id, source_run, target["name"])
+               if storage is not None else TargetProfile(target_id, target["name"]))
+    profile.name = target["name"]
+    profile.role = target.get("role")
+    profile.organization = scenario.get("company")
+    return profile

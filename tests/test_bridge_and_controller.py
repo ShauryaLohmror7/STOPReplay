@@ -46,7 +46,7 @@ class TestBridgeAndController(unittest.TestCase):
         )
 
         res = controller.execute_run(stranger, practice=True)
-        self.assertTrue(res["incident_reached"])
+        self.assertFalse(res["incident_reached"])  # A registered page and click are not a submission.
         self.assertEqual(res["lane_used"], "LANE_4_ALUMNI_SPOTLIGHT")
         self.assertIn("https://university-alumni-network.org/verify", mock_api.landing_pages)
 

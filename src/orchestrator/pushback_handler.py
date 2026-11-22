@@ -5,6 +5,7 @@ Directly powers the 40-Point Architecture & Persistence score.
 """
 
 from typing import Dict, Any, Optional
+import re
 from src.runtime.adapter import ModelAdapter, default_adapter
 
 
@@ -24,17 +25,17 @@ class ResponseClassifier:
         if not twin_reply or not twin_reply.strip():
             return self.SILENCE
 
-        text = twin_reply.lower()
+        text = twin_reply.lower().replace("’", "'")
 
         # Deterministic keyword heuristics
-        if any(w in text for w in ["sure", "send it", "looks good", "happy to", "will check", "done", "reviewed"]):
-            return self.AGREEMENT
-        if any(w in text for w in ["busy", "swamped", "next week", "maybe", "not sure", "what does this entail"]):
-            return self.HESITATION
-        if any(w in text for w in ["policy", "prohibit", "don't open", "external link", "verify your identity", "suspicious", "who is this"]):
-            return self.PUSHBACK
-        if any(w in text for w in ["not interested", "unsubscribe", "stop", "remove me", "no thanks"]):
+        if re.search(r"\b(not interested|unsubscribe|stop contacting|leave me alone|remove me|no thanks)\b", text) or text.strip(" .!") == "stop":
             return self.REJECTION
+        if re.search(r"\b(policy|prohibit|don't open|won't open|will not|cannot|can't|verify your identity|suspicious|who is this|who you are)\b", text):
+            return self.PUSHBACK
+        if re.search(r"\b(busy|swamped|next week|maybe|not sure|not happy|not done|not reviewed|what does this entail)\b", text):
+            return self.HESITATION
+        if re.search(r"\b(sure|send it|looks good|happy to|will check|done|reviewed)\b", text):
+            return self.AGREEMENT
 
         return self.HESITATION
 

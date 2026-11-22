@@ -140,6 +140,14 @@ def extract_facts(sources: list[dict[str, Any]], subject: str, name: str | None 
         claim = _clean_str(claim, max_len=260)
         if not claim or claim in seen_claims:
             return
+        # Keep heuristic discoveries for review without promoting attribution,
+        # inferred addresses, or a topic mention into verified personal facts.
+        if any(word in assertable_why.lower() for word in ("inferred", "synthesized")):
+            assertable = False
+        if claim.startswith(("authored_article:", "interest:", "colleague:", "talk_statement:", "public_post_or_comment:",
+                             "role:", "education:", "based_in:", "public_appearance:", "profile_picture:")):
+            assertable = False
+            assertable_why += "; attribution requires review before use as a target fact"
         seen_claims.add(claim)
         facts.append(DraftFact(
             subject=subject,
@@ -219,7 +227,7 @@ def extract_facts(sources: list[dict[str, Any]], subject: str, name: str | None 
         domain = (domain_of(url) or "").lower()
         base = _registrable(domain)
 
-        is_org_source = bool((base in org or domain in org) or (primary_domain and primary_domain in url.lower()))
+        is_org_source = any(domain == d or domain.endswith("." + d) for d in org)
         mentions_target = _mentions(last, url, excerpt)
 
         if not mentions_target and not is_org_source:
@@ -267,7 +275,8 @@ def extract_facts(sources: list[dict[str, Any]], subject: str, name: str | None 
             platform = PROFILE_PLATFORMS.get(base)
             if platform:
                 add_fact(f"{platform}_profile: {url}", category="contact", confidence=0.7,
-                         assertable_why=f"profile page on {platform}", source_ref=ref)
+                         assertable_why=f"candidate profile on {platform}; ownership requires review",
+                         source_ref=ref, assertable=False)
             elif base in org or domain in org:
                 add_fact(f"company_page: {url}", category="other", confidence=0.7,
                          assertable_why="appears on the company's own site", source_ref=ref)
@@ -280,7 +289,8 @@ def extract_facts(sources: list[dict[str, Any]], subject: str, name: str | None 
                     full_link = match.group(0).rstrip(").,'\"")
                     if last and last in full_link.lower():
                         add_fact(f"{plat}_profile: {full_link}", category="contact", confidence=0.75,
-                                 assertable_why=f"embedded {plat} link citing target", source_ref=ref)
+                                 assertable_why=f"embedded {plat} link; ownership requires review",
+                                 source_ref=ref, assertable=False)
 
             # 2. Visual Assets & Media (Profile pictures, Avatars, Photos)
             img_matches = _IMAGE_MD_RE.findall(excerpt) + [("", m) for m in _IMAGE_TAG_RE.findall(excerpt)]
