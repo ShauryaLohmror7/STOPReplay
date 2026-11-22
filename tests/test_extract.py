@@ -147,3 +147,54 @@ def test_extract_brand_assets_and_email_patterns():
 
     # Target email formatted with inferred pattern
     assert any("target_email: Julius Muth <julius@revel8.ai>" in c for c in claims)
+
+
+def test_extract_social_media_and_reddit():
+    sources = [
+        {
+            "origin": "public_web",
+            "source_ref": "https://www.instagram.com/julius_muth",
+            "url": "https://www.instagram.com/julius_muth",
+            "locator": "Julius Muth (@julius_muth) on Instagram",
+            "excerpt": "Julius Muth. Co-Founder @revel8. Building autonomous cyber defenses."
+        },
+        {
+            "origin": "public_web",
+            "source_ref": "https://www.facebook.com/julius.muth.munich",
+            "url": "https://www.facebook.com/julius.muth.munich",
+            "locator": "Julius Muth | Facebook",
+            "excerpt": "Julius Muth lives in Munich, Germany. Co-Founder at revel8."
+        },
+        {
+            "origin": "public_web",
+            "source_ref": "https://www.reddit.com/r/cybersecurity/comments/abc123/revel8_ai_defense",
+            "url": "https://www.reddit.com/r/cybersecurity/comments/abc123/revel8_ai_defense",
+            "locator": "Discussion on revel8 AI defense by Julius Muth",
+            "excerpt": "Julius Muth from revel8 shared their architecture for synthetic persona training."
+        },
+        {
+            "origin": "public_web",
+            "source_ref": "https://revel8.ai/community",
+            "url": "https://revel8.ai/community",
+            "locator": "revel8 Community",
+            "excerpt": (
+                "Connect with revel8 across the web:\n"
+                "- Follow our Instagram: https://www.instagram.com/revel8.ai\n"
+                "- Join Facebook page: https://www.facebook.com/revel8ai\n"
+            )
+        }
+    ]
+
+    facts = extract_facts(sources, "julius", name="Julius Muth", org_domains=["revel8.ai"])
+    claims = [f.claim for f in facts]
+
+    # Personal social profiles
+    assert any("instagram_profile: https://www.instagram.com/julius_muth" in c for c in claims)
+    assert any("facebook_profile: https://www.facebook.com/julius.muth.munich" in c for c in claims)
+
+    # Reddit discussion
+    assert any("reddit_discussion: 'Discussion on revel8 AI defense by Julius Muth'" in c for c in claims)
+
+    # Company social channels
+    assert any("company_social_instagram: https://www.instagram.com/revel8.ai" in c for c in claims)
+    assert any("company_social_facebook: https://www.facebook.com/revel8ai" in c for c in claims)

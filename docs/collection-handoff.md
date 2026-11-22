@@ -20,15 +20,15 @@ STOPReplay is Team STOP's entry for the revel8 "Agentic Social Engineer" challen
 - `Storage`: Server-side API for source registration, fact insertion, historical turn commits, and checkpoints.
 
 ### Collection Layer (`stopreplay_collect/`)
-- **`recon.py` (Orchestrator):** Multi-channel autonomous target hunter. Formulates targeted search queries for official bios, corporate brand assets, `/imprint` legal pages, DNS MX email provider detection, social posts/articles, talks/podcasts, press/announcements, colleague rosters, Hacker News discussions, and arXiv academic papers. Automatically extracts YouTube transcripts when talk URLs appear in search results. All requests run with `synthetic_authorized=True` by default as approved by judges.
+- **`recon.py` (Orchestrator):** Multi-channel autonomous target hunter. Formulates targeted search queries for official bios, corporate brand assets, `/imprint` legal pages, DNS MX email provider detection, Reddit & technical forums, personal public social profiles (Instagram, Facebook, Threads), corporate social channels, social posts/articles, talks/podcasts, press/announcements, colleague rosters, Hacker News discussions, and arXiv academic papers. Automatically extracts YouTube transcripts when talk URLs appear in search results. All requests run with `synthetic_authorized=True` by default as approved by judges.
 - **`extract.py` (Fact, Brand & Media Extractor):** High-precision deterministic extractor across all collected sources:
   - `role`: Executive positions, founder titles, and affiliations.
-  - `contact`: Social and professional platform profiles, corporate contact emails, synthesized colleague sender candidates (`colleague_sender: Name <email>`), target email candidate (`target_email: Name <email>`), and handles.
+  - `contact`: Social and professional platform profiles (LinkedIn, X, GitHub, Instagram, Facebook, Reddit), corporate social channels (`company_social_instagram`, `company_social_linkedin`, etc.), corporate contact emails, synthesized colleague sender candidates (`colleague_sender: Name <email>`), target email candidate (`target_email: Name <email>`), and handles.
   - `project`: Authored articles, blog posts, publications, and GitHub repositories.
   - `event`: Talks, podcast appearances, conference presentations, and interviews.
   - `interest`: Domain topics (Agentic AI, Social Engineering, LLMs, Cybersecurity, Go-To-Market, etc.).
   - `relationship`: Co-founders, colleagues, and associates mined from roster patterns and text.
-  - `other`: Visual assets (profile headshot photos), corporate brand assets (`company_logo`, `company_footer`, `company_color`), legal registration (`commercial_register`, `vat_id`), statements/quotes, public comments, academic history, and based-in locations.
+  - `other`: Visual assets (profile headshot photos), corporate brand assets (`company_logo`, `company_footer`, `company_color`), legal registration (`commercial_register`, `vat_id`), public Reddit discussions, statements/quotes, public comments, academic history, and based-in locations.
 - **`adapters/dns_mx.py`:** Authoritative corporate email infrastructure detection via DNS-over-HTTPS (DoH). Identifies Google Workspace, Microsoft 365, Proton, and security gateways to eliminate "Wrong Facts" deductions.
 - **`adapters/github.py`:** Unauthenticated public GitHub adapter using octosuite. Extracts avatar image URL (`profile_picture`), bio, company, location, website, email, X profile, public repos, language/topics, and public issue/PR comments and commits.
 - **`adapters/hackernews.py`:** Keyless Algolia Hacker News search for stories and community comments.
@@ -98,7 +98,7 @@ python -m pytest tests/test_extract.py tests/test_github.py tests/test_hackernew
 ## 5. Live Verification Baseline
 
 All three practice scenario co-founders are populated in the hosted Supabase database (`source_run = 'recon'`):
-- **Julius Muth (`julius`):** 169 facts (Stanford education, €7M raise press, podcasts, co-CEO roles, Hacker News discussions, brand assets, colleague senders, target email candidate).
+- **Julius Muth (`julius`):** 191 facts (Stanford education, €7M raise press, podcasts, co-CEO roles, Hacker News discussions, Instagram profiles & posts, company social handles, brand assets, legal commercial register HRB, colleague senders, target email candidate).
 - **Robert Seilbeck (`robert`):** 86 facts (CTO roles, LinkedIn profile, ACM research paper, Munich location, colleague senders, target email candidate).
 - **Tom Müller (`tom`):** 142 facts (Product co-CEO roles, arXiv research paper & co-authors, YouTube appearances, Hacker News discussions, colleague senders).
-- **Total Database Footprint:** 48 distinct sources and 397 facts.
+- **Total Database Footprint:** 60 distinct sources and 419 facts.

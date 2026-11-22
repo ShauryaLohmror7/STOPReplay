@@ -157,6 +157,31 @@ def run_recon(storage: Storage, subject: str, seed_text: str, *, source_run: str
             "desc": "colleagues & leadership roster"
         })
 
+    # Channel 6: Community Discussions & Technical Forums (Reddit, Dev.to, StackOverflow)
+    if analysis.name or analysis.org:
+        forum_topic = f'"{analysis.name}"' if analysis.name else f'"{analysis.org}"'
+        queries.append({
+            "query": f'{forum_topic} (site:reddit.com OR site:stackoverflow.com OR site:dev.to)',
+            "must_include": analysis.must_include,
+            "desc": "community & technical forums (Reddit/Dev)"
+        })
+
+    # Channel 7: Personal Public Social Profiles (Instagram, Facebook, Threads)
+    if analysis.name and analysis.org:
+        queries.append({
+            "query": f'"{analysis.name}" "{analysis.org}" (site:instagram.com OR site:facebook.com OR site:threads.net)',
+            "must_include": analysis.must_include,
+            "desc": "personal public social media (Instagram/Facebook)"
+        })
+
+    # Channel 8: Corporate Social Footprint (Company Facebook, Instagram, LinkedIn, X)
+    if analysis.org:
+        queries.append({
+            "query": f'"{analysis.org}" (site:facebook.com OR site:instagram.com OR site:linkedin.com/company OR site:x.com)',
+            "must_include": analysis.must_include,
+            "desc": "company social channels"
+        })
+
     firecrawl = FirecrawlAdapter(search_limit=limit)
 
     for q_spec in queries:
