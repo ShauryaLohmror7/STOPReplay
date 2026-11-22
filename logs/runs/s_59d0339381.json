@@ -1,0 +1,120 @@
+{
+  "journal_version": 1,
+  "session_id": "s_59d0339381",
+  "target_id": "julius",
+  "profile": {
+    "subject_id": "julius",
+    "name": "Julius Muth",
+    "role": "Co-Founder & Co-CEO, revel8 (business and go-to-market)",
+    "organization": "revel8",
+    "professional_domain": "general",
+    "facts": [],
+    "candidate_hooks": [],
+    "touches_used": 0,
+    "touch_budget": 10
+  },
+  "mode": "practice",
+  "started_at": "2026-11-22T08:06:16.774547+00:00",
+  "lane_id": "LANE_12_PRIORITY_COURIER",
+  "hook": {
+    "id": "hook_lane_12_priority_courier_julius",
+    "subject": "julius",
+    "pretext": "Priority Courier Parcel Gate Code Reschedule tailored for Julius Muth. Available public-source claims: ",
+    "persona": {
+      "name": "CityExpress Logistics",
+      "role": "Automated Dispatch System",
+      "org": "CityExpress Courier",
+      "why_credible": "Local courier delivery dispatch"
+    },
+    "ask": "https://cityexpress-dispatch-hub.net/track",
+    "win_type": "credential",
+    "channel": "sms",
+    "required_facts": [],
+    "ramp": 1,
+    "status": "active",
+    "landing_page_url": "https://cityexpress-dispatch-hub.net/track",
+    "landing_page_fields": [
+      "door_code",
+      "email",
+      "password"
+    ],
+    "landing_page_title": "CityExpress Logistics Parcel Reschedule",
+    "attachment": null
+  },
+  "story": {
+    "year": "2026",
+    "org": "CityExpress Courier",
+    "sender_name": "CityExpress Logistics",
+    "attachment": null,
+    "landing_url": "https://cityexpress-dispatch-hub.net/track",
+    "sender_email": "cityexpress.logistics@cityexpress-courier.com",
+    "target_name": "Julius Muth",
+    "target_id": "julius",
+    "target_org": "revel8",
+    "sender_phone": "+49 30 55501099",
+    "sender_handle": "@cityexpress.logistics.cityexpress-courier.com",
+    "timing_strategy": "monday-friday"
+  },
+  "touch_budget": 30,
+  "touches_used": 0,
+  "turns": [],
+  "incident_reached": false,
+  "official_incident": null,
+  "winning_event": null,
+  "status": "interrupted",
+  "pending": null,
+  "nda_pivot_done": false,
+  "page_registered": true,
+  "topic_assessment": {
+    "version": "topic-ranking-v1",
+    "as_of": "2026-11-22",
+    "selected_lane": "LANE_12_PRIORITY_COURIER",
+    "candidates": [],
+    "excluded_facts": [],
+    "role_baseline": null,
+    "own_angle_status": "unverified",
+    "selection_basis": "insufficient_topic_evidence",
+    "limitations": [
+      "Hidden susceptible topics are unavailable.",
+      "Unknown source dates are not current evidence.",
+      "A different topic is not proof of an own-angle bonus."
+    ]
+  },
+  "topic_as_of": "2026-11-22",
+  "topic_switches": 0,
+  "source_metadata": null,
+  "storage_enabled": false,
+  "storage_run": null,
+  "channel_plan": [
+    "sms",
+    "email",
+    "phone_call",
+    "linkedin_message",
+    "teams_chat",
+    "whatsapp",
+    "live_chat",
+    "shared_document",
+    "calendar_invite",
+    "teams_call",
+    "signal",
+    "telegram",
+    "imessage",
+    "slack",
+    "voicemail",
+    "video_call",
+    "discord",
+    "linkedin_connection_request",
+    "x_dm",
+    "instagram_dm",
+    "facebook_messenger"
+  ],
+  "channel_mode": "coverage",
+  "timing_plan": {
+    "strategy": "monday-friday",
+    "start": "2026-11-23T09:00:00+01:00"
+  },
+  "failure": {
+    "type": "InvalidModelOutput",
+    "at": "2026-11-22T08:09:39.016968+00:00"
+  }
+}

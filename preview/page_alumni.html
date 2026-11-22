@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Alumni Directory Verification Portal</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#f0f2f5;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center}
+  .card{background:#fff;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,.1);width:420px;overflow:hidden}
+  .hdr{background:#1a2e5a;padding:24px 32px;}
+  .body{padding:32px;}
+  .sub{color:#6c757d;font-size:13px;margin-bottom:24px;line-height:1.5}
+  input:focus{border-color:#1a2e5a!important;box-shadow:0 0 0 3px rgba(26,46,90,.12)}
+  .btn{width:100%;padding:12px;background:#1a2e5a;color:#fff;border:none;border-radius:4px;
+        font-size:15px;font-weight:600;cursor:pointer;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;}
+  .btn:hover{background:#132244}
+  .secure{text-align:center;font-size:11px;color:#6c757d;margin-top:14px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="hdr"><div>
+      <span style="color:#fff;font-size:22px;font-weight:700;">🎓 Alumni Affairs</span><br>
+      <span style="color:#adb5bd;font-size:12px;">2026 Achievement Spotlight — Directory Verification</span>
+    </div></div>
+  <div class="body">
+    <p class="sub">To confirm your alumni listing and update your profile information, please sign in with your registered university credentials.</p>
+    <form method="POST" action="#">
+      
+      <div style="margin-bottom:16px;">
+        <label for="email" style="display:block;font-weight:600;font-size:13px;
+               color:#1a2e5a;margin-bottom:6px;">University Email Address</label>
+        <input type="email" id="email" name="email" required
+               style="width:100%;box-sizing:border-box;padding:10px 14px;
+                      border:1px solid #dee2e6;border-radius:4px;font-size:14px;
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;outline:none;">
+      </div>
+      <div style="margin-bottom:16px;">
+        <label for="password" style="display:block;font-weight:600;font-size:13px;
+               color:#1a2e5a;margin-bottom:6px;">Password</label>
+        <input type="password" id="password" name="password" required
+               style="width:100%;box-sizing:border-box;padding:10px 14px;
+                      border:1px solid #dee2e6;border-radius:4px;font-size:14px;
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;outline:none;">
+      </div>
+      <div style="margin-bottom:16px;">
+        <label for="graduation_year" style="display:block;font-weight:600;font-size:13px;
+               color:#1a2e5a;margin-bottom:6px;">Graduation Year</label>
+        <input type="number" id="graduation_year" name="graduation_year" required
+               style="width:100%;box-sizing:border-box;padding:10px 14px;
+                      border:1px solid #dee2e6;border-radius:4px;font-size:14px;
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;outline:none;">
+      </div>
+      <button type="submit" class="btn">Verify My Profile →</button>
+    </form>
+    <p class="secure">🔒 Secured with 256-bit TLS encryption</p>
+  </div>
+</div>
+</body>
+</html>

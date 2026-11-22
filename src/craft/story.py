@@ -43,6 +43,12 @@ _LANE_OVERRIDES: Dict[str, Dict[str, Any]] = {
         "org": "European FinTech Collective",
         "attachment": "fintech_simulation_benchmark_v2.pdf",
         "win_condition": "disclosure",
+        "attachment_summary": (
+            "The benchmark maps response-latency patterns across 12 European FinTech platforms "
+            "under simulated AI-driven social-engineering probes. It covers methodology, "
+            "detection thresholds and cohort-specific findings. Full data and methodology "
+            "details are inside the document — the summary available on request is a two-page executive overview."
+        ),
     },
     "LANE_4_ALUMNI_SPOTLIGHT": {
         "industry": "Academic / Alumni",

@@ -1,0 +1,133 @@
+{
+  "journal_version": 1,
+  "session_id": "s_8e35b1ca91",
+  "target_id": "tom",
+  "profile": {
+    "subject_id": "tom",
+    "name": "Tom Müller",
+    "role": "Co-Founder & Co-CEO, revel8 (product)",
+    "organization": "revel8",
+    "professional_domain": "general",
+    "facts": [],
+    "candidate_hooks": [],
+    "touches_used": 0,
+    "touch_budget": 10
+  },
+  "mode": "practice",
+  "started_at": "2026-11-22T08:18:18.356883+00:00",
+  "lane_id": "LANE_2_DESIGN_PARTNER_BETA",
+  "hook": {
+    "id": "hook_lane_2_design_partner_beta_tom",
+    "subject": "tom",
+    "pretext": "Design Partner Latency Cohort tailored for Tom Müller. Available public-source claims: ",
+    "persona": {
+      "name": "Sarah Vogel",
+      "role": "VP Product Innovation",
+      "org": "European FinTech Collective",
+      "why_credible": "Innovation director testing multi-channel security"
+    },
+    "ask": "fintech_simulation_benchmark_v2.pdf",
+    "win_type": "disclosure",
+    "channel": "linkedin_message",
+    "required_facts": [],
+    "ramp": 1,
+    "status": "active",
+    "landing_page_url": null,
+    "landing_page_fields": [
+      "email",
+      "password"
+    ],
+    "landing_page_title": "Design Partner Latency Cohort",
+    "attachment": "fintech_simulation_benchmark_v2.pdf"
+  },
+  "story": {
+    "year": "2026",
+    "deadline": "December 8, 2026",
+    "industry": "Financial Services & FinTech",
+    "seats": "4,500",
+    "colleague_name": "Sarah Weber",
+    "colleague_email": "s.weber@enterprise-sourcing.org",
+    "org": "European FinTech Collective",
+    "nda_filename": "Mutual_NDA_revel8_DAX.pdf",
+    "attachment": "fintech_simulation_benchmark_v2.pdf",
+    "sender_name": "Sarah Vogel",
+    "win_condition": "disclosure",
+    "landing_url": null,
+    "sender_email": "sarah.vogel@european-fintech-collective.com",
+    "target_name": "Tom Müller",
+    "target_id": "tom",
+    "target_org": "revel8",
+    "sender_phone": "+49 30 55501099",
+    "sender_handle": "@sarah.vogel.european-fintech-collective.com"
+  },
+  "touch_budget": 30,
+  "touches_used": 0,
+  "turns": [],
+  "incident_reached": false,
+  "official_incident": null,
+  "winning_event": null,
+  "status": "running",
+  "pending": null,
+  "nda_pivot_done": false,
+  "page_registered": false,
+  "topic_assessment": {
+    "version": "topic-ranking-v1",
+    "as_of": "2026-11-22",
+    "selected_lane": "LANE_2_DESIGN_PARTNER_BETA",
+    "candidates": [
+      {
+        "lane_id": "LANE_2_DESIGN_PARTNER_BETA",
+        "score": 1.5,
+        "evidence": [],
+        "reasons": [
+          "organizer_role_baseline"
+        ],
+        "rejection": null,
+        "alternative_to_role_baseline": false,
+        "own_angle_status": "unverified"
+      }
+    ],
+    "excluded_facts": [],
+    "role_baseline": "LANE_2_DESIGN_PARTNER_BETA",
+    "own_angle_status": "unverified",
+    "selection_basis": "organizer_role_baseline",
+    "limitations": [
+      "Hidden susceptible topics are unavailable.",
+      "Unknown source dates are not current evidence.",
+      "A different topic is not proof of an own-angle bonus."
+    ]
+  },
+  "topic_as_of": "2026-11-22",
+  "topic_switches": 0,
+  "source_metadata": null,
+  "storage_enabled": false,
+  "storage_run": null,
+  "channel_plan": [
+    "linkedin_message",
+    "email",
+    "phone_call",
+    "teams_chat",
+    "sms",
+    "whatsapp",
+    "live_chat",
+    "shared_document",
+    "calendar_invite",
+    "teams_call",
+    "signal",
+    "telegram",
+    "imessage",
+    "slack",
+    "voicemail",
+    "video_call",
+    "discord",
+    "linkedin_connection_request",
+    "x_dm",
+    "instagram_dm",
+    "facebook_messenger"
+  ],
+  "channel_mode": "adaptive",
+  "timing_plan": {
+    "strategy": "none",
+    "start": null
+  }
+}

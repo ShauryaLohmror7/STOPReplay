@@ -1,0 +1,20 @@
+{
+  "session": {
+    "session_id": "s_7d1a34d5ac",
+    "scenario_id": "practice",
+    "touch_budget": 30,
+    "touches_used": 2,
+    "status": "active",
+    "story_time": "2026-11-27T08:01:00.000Z"
+  },
+  "events": [
+    {
+      "id": "e_6674",
+      "type": "reply",
+      "body": "Hi Alexej, what is this about specifically? Please state the topic and what you need from me. Robert",
+      "channel": "email",
+      "subject": "Re: A brief introduction",
+      "in_reply_to": "m_19f51ea1a5"
+    }
+  ]
+}
