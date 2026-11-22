@@ -47,17 +47,46 @@ class MessageDrafter:
             }
 
         # ── Question / follow-up reply ────────────────────────────────────────
-        if context and ("question" in context.lower() or "?" in context):
+        if context and ("question" in context.lower() or "?" in context or "turn 2" in (context or "").lower()):
+            deadline = story.get("deadline", "December 8, 2026")
+            seats = story.get("seats", "4,500")
+            industry = story.get("industry", "Automotive & Industrial Logistics")
+            colleague = story.get("colleague_email", "s.weber@enterprise-sourcing.org")
+            sender = hook.persona.name
+            org = hook.persona.org
+
+            # Bespoke conversational Q&A answer body
+            qa_body = f"""<p>Dear {profile.name},</p>
+<p>Thank you for the quick response! To address your questions directly so we can proceed with the evaluation:</p>
+<table cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #dee2e6;border-radius:4px;margin:16px 0;">
+  <tr style="background:#f8f9fa;">
+    <td style="padding:10px 14px;font-weight:600;color:#1a2e5a;width:35%;border-bottom:1px solid #dee2e6;">1. Main Contact</td>
+    <td style="padding:10px 14px;border-bottom:1px solid #dee2e6;"><strong>{sender}</strong> (Head of Sourcing, +49 89 2441-3800) is your primary commercial lead. Ms. Sarah Weber (<a href="mailto:{colleague}">{colleague}</a>) leads vendor technical architecture.</td>
+  </tr>
+  <tr>
+    <td style="padding:10px 14px;font-weight:600;color:#1a2e5a;border-bottom:1px solid #dee2e6;">2. Scope & Rollout</td>
+    <td style="padding:10px 14px;border-bottom:1px solid #dee2e6;">Initial pilot is <strong>{seats} seats</strong> across our EU logistics division, with scope covering <strong>email, voice, and deepfake simulation</strong>. Successful pilot transitions to full group-wide rollout in Q2 2027.</td>
+  </tr>
+  <tr style="background:#f8f9fa;">
+    <td style="padding:10px 14px;font-weight:600;color:#1a2e5a;">3. Post-Dec 8 Process</td>
+    <td style="padding:10px 14px;">Shortlist demonstrations take place Dec 15–18; sandboxed technical PoC runs through January 2027, with final vendor award by February 1.</td>
+  </tr>
+</table>
+<p>Does this clarify the deployment parameters? If so, please review Section 3 of the attached evaluation matrix (<em>{attachment_file or 'DAX_Security_Vendor_RFP_Matrix_v1.pdf'}</em>) so we can schedule the technical alignment call.</p>
+<p>Best regards,<br>
+<strong>{sender}</strong><br>
+<span style="color:#6c757d;font-size:13px;">Head of Enterprise Sourcing | {org}</span></p>"""
+
+            from src.craft.email_templates import _wrap
+            logo_line = f"""<span style="color:#ffffff;font-size:20px;font-weight:700;letter-spacing:1px;">DAX <span style="color:#f4c430;">Sourcing</span> Group</span><span style="float:right;color:#adb5bd;font-size:11px;line-height:36px;">Enterprise Security Procurement</span>"""
+            footer = f"DAX Sourcing Group · Direct inquiries: {colleague}"
+            html_qa = _wrap(qa_body, logo_line, footer)
+
             if channel == "email":
-                deadline = story.get("deadline", "December 8, 2026")
-                seats = story.get("seats", "4,500")
-                industry = story.get("industry", "Automotive & Industrial Logistics")
-                colleague = story.get("colleague_email", "s.weber@enterprise-sourcing.org")
-                html = build_html_email(lane_id or "LANE_1_ENTERPRISE_RFP", hook, profile, story)
                 return {
-                    "subject": f"Re: {story.get('org', 'DAX Sourcing Group')} RFP — Your Questions Answered",
-                    "body": html,
-                    "html_body": html,
+                    "subject": f"Re: {story.get('org', 'DAX Sourcing Group')} RFP — Answers to Your Questions",
+                    "body": html_qa,
+                    "html_body": html_qa,
                     "attachment": attachment_file,
                 }
 
@@ -167,12 +196,16 @@ Output JSON with exact fields:
                 schema=schema,
                 temperature=0.7
             )
-            # If LLM returned plain text body, enrich with HTML template
+            # If LLM returned plain text body, wrap its actual text inside our HTML template shell
             body = result.get("body", "")
             if channel == "email" and not body.strip().startswith("<!"):
-                html = build_html_email(lane_id or "LANE_1_ENTERPRISE_RFP", hook, profile, story)
+                from src.craft.email_templates import _wrap
+                formatted_paragraphs = "".join([f"<p>{p.strip()}</p>" for p in body.split("\n\n") if p.strip()])
+                logo_line = f"""<span style="color:#ffffff;font-size:20px;font-weight:700;">{hook.persona.org}</span>"""
+                footer = f"{hook.persona.org} · Confidential"
+                html = _wrap(formatted_paragraphs, logo_line, footer)
                 result["html_body"] = html
-                result["body"] = html  # send HTML to revel8
+                result["body"] = html  # send nicely wrapped HTML with LLM's text
             return result
         except Exception:
             return self._deterministic_draft(hook, profile, channel, context=context,
