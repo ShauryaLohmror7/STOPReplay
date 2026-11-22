@@ -4,13 +4,25 @@ Team STOP’s project for the revel8 challenge at the START Munich Hackathon. We
 
 Our first milestone is **offline replay of a recorded session**. The later live agent operates inside revel8’s AI-twin simulator. The planned UI lets a viewer move through time and see the conversation, available evidence, changes in findings, and observed information disclosures at each turn.
 
-This README defines ownership and the intended handoffs. The checkout now includes collection adapters, Postgres storage/migrations, an evidence analyzer, a simulator client/controller, HTML templates, recorded reporting, and a resumable stored-event analysis coordinator. Live execution writes durable local journals and, when storage is configured, imports each completed contact into the existing source/event tables. Analysis is a separate explicit replay step. The interactive UI is not implemented.
+This README defines ownership and the intended handoffs. The checkout now includes collection adapters, Postgres storage/migrations, an evidence analyzer, a simulator client/controller, HTML templates, recorded reporting, and a resumable stored-event analysis coordinator. Live execution writes durable local journals and, when storage is configured, imports each completed contact into the existing source/event tables. Analysis is a separate explicit replay step. The frontend provides an offline replay demo using a fixed snapshot of a recorded practice session.
 
 See the [score-readiness plan](docs/score-readiness-plan.md), [current architecture](docs/architecture.md), and [five-minute demo outline](docs/pitch-and-demo.md). The owner sections below retain the team plan; the architecture page distinguishes implemented connections from remaining work.
 
 The [validation and brief rubric reassessment](docs/readiness-validation.md) records remaining live-outcome gaps. The latest backend pass has **329 passing tests plus 119 passing subtests** against disposable Postgres, with no skips. A Robert practice session now records one email and one two-utterance call; it ended in rejection, with no observed objective. This verifies transport and recovery, not effectiveness.
 
 The [channel, timing, and evidence audit](docs/channel-timing-evidence-audit.md) covers the organizer's scoring clarification and the newer multi-channel controller, resumable ten-utterance calls, source-grounded draft review, and optional simulated Monday-to-Friday follow-ups. New runs discover API channels; `--channel-mode coverage` widens contact coverage, while the default `adaptive` mode answers in-channel before switching. Add `--timing monday-friday --story-start '2026-11-23T09:00:00+01:00'` to use that virtual schedule; no real waiting is needed. Resume uses the saved plan.
+
+### Run the frontend demo
+
+From the repository root with Node.js 22.12 or later:
+
+```sh
+cd frontend
+npm ci
+npm run dev
+```
+
+Open [Intro](http://127.0.0.1:5190/), [Architecture](http://127.0.0.1:5190/?view=architecture), or [Replay](http://127.0.0.1:5190/?view=replay). The Replay demo displays a summarized journal, the scenario catalog, and sourced founder profiles. It plays from local frontend data. Run `npm test` and `npm run build` from `frontend/` to check it.
 
 ### Verify and rehearse safely
 
