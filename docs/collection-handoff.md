@@ -97,7 +97,7 @@ python -m pytest tests/test_extract.py tests/test_github.py tests/test_hackernew
 ## 5. Live Verification Baseline
 
 All three practice scenario co-founders are populated in the hosted Supabase database (`source_run = 'recon'`):
-- **Julius Muth (`julius`):** 57 facts (Stanford education, €7M raise announcement, podcasts, co-CEO roles).
-- **Robert Seilbeck (`robert`):** 86 facts (CTO roles, LinkedIn profile, ACM paper, Munich location, colleague senders).
-- **Tom Müller (`tom`):** 142 facts (Product co-CEO roles, arXiv paper, co-authors, YouTube talks, Hacker News discussions).
-- **Total Registered Sources:** 46 distinct provenance-preserved sources.
+- **Julius Muth (`julius`):** 169 facts (Stanford education, €7M raise press, podcasts, co-CEO roles, Hacker News discussions, brand assets, colleague senders, target email candidate).
+- **Robert Seilbeck (`robert`):** 86 facts (CTO roles, LinkedIn profile, ACM research paper, Munich location, colleague senders, target email candidate).
+- **Tom Müller (`tom`):** 142 facts (Product co-CEO roles, arXiv research paper & co-authors, YouTube appearances, Hacker News discussions, colleague senders).
+- **Total Database Footprint:** 48 distinct sources and 397 facts.
