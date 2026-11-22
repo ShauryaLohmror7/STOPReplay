@@ -54,11 +54,12 @@ def run_conversation(controller, profile, hook, story, lane, state, path):
             call["utterance"] = {
                 "say": draft["body"], "sent_at": sent_at,
                 "attachments": [{"filename": draft["attachment"]}] if draft.get("attachment") else None,
-                "idempotency_key": str(uuid.uuid4()), "grounding": draft.get("grounding")}
+                "idempotency_key": str(uuid.uuid4()), "grounding": draft.get("grounding"),
+                "end_after_send": draft.get("end_conversation_after_send") is True}
             write_snapshot(path, state)
         utterance = call["utterance"]
         controller.progress(f"Sending call utterance {len(dialogue) + 1}/10; waiting for simulator.")
-        response = api.send_conversation_turn(call["id"], **{k: v for k, v in utterance.items() if k != "grounding"})
+        response = api.send_conversation_turn(call["id"], **{k: v for k, v in utterance.items() if k not in {"grounding", "end_after_send"}})
         if type(response.get("turns_used")) is not int or response["turns_used"] != len(dialogue) + 1:
             raise ValueError("Unexpected conversation turn count; reconcile saved intent.")
         if type(response.get("ended")) is not bool:
@@ -70,6 +71,8 @@ def run_conversation(controller, profile, hook, story, lane, state, path):
         call.update(utterance=None, ended=response["ended"])
         if evidence["verified_objective"]:
             call["stop_reason"] = "objective_evidence"
+        elif utterance.get("end_after_send"):
+            call["stop_reason"] = "agent_closed"
         write_snapshot(path, state)
         if call.get("stop_reason"):
             break

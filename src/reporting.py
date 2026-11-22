@@ -74,6 +74,7 @@ def build_timeline(session_id: str, raw: Optional[Dict[str, Any]] = None) -> Dic
             "sent_at": turn.get("sent_at"),
             "story_time_end": turn.get("story_time_end"),
             "conversation_id": turn.get("conversation_id"),
+            "conversation_stop": turn.get("conversation_stop"),
             "dialogue": turn.get("dialogue", []),
             "opening": turn.get("opening"),
             "grounding": turn.get("grounding"),

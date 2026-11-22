@@ -119,6 +119,20 @@ def test_ten_call_utterances_cost_one_touch_and_keep_whole_transcript(tmp_path):
     assert len(build_timeline('s_call', raw)['timeline'][0]['dialogue']) == 10
 
 
+def test_agent_closing_call_is_recorded_without_sending_local_control_fields():
+    class ClosingDrafter(FixedDrafter):
+        def draft_contact(self, *args, **kwargs):
+            return {**super().draft_contact(*args, **kwargs), 'end_conversation_after_send': True}
+    api = CallAPI()
+    result = RunController(api, drafter=ClosingDrafter()).execute_run(get_target_profile('julius'))
+    assert api.counts == {'start': 1, 'turn': 1, 'end': 1}
+    assert result['history'][0]['conversation_stop'] == 'agent_closed'
+    assert result['history'][0]['dialogue'][0]['end_after_send'] is True
+    assert not result['incident_reached']
+    payload = next(payload for kind, payload, key in api.calls if kind == 'turn')
+    assert 'end_after_send' not in payload and 'grounding' not in payload
+
+
 @pytest.mark.parametrize('loss', ['start', 'turn', 'end'])
 def test_call_resume_reuses_saved_key_body_and_clock(tmp_path, loss):
     api = CallAPI(loss=loss, objective_at=1)

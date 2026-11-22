@@ -42,10 +42,17 @@ contact, persists its intent, and sends only through the simulator client.
 It discovers available channels and supports both message and conversation endpoints.
 Calls preserve up to ten utterances while spending one contact. Optional virtual
 time is supplied through `sent_at`, with actual receipt timestamps kept separately.
-Draft generation records fact citations; a second model pass checks source excerpts,
+When eligible research exists, draft generation records fact citations; a second model pass checks source excerpts,
 target attribution, scenario consistency and temporal claims before sending. A
 rejected draft gets one regeneration, then stops. This is a risk reduction, not
 proof of factual accuracy. See the [channel/timing/evidence audit](channel-timing-evidence-audit.md).
+With no eligible facts, the live model selects a constrained intent and tone;
+fixed prose uses declared identity/artifacts and acknowledges unknown details.
+It cannot add arbitrary target claims. This is an explicit limited-evidence path,
+not a fallback after a provider error. Repeating identical call prose closes the
+call. Draft/review diagnostics distinguish generation from delivery and retain
+stage durations and rejected excerpts. Practice-only contact limits allow a
+bounded smoke test and subsequent same-session resume.
 
 **Recovery.** Every pending request has a durable body and idempotency key. Every
 completed contact saves original events, message identity, sender/channel/subject,
@@ -75,10 +82,24 @@ recovery after a lost response; source filtering; draft validation; recorded rep
 source relevance/freshness ranking; all 14 template structures; actual database
 journal import and analysis handoff; immutable history and analysis/commit recovery.
 
+**Live practice evidence:** Robert session `s_7d1a34d5ac` resumed after draft failures,
+sent an email, recovered a pending call, and recorded two spoken utterances and
+replies. The simulator confirmed two practice touches and the Friday story clock.
+The target rejected the generic request; no objective was observed. Importing this
+recording twice into disposable Postgres preserved the exact originals without
+duplicates. Real-model analysis of this recording remains pending approval.
+
 **Not yet demonstrated:** real scoring effectiveness, own-angle qualification,
-live recovery, public-source collection quality, actual model quality after these
+recovery after an uncertain live delivery, public-source collection quality, effective model responses after these
 changes, and rendering in the organizer's environment. Browser visual review of
 all 22 template variants at 640px and 360px is complete; shared overflow and contrast
 defects were fixed. An interactive UI remains future work. The default live loop does not
 invoke the evidence analyzer after each reaction. See the validation report for
 the test counts and remaining rubric risks.
+
+**Additive handoff for Shaurya/Gary:** journal `draft_diagnostics` contains generation
+and review records, never delivery receipts; `status=paused` with
+`stop_reason=practice_contact_limit` is resumable. Contact `conversation_stop` and
+utterance `end_after_send` preserve a local call-close decision, not a simulator
+outcome. The latter is never sent as an API field. No Event/Finding schema or SQL
+migration changed; teammate review is not claimed.

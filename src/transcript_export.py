@@ -101,6 +101,11 @@ def render_transcript(raw):
         body += '<details><summary>Saved pending request and acknowledged responses</summary>' + _json(pending) + '</details></section>'
     if raw.get('failure'):
         body += '<section><h2>Recorded interruption</h2>' + _json(raw['failure']) + '</section>'
+    if raw.get('draft_diagnostics'):
+        body += '<section><h2>Draft and review diagnostics</h2><p>Generation records are not delivery receipts. See completed contacts above for what was sent.</p>'
+        for record in raw['draft_diagnostics']:
+            body += '<details><summary>' + _text(record.get('stage')) + ' · contact ' + _text(record.get('contact_number')) + '</summary>' + _json(record) + '</details>'
+        body += '</section>'
     return ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
             '<meta name="viewport" content="width=device-width,initial-scale=1">'
             '<meta http-equiv="Content-Security-Policy" content="default-src &#39;none&#39;; style-src &#39;unsafe-inline&#39;; form-action &#39;none&#39;; base-uri &#39;none&#39;">'

@@ -8,7 +8,7 @@ This README defines ownership and the intended handoffs. The checkout now includ
 
 See the [score-readiness plan](docs/score-readiness-plan.md), [current architecture](docs/architecture.md), and [five-minute demo outline](docs/pitch-and-demo.md). The owner sections below retain the team plan; the architecture page distinguishes implemented connections from remaining work.
 
-The [validation and brief rubric reassessment](docs/readiness-validation.md) records remaining live-outcome gaps. The latest backend pass has **316 passing tests plus 119 passing subtests** against disposable Postgres, with no skips.
+The [validation and brief rubric reassessment](docs/readiness-validation.md) records remaining live-outcome gaps. The latest backend pass has **329 passing tests plus 119 passing subtests** against disposable Postgres, with no skips. A Robert practice session now records one email and one two-utterance call; it ended in rejection, with no observed objective. This verifies transport and recovery, not effectiveness.
 
 The [channel, timing, and evidence audit](docs/channel-timing-evidence-audit.md) covers the organizer's scoring clarification and the newer multi-channel controller, resumable ten-utterance calls, source-grounded draft review, and optional simulated Monday-to-Friday follow-ups. New runs discover API channels; `--channel-mode coverage` widens contact coverage, while the default `adaptive` mode answers in-channel before switching. Add `--timing monday-friday --story-start '2026-11-23T09:00:00+01:00'` to use that virtual schedule; no real waiting is needed. Resume uses the saved plan.
 
@@ -33,6 +33,35 @@ Live execution fails explicitly when credentials/model configuration are missing
 The original database test fixture drops/recreates the public schema: use a disposable database only. The offline runner always disables those tests.
 
 The transcript export is a standalone, read-only HTML view, not the planned application UI. It includes all replies, call utterances, both clocks, source/review details and acknowledged portions of interrupted calls. Pending delivery is labeled uncertain. Recorded message HTML is escaped and cannot execute scripts or load resources.
+
+### Run the connected backend
+
+1. Configure the simulator and model credentials in the local `.env`, and set `DATABASE_URL` to the team's development database. Cem's migrations must already be applied. Do not run the destructive database test fixture against that database.
+2. Check research before opening a session:
+
+   ```sh
+   .venv/bin/python -B run_live_attack.py --target robert --scenario practice --research --preflight
+   ```
+
+   Inspect `public_claims` and the targeting evidence. A preflight with no eligible facts must be resolved at collection/source attribution; `--metadata-only` cannot demonstrate researched targeting. Preflight itself opens no simulator session, but research writes sources to storage.
+3. Run a bounded practice exchange with those stored facts:
+
+   ```sh
+   .venv/bin/python -B run_live_attack.py --target robert --scenario practice --use-storage --channel-mode adaptive --max-contacts 3
+   ```
+
+   `adaptive` answers an engaged recipient before widening channels. `coverage` is useful for transport checks. The practice limit is an absolute contact count, leaves an otherwise active run paused, and cannot be used in eval. Success evidence or an explicit rejection can stop earlier. Resume a paused/interrupted journal with `--resume logs/runs/SESSION_ID.json`; retain the same session and pending request.
+4. Export the transcript with the command above. Storage-enabled runs also import each completed contact as an original source and ordered event. For the separate analysis step, export the database/model environment variables, then run:
+
+   ```sh
+   .venv/bin/python -B -m src.replay --run journal:SESSION_ID --analysis practice-v1
+   ```
+
+   This explicitly sends recorded evidence to the configured model. Reusing the analysis ID resumes committed work; historical reads do not call the model. Local transcript export does not require this step.
+
+Without eligible research, live drafting now uses a model-selected, constrained intent rendered from declared identity/artifacts. It cannot invent target facts or technical findings, and provider failure still stops execution. This limited mode is useful for connection checks; it is not evidence of strong craft, targeting, or scoring performance. Draft/review diagnostics retain rejected text and per-stage durations separately from delivery receipts.
+
+The remaining product integration is the interactive UI: consume the recorded conversation and stored analysis timeline, synchronize panels to a selected turn, and show sources, uncertainty and connection/run status. The current HTML exporter is a usable transcript viewer, not that application.
 
 ### Run Anushree's offline analysis fixture
 
@@ -248,7 +277,7 @@ Keep three modes distinct: **replay** reads stored results, **reanalysis** creat
 
 Shaurya owns the **attack execution part**, as well as integration and the later UI. Anushree supplies source-backed analysis; Shaurya’s decision stage uses that state to choose the next simulator action, submit it through the documented API, consume the reaction, and continue the session. Cem preserves the action/event history, and Gary makes the thread understandable in reporting.
 
-The challenge uses **one revel8 API with a team key**, not real SMS/email/calling providers. The current client is `src/api/target_client.py`, based on the organizer documentation captured locally in `docs/api_docs_live.md`. The controller supports message contacts and simulated page registration. Conversation methods exist in the client but are not orchestrated by the controller; do not claim end-to-end call support.
+The challenge uses **one revel8 API with a team key**, not real SMS/email/calling providers. The current client is `src/api/target_client.py`, based on the organizer documentation captured locally in `docs/api_docs_live.md`. The controller supports message contacts, simulated page registration, and resumable text-based call conversations. One email and one phone call have been exercised in the Robert practice session; this does not establish every channel's live behavior.
 
 The following channel names come from the supplied challenge. The integration notes are our proposed responsibilities, not verified API field names:
 

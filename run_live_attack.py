@@ -39,7 +39,10 @@ def main(argv=None):
     parser.add_argument("--timing", choices=["none", "spaced", "monday-friday"], default="none",
                         help="Simulated story time; no real waiting between days")
     parser.add_argument("--story-start", help="ISO 8601 story date/time including UTC offset")
+    parser.add_argument("--max-contacts", type=int, help="Practice-only smoke-test limit; leaves session resumable")
     args = parser.parse_args(argv)
+    if args.max_contacts is not None and (args.scenario != "practice" or args.max_contacts < 1):
+        parser.error("--max-contacts requires practice mode and a positive count.")
     if args.mock and (args.scenario == "eval" or args.resume or args.research or args.use_storage):
         parser.error("Mock mode cannot score, resume live sessions, or access research/storage.")
     load_env_file()
@@ -145,7 +148,7 @@ def main(argv=None):
                                                      event_sink=persist if storage else None,
                                                      channel_mode=args.channel_mode,
                                                      timing=args.timing, story_start=args.story_start,
-                                                     progress=progress)
+                                                     progress=progress, max_contacts=args.max_contacts)
         result = controller.execute_run(profile, practice=args.scenario == "practice", resume_path=args.resume)
         print(json.dumps({k: v for k, v in result.items() if k != "history"}, indent=2))
         print("Local objective evidence only. Official incident and score remain unavailable.")

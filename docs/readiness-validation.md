@@ -1,12 +1,26 @@
 # Readiness reassessment — 22 November 2026
 
-Latest backend validation: **316 tests passed plus 119 subtests, no skips**, on a
+Latest backend validation: **329 tests passed plus 119 subtests, no skips**, on a
 fresh disposable Postgres 16 instance. The shared checkout now includes contact-bound
 event validation, bounded review feedback using fixed issue codes, durable rejection
 diagnostics, and a complete read-only HTML transcript exporter. The exporter preserves
 all replies and call turns, including acknowledged portions of a pending call; it is
 not the planned application UI. Inputs cannot execute HTML or load remote resources.
-No new simulator sessions or model calls were used for this validation.
+The automated suite uses synthetic model/simulator fixtures. A separate live
+practice check resumed Robert session `s_7d1a34d5ac`, recorded one email and one
+two-utterance phone call, and stopped on explicit rejection. API read-back confirmed
+2/30 practice touches and the simulated Friday timestamp. No objective was observed
+and no scoring session was used. Generic, repeated prose was the main live weakness.
+The revised no-research path now uses constrained composition; identical call scripts
+close instead of repeating. Its repeat guard has offline coverage, not a further live result.
+Per-stage draft/review diagnostics and a practice-only resumable contact cap are added.
+
+The exact two-contact recording was imported twice into disposable Postgres with no
+duplicates or payload changes. Real-model analysis of that recording was blocked by
+automatic approval review pending explicit consent to send it to the external model
+provider. Persistent development storage and the interactive UI remain unconfigured/
+unimplemented here. See the README's connected-backend steps; metadata-only testing
+does not establish research-backed targeting or own-angle performance.
 
 Subsequent channel/timing/evidence work is documented in the
 [focused audit](channel-timing-evidence-audit.md): 289 tests plus 119 subtests now

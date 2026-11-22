@@ -35,7 +35,7 @@ def _now():
 
 class RunController:
     def __init__(self, api_client=None, strategy_selector=None, drafter=None, classifier=None, event_sink=None,
-                 *, channel_mode="adaptive", timing="none", story_start=None, progress=None):
+                 *, channel_mode="adaptive", timing="none", story_start=None, progress=None, max_contacts=None):
         self.api = api_client or MockSimulatorClient()
         self.selector = strategy_selector or StrategySelector()
         self.drafter = drafter or MessageDrafter(
@@ -48,6 +48,9 @@ class RunController:
             raise ValueError("Unknown channel selection mode.")
         self.channel_mode = channel_mode
         self.timing = timing_plan(timing, story_start)
+        if max_contacts is not None and (type(max_contacts) is not int or max_contacts < 1):
+            raise ValueError("Practice contact limit must be a positive integer.")
+        self.max_contacts = max_contacts
 
     @staticmethod
     def _reply_requests_nda(reply):
@@ -65,6 +68,8 @@ class RunController:
     def _execute_run(self, profile, practice, *, resume_path=None):
         synthetic = isinstance(self.api, MockSimulatorClient)
         mode = "mock" if synthetic else "practice" if practice else "eval"
+        if not practice and self.max_contacts is not None:
+            raise ValueError("A contact limit is only supported in practice mode.")
         if not practice and synthetic:
             raise ValueError("Scoring execution cannot use a mock simulator.")
         if not practice and getattr(getattr(self.drafter, "adapter", None), "mock_mode", False):
@@ -167,6 +172,14 @@ class RunController:
         from copy import deepcopy
         state["status"] = "running"
         state.pop("failure", None)
+        if state.get("stop_reason") == "practice_contact_limit":
+            state.pop("stop_reason")
+        if isinstance(self.drafter, MessageDrafter):
+            def audit(record):
+                state.setdefault("draft_diagnostics", []).append({"at": _now(),
+                    "contact_number": state["touches_used"] + 1, **record})
+                write_snapshot(path, state)
+            self.drafter.audit = audit
         history = state["turns"]
         if "source_metadata" in state:
             self.selector.source_metadata = state["source_metadata"]
@@ -176,12 +189,20 @@ class RunController:
         hook_data["persona"] = Persona(**hook_data["persona"])
         hook = Hook(**hook_data)
         story, lane = state["story"], state["lane_id"]
+        # A proposed subject is not a new target fact or a claim of a discovery.
+        from src.initial_contact import DISCUSSION_TOPICS
+        if lane in DISCUSSION_TOPICS:
+            story.setdefault("discussion_topic", DISCUSSION_TOPICS[lane])
         # Old journals keep their saved two-channel behavior and untimed story.
         channels = state.get("channel_plan", ["email", "linkedin_message"])
         timing = state.get("timing_plan", {"strategy": "none", "start": None})
         sid = state["session_id"]
 
         while (state["pending"] or state["touches_used"] < state["touch_budget"]) and not state["incident_reached"]:
+            if not state["pending"] and self.max_contacts is not None and state["touches_used"] >= self.max_contacts:
+                rejected = history and self.classifier.classify(history[-1]["sent"], history[-1].get("reply")) == ResponseClassifier.REJECTION
+                state["stop_reason"] = "explicit_rejection" if rejected else "practice_contact_limit"
+                break
             pending = state["pending"]
             if pending is None:
                 reply = history[-1].get("reply") if history else None
@@ -320,6 +341,7 @@ class RunController:
                 "sent_at": request.get("story_time"),
                 "story_time_end": response.get("story_time_end", request.get("story_time")),
                 "conversation_id": response.get("conversation_id"),
+                "conversation_stop": response.get("conversation_stop"),
                 "dialogue": response.get("dialogue", []), "opening": response.get("opening"),
                 "grounding": pending.get("grounding"), "evidence_context": pending.get("evidence_context"),
                 "touches_used": touches, "reaction_before_send": pending["reaction"],
@@ -338,7 +360,7 @@ class RunController:
             if self.event_sink:
                 self.event_sink(state)
             self.committed_turns.append(Turn(sid, "analysis_v1", turn["turn"], message_id, turn["timestamp"]))
-        state["status"] = "completed"
+        state["status"] = "paused" if state.get("stop_reason") == "practice_contact_limit" else "completed"
         state.setdefault("stop_reason", "contact_budget")
         write_snapshot(path, state)
         self.progress(f"Session finished: {state['stop_reason']}; {state['touches_used']} contacts used.")
