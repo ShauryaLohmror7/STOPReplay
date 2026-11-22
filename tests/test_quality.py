@@ -3,7 +3,7 @@ import json
 import unittest
 from dataclasses import replace
 
-from stopreplay_analysis import Analyzer, AnalysisError, AnalysisRequest, Event
+from stopreplay_analysis import Analyzer, AnalysisError, AnalysisRequest, Event, ModelRefusal
 from stopreplay_analysis.evaluation import DATASET, ReferenceAdapter, evaluate, load_cases
 from stopreplay_analysis.prompting import INSTRUCTIONS, PROMPT_VERSION, PromptedAdapter, build_prompt
 
@@ -145,6 +145,41 @@ class QualityTests(unittest.TestCase):
             Analyzer(adapter).analyze_incremental(event, analysis_id="v1", previous_events=[replace(event, sequence=2)])
         self.assertEqual(caught.exception.code, "invalid_input")
         self.assertEqual(calls, [])
+
+    def test_shared_runtime_exceptions_map_to_distinct_codes(self):
+        # Contract agreed with the shared runtime: its timeout must also subclass the
+        # builtin TimeoutError to surface as `timeout`; other runtime failures become
+        # `provider_failure`; the runtime reuses ModelRefusal for refusals.
+        class LLMRuntimeError(Exception):
+            def __init__(self, code, message):
+                super().__init__(message)
+                self.code = code
+
+        class ModelTimeout(LLMRuntimeError, TimeoutError):
+            pass
+
+        class TimeoutWithoutBuiltin(LLMRuntimeError):
+            pass
+
+        class ProviderError(LLMRuntimeError):
+            pass
+
+        event = Event.from_dict(self.cases[0]["steps"][0]["event"])
+        cases = [(ModelRefusal("filtered detail"), "refusal"),
+                 (ModelTimeout("timeout", "90s budget detail"), "timeout"),
+                 (TimeoutWithoutBuiltin("timeout", "90s budget detail"), "provider_failure"),
+                 (ProviderError("provider", "502 upstream detail"), "provider_failure")]
+        for error, code in cases:
+            with self.subTest(error=type(error).__name__):
+                def complete(prompt, error=error):
+                    raise error
+
+                adapter = PromptedAdapter(complete, provider="openrouter", model_version="qwen-test")
+                with self.assertRaises(AnalysisError) as caught:
+                    Analyzer(adapter).analyze_incremental(event, analysis_id="v1")
+                self.assertEqual(caught.exception.code, code)
+                self.assertNotIn("detail", str(caught.exception))
+                self.assertIsNone(caught.exception.__cause__)
 
 
 if __name__ == "__main__":
