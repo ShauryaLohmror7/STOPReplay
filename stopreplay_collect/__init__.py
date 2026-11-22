@@ -23,6 +23,7 @@ from .models import (
     ResearchRequest,
 )
 from .pipeline import CollectionPipeline
+from .portal import generate_login_portal
 from .registry import AdapterRegistry
 
 __all__ = [
@@ -41,4 +42,5 @@ __all__ = [
     "HackerNewsAdapter",
     "ArxivAdapter",
     "YouTubeAdapter",
+    "generate_login_portal",
 ]
