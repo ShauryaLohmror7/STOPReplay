@@ -140,4 +140,4 @@ class DataBridge:
         a brand-tailored SSO login portal for POST /v1/sessions/{sid}/pages.
         """
         raw_facts = [f.to_dict() for f in profile.facts]
-        return generate_login_portal(raw_facts, target_name=profile.name)
+        return generate_login_portal(raw_facts, org_name=getattr(profile, "organization", "revel8") or "revel8", target_name=profile.name)

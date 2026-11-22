@@ -32,7 +32,8 @@ def test_data_bridge_and_portal_generation():
 
 def test_controller_with_bridge_execution():
     bridge = DataBridge()
-    controller = RunController(data_bridge=bridge)
+    mock_client = MockSimulatorClient()
+    controller = RunController(api_client=mock_client)
 
     # Execute attack on Robert (CTO)
     robert_profile = bridge.get_target_profile("robert")
