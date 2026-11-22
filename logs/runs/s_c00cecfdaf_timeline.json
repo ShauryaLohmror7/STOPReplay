@@ -1,0 +1,81 @@
+{
+  "session_id": "s_c00cecfdaf",
+  "target_id": "unknown",
+  "started_at": "2026-11-22T06:04:48.498565+00:00",
+  "total_turns": 5,
+  "objectives_hit": [],
+  "incident_reached": false,
+  "timeline": [
+    {
+      "turn_no": 1,
+      "timestamp": "turn_01",
+      "attacker": {
+        "channel": "email",
+        "subject": null,
+        "body": ""
+      },
+      "twin_reply": null,
+      "event_type": "reply",
+      "win_event": null,
+      "is_win": false,
+      "disclosures": []
+    },
+    {
+      "turn_no": 2,
+      "timestamp": "turn_02",
+      "attacker": {
+        "channel": "email",
+        "subject": null,
+        "body": ""
+      },
+      "twin_reply": null,
+      "event_type": "reply",
+      "win_event": null,
+      "is_win": false,
+      "disclosures": []
+    },
+    {
+      "turn_no": 3,
+      "timestamp": "turn_03",
+      "attacker": {
+        "channel": "email",
+        "subject": null,
+        "body": ""
+      },
+      "twin_reply": null,
+      "event_type": "reply",
+      "win_event": null,
+      "is_win": false,
+      "disclosures": []
+    },
+    {
+      "turn_no": 4,
+      "timestamp": "turn_04",
+      "attacker": {
+        "channel": "email",
+        "subject": null,
+        "body": ""
+      },
+      "twin_reply": null,
+      "event_type": "reply",
+      "win_event": null,
+      "is_win": false,
+      "disclosures": []
+    },
+    {
+      "turn_no": 5,
+      "timestamp": "turn_05",
+      "attacker": {
+        "channel": "email",
+        "subject": null,
+        "body": ""
+      },
+      "twin_reply": null,
+      "event_type": "reply",
+      "win_event": null,
+      "is_win": false,
+      "disclosures": []
+    }
+  ],
+  "disclosure_summary": []
+}

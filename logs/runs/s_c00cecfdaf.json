@@ -1,0 +1,44 @@
+{
+  "events": [
+    {
+      "id": "e_5509",
+      "type": "reply",
+      "body": "Hi Michael,\n\nThanks for reaching out, and good to hear the Bits & Pretzels talk landed. 4,500 seats in the EU on a 3-week timeline sounds interesting.\n\nA few quick questions so I can put the right people on it:\n- Which client is this for, or at least which industry?\n- What is the scope: awareness only, or simulations (email, voice, deepfake) as well?\n- What is the deadline for the response, and who decides on your side?\n\nI'll take a look at the matrix once I have this. Is Sarah the main contact for the process?\n\nBest,\nJulius",
+      "channel": "email",
+      "subject": "Re: Customized RFP Matrix for revel8 - Immediate Review Requested",
+      "in_reply_to": "m_917b6460b3"
+    },
+    {
+      "id": "e_5516",
+      "type": "reply",
+      "body": "Hi Michael,\n\nThanks, that helps. Automotive, 4,500 seats, awareness plus email/voice/deepfake simulations is right in our sweet spot.\n\nIt's Sunday, so I'll go through the matrix on Monday and loop in our solutions team for the response. One practical thing: is there a Q&A round or a template for the submission, or is a free-form proposal fine?\n\nBest,\nJulius",
+      "channel": "email",
+      "subject": "Re: DAX Security Vendor RFP - 4,500 Seats, 3-Week Timeline",
+      "in_reply_to": "m_8d250a8234"
+    },
+    {
+      "id": "e_5521",
+      "type": "reply",
+      "body": "Hi Michael,\n\nThanks. The dates confuse me though. You said two weeks from now for the response, and now it's a Q&A on 14 April and a deadline of 31 May. It's late November, so which is right? Please send me the exact Q&A date and the submission deadline.\n\nAlso, who is the end client, even just the company name under NDA? And can Sarah write to me directly so I know who sits where?\n\nBest, Julius",
+      "channel": "email",
+      "subject": "Re: Enterprise Procurement RFP Matrix - Next Steps",
+      "in_reply_to": "m_7c156fe6a5"
+    },
+    {
+      "id": "e_5526",
+      "type": "reply",
+      "body": "Hi Michael,\n\nThanks, but the dates still don't work for me. 14 April and 31 May are months away, and you earlier said the response was due two weeks from then, which would be early December. Which year are we talking about, and what is the real deadline?\n\nSarah's address is also different from the one in your first mail (now sarah.kraus@). Which one is right? I'd rather she wrote to me directly.\n\nI'm fine with an NDA. Send me the NDA and I'll sign it, then you can tell me the client's name. Until the dates are clear I'll hold off on the attachment.\n\nBest, Julius",
+      "channel": "email",
+      "subject": "Re: Clarification on RFP Timeline and Details",
+      "in_reply_to": "m_5d0736a052"
+    },
+    {
+      "id": "e_5531",
+      "type": "reply",
+      "body": "Hi Michael,\n\nSorry, but this makes it less clear for me. 2024 is long gone, and last time you said the client was an automotive manufacturer, not a financial institution. Which one is it?\n\nI won't open the matrix until I have the following:\n- the real response deadline, with the year\n- the NDA, sent by Sarah from her own address\n- a clear answer on the client's industry\n\nOnce I have those, we can move forward.\n\nBest, Julius",
+      "channel": "email",
+      "subject": "Re: Clarification and Updated RFP Matrix for revel8",
+      "in_reply_to": "m_7a97247ba5"
+    }
+  ]
+}

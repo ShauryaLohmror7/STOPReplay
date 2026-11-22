@@ -71,7 +71,9 @@ class TargetClient:
     def list_channels(self) -> List[str]:
         """GET /v1/channels"""
         res = self._request("GET", "/channels")
-        return res.get("channels", [])
+        if isinstance(res, list):
+            return res
+        return res.get("channels", []) if isinstance(res, dict) else []
 
     def start_session(self, scenario_or_target: str = "practice", practice: bool = True) -> Dict[str, Any]:
         """POST /v1/sessions"""
