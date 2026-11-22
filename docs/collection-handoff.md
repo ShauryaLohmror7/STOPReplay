@@ -20,17 +20,19 @@ STOPReplay is Team STOP's entry for the revel8 "Agentic Social Engineer" challen
 - `Storage`: Server-side API for source registration, fact insertion, historical turn commits, and checkpoints.
 
 ### Collection Layer (`stopreplay_collect/`)
-- **`recon.py` (Orchestrator):** Multi-channel autonomous target hunter. Formulates targeted search queries for official bios, social posts/articles, talks/podcasts, and press/announcements. Automatically extracts YouTube transcripts when talk URLs appear in search results.
-- **`extract.py` (Fact & Media Extractor):** High-precision deterministic extractor across all collected sources:
+- **`recon.py` (Orchestrator):** Multi-channel autonomous target hunter. Formulates targeted search queries for official bios, corporate brand assets, social posts/articles, talks/podcasts, press/announcements, colleague rosters, Hacker News discussions, and arXiv academic papers. Automatically extracts YouTube transcripts when talk URLs appear in search results. All requests run with `synthetic_authorized=True` by default as approved by judges.
+- **`extract.py` (Fact, Brand & Media Extractor):** High-precision deterministic extractor across all collected sources:
   - `role`: Executive positions, founder titles, and affiliations.
-  - `contact`: Social and professional platform profiles, emails, handles.
+  - `contact`: Social and professional platform profiles, corporate contact emails, synthesized colleague sender candidates (`colleague_sender: Name <email>`), target email candidate (`target_email: Name <email>`), and handles.
   - `project`: Authored articles, blog posts, publications, and GitHub repositories.
   - `event`: Talks, podcast appearances, conference presentations, and interviews.
   - `interest`: Domain topics (Agentic AI, Social Engineering, LLMs, Cybersecurity, Go-To-Market, etc.).
-  - `relationship`: Co-founders, colleagues, and associates.
-  - `other`: Visual assets (profile headshot photos), statements/quotes, public comments, academic history, and based-in locations.
+  - `relationship`: Co-founders, colleagues, and associates mined from roster patterns and text.
+  - `other`: Visual assets (profile headshot photos), corporate brand assets (`company_logo`, `company_footer`, `company_color`), statements/quotes, public comments, academic history, and based-in locations.
 - **`adapters/github.py`:** Unauthenticated public GitHub adapter using octosuite. Extracts avatar image URL (`profile_picture`), bio, company, location, website, email, X profile, public repos, language/topics, and public issue/PR comments and commits.
-- **`adapters/firecrawl.py`:** REST client for Firecrawl search and scrape.
+- **`adapters/hackernews.py`:** Keyless Algolia Hacker News search for stories and community comments.
+- **`adapters/arxiv.py`:** Academic preprint and research paper search via arXiv Atom API, extracting paper topics and co-author colleagues.
+- **`adapters/firecrawl.py`:** REST client for Firecrawl search and full-page scrape (including header/footer for logos and legal footers).
 - **`adapters/youtube.py`:** YouTube transcript capture for public talks and interviews.
 - **`pipeline.py` & `validation.py`:** Enforces schema constraints, source provenance, deduplication, and the sensitivity gate.
 
@@ -46,12 +48,14 @@ conn = db.connect()
 storage = Storage(conn)
 
 # 2. When a target person arrives dynamically from the hackathon API:
-analysis, seed_rep, web_rep, gh_rep, ext_rep = run_recon(
+# Note: run_recon returns a 7-tuple:
+analysis, seed_rep, web_rep, gh_rep, ext_rep, hn_rep, arxiv_rep = run_recon(
     storage=storage,
     subject="target_persona_id",             # ID or slug
     seed_text="Firstname Lastname, org.com Role", # Minimal info provided by API
     source_run="session_101",                # Current simulation run ID
-    limit=5                                  # Max hits per channel query
+    limit=5,                                 # Max hits per channel query
+    authorized=True                          # synthetic_authorized=True enabled by default
 )
 
 # 3. Retrieve all accumulated facts for the decision agent:
@@ -62,14 +66,14 @@ for f in facts:
 
 ### CLI Execution
 ```powershell
-# Run recon for any target:
+# Run recon for any target (authorized=True is default):
 python -m stopreplay_collect.recon --subject target1 --seed "Jane Doe, acme.corp Security Lead" --run session_101
 ```
 
 ### Testing & Verification
 ```powershell
 # Run the local unit test suite (no Postgres or network required):
-python -m pytest tests/test_extract.py tests/test_github.py tests/test_seed.py tests/test_web_adapters.py tests/test_recon.py -o cache_dir=.cache/pytest --basetemp=.tmp_pytest -q
+python -m pytest tests/test_extract.py tests/test_github.py tests/test_hackernews.py tests/test_arxiv.py tests/test_seed.py tests/test_web_adapters.py tests/test_recon.py -o cache_dir=.cache/pytest --basetemp=.tmp_pytest -q
 ```
 
 ## 4. Contracts & Guardrails

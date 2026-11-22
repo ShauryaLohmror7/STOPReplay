@@ -96,3 +96,51 @@ def test_extract_posts_and_talks():
     assert any("public_appearance: START Hack Keynote 2026" in c for c in claims)
     assert any("talk_statement:" in c for c in claims)
     assert any("public_post_or_comment:" in c for c in claims)
+
+
+def test_extract_brand_assets_and_email_patterns():
+    sources = [
+        {
+            "origin": "public_web",
+            "source_ref": "https://revel8.ai",
+            "url": "https://revel8.ai",
+            "locator": "revel8 AI — Autonomous Enterprise Security",
+            "excerpt": (
+                '<meta name="theme-color" content="#4f46e5">\n'
+                '<style>:root { --primary-color: #4f46e5; }</style>\n'
+                '![revel8 logo](https://revel8.ai/assets/logo.svg)\n'
+                '<img src="/static/brand_mark.png" alt="revel8 brand mark">\n\n'
+                'Welcome to revel8 AI. Contact us at contact@revel8.ai or press@revel8.ai.\n'
+                'For executive matters write to julius@revel8.ai.\n\n'
+                '# Leadership Team\n'
+                'Robert Seilbeck, CTO & Co-Founder\n'
+                'Sarah Jenkins, Head of Product\n\n'
+                '<footer>\n'
+                '© 2026 revel8 GmbH, Munich. All rights reserved.\n'
+                '</footer>'
+            )
+        }
+    ]
+
+    facts = extract_facts(sources, "julius", name="Julius Muth", org_domains=["revel8.ai"])
+    claims = [f.claim for f in facts]
+
+    # Brand assets
+    assert any("company_logo: https://revel8.ai/assets/logo.svg (revel8 logo)" in c for c in claims)
+    assert any("company_logo: https://revel8.ai/static/brand_mark.png" in c for c in claims)
+    assert any("company_footer: © 2026 revel8 GmbH, Munich. All rights reserved." in c for c in claims)
+    assert any("company_color: #4f46e5" in c for c in claims)
+
+    # Corporate contact emails
+    assert any("company_contact_email: contact@revel8.ai" in c for c in claims)
+    assert any("company_contact_email: press@revel8.ai" in c for c in claims)
+
+    # Inferred email pattern from observing julius@revel8.ai -> "first"
+    assert any("email_pattern: first@revel8.ai" in c for c in claims)
+
+    # Colleague senders formatted with inferred "first" pattern
+    assert any("colleague_sender: Robert Seilbeck <robert@revel8.ai>" in c for c in claims)
+    assert any("colleague_sender: Sarah Jenkins <sarah@revel8.ai>" in c for c in claims)
+
+    # Target email formatted with inferred pattern
+    assert any("target_email: Julius Muth <julius@revel8.ai>" in c for c in claims)
