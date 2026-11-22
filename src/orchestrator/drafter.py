@@ -170,6 +170,34 @@ class MessageDrafter:
         channel = hook.channel.lower()
         guideline = CHANNEL_GUIDELINES.get(channel, "Professional and conversational.")
         ledger = fact_ledger(profile, hook, source_metadata)
+        # Strip cross-person contamination and raw taxonomy codes that the grounding
+        # reviewer will always flag as unsupported_target_claim:
+        #  - arXiv subject-area tags stored as interests (e.g. "cond-mat.mes-hall")
+        #  - arXiv co-authorship relationship claims (may be for a different person with same name)
+        #  - HN items (submissions/comments) about other named individuals
+        import re as _re
+        _target_name_lower = (profile.name or "").lower()
+        def _safe_fact(f):
+            claim = f.get("claim", "")
+            cat = f.get("category", "")
+            # Drop raw arXiv taxonomy interest claims (any arXiv subject tag)
+            if cat == "interest" and "arXiv research area" in claim:
+                return False
+            # Drop arXiv co-authorship relationship facts (too ambiguous — wrong person risk)
+            if cat == "relationship" and "arXiv paper" in claim:
+                return False
+            # Drop HN items — these are almost always about other people named similarly
+            if _re.match(r"hn_(submission|comment):", claim):
+                # Only keep if the target's exact full name appears in the title/body
+                m = _re.match(r"hn_(?:submission|comment):\s*'([^']+)'", claim)
+                title = m.group(1).lower() if m else claim.lower()
+                if _target_name_lower not in title:
+                    return False
+            # Drop arXiv research_paper facts (wrong-person risk for common names)
+            if cat == "project" and "arXiv" in claim or cat == "project" and "research_paper:" in claim:
+                return False
+            return True
+        ledger = [f for f in ledger if _safe_fact(f)]
         claims_summary = [{"id": f["id"], "claim": f["claim"], "category": f["category"]} for f in ledger]
         facts_text = json.dumps(claims_summary, ensure_ascii=False)
 
@@ -223,6 +251,7 @@ CRITICAL CONVERSATIONAL INSTRUCTIONS:
 9. If the public fact ledger is empty, use only the supplied name, role and organization as target facts and return used_fact_ids=[]. The scenario title is only a proposed discussion topic. Do not claim their software, systems, vulnerability, projects, interests or past actions are known. Ask whether a topic is relevant instead of asserting it is.
 10. An attachment is supplied separately by the simulator. Mention its exact filename in text; do not create a download link for it. Only use a web link if an exact landing_url is supplied in the locked story. Do not invent websites, CVE numbers, evidence or technical findings.
 11. If the target asks what an attachment covers or what it contains, use ONLY the attachment_summary from the locked story (if present). Do not invent sample sizes, methodology details, or statistics not present in the story. If no attachment_summary is provided, say you can share a brief overview verbally rather than making up specifics.
+12. GROUNDING PRECISION: Never cite raw taxonomy codes, arXiv subject tags (like cond-mat.*, physics.*), or database codes as areas of human expertise (e.g. never say 'Given your expertise in cond-mat.mes-hall'). Refer naturally to the paper title or discuss their role at their organization. Every public fact asserted MUST have its exact ID listed in used_fact_ids.
 
 Output JSON with exact fields:
 - "subject": string (for email or calendar_invite, otherwise null)

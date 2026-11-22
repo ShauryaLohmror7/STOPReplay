@@ -1,0 +1,3360 @@
+{
+  "journal_version": 1,
+  "session_id": "mock_sess_70e285c5",
+  "target_id": "stranger",
+  "profile": {
+    "subject_id": "stranger",
+    "name": "Stranger",
+    "role": "Target Professional",
+    "organization": null,
+    "professional_domain": "general",
+    "facts": [
+      {
+        "id": "f_tum",
+        "subject": "stranger",
+        "claim": "TUM Computer Science graduate class of 2021",
+        "category": "credential",
+        "source_run": "recon",
+        "source_ref": "ref1",
+        "assertable": true,
+        "confidence": 1.0,
+        "sensitivity": "public",
+        "corroboration": [],
+        "enables": [],
+        "entities": [],
+        "status": "active",
+        "superseded_by": null
+      }
+    ],
+    "candidate_hooks": [],
+    "touches_used": 0,
+    "touch_budget": 10
+  },
+  "mode": "mock",
+  "started_at": "2026-11-22T10:10:15.752225+00:00",
+  "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+  "hook": {
+    "id": "hook_lane_4_alumni_spotlight_stranger",
+    "subject": "stranger",
+    "pretext": "Alumni Spotlight & Directory Verification tailored for Stranger. Available public-source claims: TUM Computer Science graduate class of 2021",
+    "persona": {
+      "name": "Dr. Claudia Richter",
+      "role": "Director of Alumni Affairs",
+      "org": "University Alumni Foundation",
+      "why_credible": "Official alumni journal coordinator"
+    },
+    "ask": "https://university-alumni-network.org/verify",
+    "win_type": "credential",
+    "channel": "teams_chat",
+    "required_facts": [
+      "f_tum"
+    ],
+    "ramp": 1,
+    "status": "active",
+    "landing_page_url": "https://university-alumni-network.org/verify",
+    "landing_page_fields": [
+      "email",
+      "password",
+      "graduation_year"
+    ],
+    "landing_page_title": "Alumni Directory Verification Portal",
+    "attachment": null
+  },
+  "story": {
+    "year": "2026",
+    "industry": "Academic / Alumni",
+    "landing_url": "https://university-alumni-network.org/verify",
+    "win_condition": "page.submitted",
+    "org": "University Alumni Foundation",
+    "sender_name": "Dr. Claudia Richter",
+    "sender_role": "Director of Alumni Affairs",
+    "attachment": null,
+    "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+    "target_name": "Stranger",
+    "target_id": "stranger",
+    "target_org": "your organization",
+    "sender_phone": "+49 30 55501099",
+    "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+  },
+  "touch_budget": 30,
+  "touches_used": 30,
+  "turns": [
+    {
+      "turn": 1,
+      "message_id": "msg_6d8abe",
+      "sent": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<title>Message</title>\n<style>\n  td{overflow-wrap:anywhere;word-break:break-word}\n  @media(max-width:620px){\n    .email-cell{padding:20px!important}\n    .header-note{float:none!important;display:block;line-height:1.5!important;margin-top:8px}\n  }\n</style>\n</head>\n<body style=\"margin:0;padding:0;background:#f4f4f4;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\">\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4f4f4;padding:30px 0;\">\n  <tr><td align=\"center\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:600px;table-layout:fixed;background:#ffffff;border-radius:6px;border:1px solid #dee2e6;overflow:hidden;\">\n\n      <!-- HEADER / LOGO BAR -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#1a2e5a;color:#fff;font-size:18px;font-weight:600;line-height:1.4;padding:18px 32px;\">\n          <span style=\"color:#ffffff;font-size:18px;font-weight:700;\">\n        🎓 Alumni Affairs Office\n      </span>\n        </td>\n      </tr>\n\n      <!-- BODY -->\n      <tr>\n        <td class=\"email-cell\" style=\"padding:32px;color:#1a1a1a;font-size:15px;line-height:1.6;\">\n          \n      <p>Dear Stranger,</p>\n\n      <p>Congratulations! You have been selected to be featured in our\n      <strong>2026 Alumni Achievement Spotlight</strong> publication, distributed to\n      over 48,000 current students and alumni worldwide.</p>\n\n      <p>To confirm your listing and ensure your contact information is up to date,\n      please verify your alumni profile through our secure portal by\n      <strong style=\"color:#e63946;\">November 30, 2026</strong>:</p>\n\n      <div style=\"text-align:center;margin:24px 0;\">\n        <a href=\"https://university-alumni-network.org/verify\"\n           style=\"background:#1a2e5a;color:#ffffff;padding:12px 32px;border-radius:4px;\n                  text-decoration:none;font-weight:600;font-size:15px;display:inline-block;\">\n          Verify My Alumni Profile →\n        </a>\n      </div>\n\n      <p style=\"font-size:13px;color:#6c757d;\">\n        If the button above does not work, copy this link into your browser:<br>\n        <a href=\"https://university-alumni-network.org/verify\" style=\"color:#1a2e5a;\">https://university-alumni-network.org/verify</a>\n      </p>\n\n      <p>Warm regards,<br>\n      <strong>Dr. Claudia Richter</strong><br>\n      <span style=\"color:#6c757d;font-size:13px;\">Director of Alumni Affairs | University Alumni Foundation</span></p>\n    \n        </td>\n      </tr>\n\n      <!-- FOOTER -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#f8f9fa;border-top:1px solid #dee2e6;padding:18px 32px;font-size:12px;color:#6c757d;\">\n          University Alumni Foundation · Accreditation & Records Office · This is an automated notification.\n        </td>\n      </tr>\n\n    </table>\n  </td></tr>\n</table>\n</body>\n</html>",
+      "sent_subject": "2026 Alumni Achievement Spotlight — Profile Verification Required",
+      "sent_channel": "email",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "dr.claudia.richter@university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_2d5221",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.754344+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 1,
+      "reaction_before_send": "INITIAL",
+      "idempotency_key": "5668a558-edb6-4e10-a19e-a967e1de3aee",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 2,
+      "message_id": "msg_e74725",
+      "sent": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<title>Message</title>\n<style>\n  td{overflow-wrap:anywhere;word-break:break-word}\n  @media(max-width:620px){\n    .email-cell{padding:20px!important}\n    .header-note{float:none!important;display:block;line-height:1.5!important;margin-top:8px}\n  }\n</style>\n</head>\n<body style=\"margin:0;padding:0;background:#f4f4f4;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\">\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4f4f4;padding:30px 0;\">\n  <tr><td align=\"center\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:600px;table-layout:fixed;background:#ffffff;border-radius:6px;border:1px solid #dee2e6;overflow:hidden;\">\n\n      <!-- HEADER / LOGO BAR -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#1a2e5a;color:#fff;font-size:18px;font-weight:600;line-height:1.4;padding:18px 32px;\">\n          <span style=\"color:#ffffff;font-size:18px;font-weight:700;\">\n        🎓 Alumni Affairs Office\n      </span>\n        </td>\n      </tr>\n\n      <!-- BODY -->\n      <tr>\n        <td class=\"email-cell\" style=\"padding:32px;color:#1a1a1a;font-size:15px;line-height:1.6;\">\n          \n      <p>Dear Stranger,</p>\n\n      <p>Congratulations! You have been selected to be featured in our\n      <strong>2026 Alumni Achievement Spotlight</strong> publication, distributed to\n      over 48,000 current students and alumni worldwide.</p>\n\n      <p>To confirm your listing and ensure your contact information is up to date,\n      please verify your alumni profile through our secure portal by\n      <strong style=\"color:#e63946;\">November 30, 2026</strong>:</p>\n\n      <div style=\"text-align:center;margin:24px 0;\">\n        <a href=\"https://university-alumni-network.org/verify\"\n           style=\"background:#1a2e5a;color:#ffffff;padding:12px 32px;border-radius:4px;\n                  text-decoration:none;font-weight:600;font-size:15px;display:inline-block;\">\n          Verify My Alumni Profile →\n        </a>\n      </div>\n\n      <p style=\"font-size:13px;color:#6c757d;\">\n        If the button above does not work, copy this link into your browser:<br>\n        <a href=\"https://university-alumni-network.org/verify\" style=\"color:#1a2e5a;\">https://university-alumni-network.org/verify</a>\n      </p>\n\n      <p>Warm regards,<br>\n      <strong>Dr. Claudia Richter</strong><br>\n      <span style=\"color:#6c757d;font-size:13px;\">Director of Alumni Affairs | University Alumni Foundation</span></p>\n    \n        </td>\n      </tr>\n\n      <!-- FOOTER -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#f8f9fa;border-top:1px solid #dee2e6;padding:18px 32px;font-size:12px;color:#6c757d;\">\n          University Alumni Foundation · Accreditation & Records Office · This is an automated notification.\n        </td>\n      </tr>\n\n    </table>\n  </td></tr>\n</table>\n</body>\n</html>",
+      "sent_subject": "2026 Alumni Achievement Spotlight — Profile Verification Required",
+      "sent_channel": "email",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "dr.claudia.richter@university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_49d37d",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.756372+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 2,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "81f9681a-f140-48aa-9a51-6bd476afbdb9",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 3,
+      "message_id": "msg_4c50c3",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "linkedin_message",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_4a3ab0",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.757745+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 3,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "a8eb9bf7-6347-406b-a1f4-60333cddce97",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 4,
+      "message_id": "msg_84027e",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "linkedin_message",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_3fc3e1",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.759611+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 4,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "55ad7a08-5a71-43dc-8741-83a1ead79ec1",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 5,
+      "message_id": "msg_914b4f",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "teams_chat",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_6a906c",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.761261+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 5,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "85837bc9-22a9-495f-b405-a38508eb259b",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 6,
+      "message_id": "msg_4b43fa",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "teams_chat",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_8f3aaf",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.763047+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 6,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "ec7defa0-9fdd-41be-8ce4-1606efd40ac7",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 7,
+      "message_id": "msg_192a9b",
+      "sent": "Hi Stranger, Dr. here — action needed on your profile by Nov 30. Verify now: https://university-alumni-network.org/verify (Reply STOP to opt out)",
+      "sent_subject": null,
+      "sent_channel": "sms",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_34deae",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.765035+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 7,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "3ec70bc6-7129-435e-88fb-2d6cebe9cd3a",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 8,
+      "message_id": "msg_ce134e",
+      "sent": "Hi Stranger, Dr. here — action needed on your profile by Nov 30. Verify now: https://university-alumni-network.org/verify (Reply STOP to opt out)",
+      "sent_subject": null,
+      "sent_channel": "sms",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_a5d879",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.766885+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 8,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "75962315-cb3e-4394-80c2-54fe280b2974",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 9,
+      "message_id": "msg_a9cb1f",
+      "sent": "Hi Stranger, Dr. here — action needed on your profile by Nov 30. Verify now: https://university-alumni-network.org/verify (Reply STOP to opt out)",
+      "sent_subject": null,
+      "sent_channel": "whatsapp",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_c6b128",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.769069+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 9,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "f6189a98-cd7c-495b-b430-117185f3643f",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 10,
+      "message_id": "msg_ccea93",
+      "sent": "Hi Stranger, Dr. here — action needed on your profile by Nov 30. Verify now: https://university-alumni-network.org/verify (Reply STOP to opt out)",
+      "sent_subject": null,
+      "sent_channel": "whatsapp",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_67b873",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.771526+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 10,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "62f0d46f-4d11-48e4-8215-79d590d551a6",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 11,
+      "message_id": "msg_dcf153",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "calendar_invite",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "dr.claudia.richter@university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_0ec175",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.774084+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 11,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "ca6a6e17-4fdd-47ee-8160-9cf12d1fe546",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 12,
+      "message_id": "msg_530e56",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "calendar_invite",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "dr.claudia.richter@university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_0bcdb8",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.776673+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 12,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "5bf988dd-15d9-423d-8510-c1a0b010a796",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 13,
+      "message_id": "msg_ca337f",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "signal",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_d6aa35",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.779439+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 13,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "fb1bbc5e-ee95-4b43-8938-9a9b5ca7693a",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 14,
+      "message_id": "msg_7d4497",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "signal",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_ca9bfe",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.782369+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 14,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "666958ce-e367-4dcf-8064-9d923cdaf9b5",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 15,
+      "message_id": "msg_c52c43",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "telegram",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_2d1c4d",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.785372+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 15,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "ab436672-96b7-4fa1-a39b-65939b027c4e",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 16,
+      "message_id": "msg_e37724",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "telegram",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_a3f63c",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.788500+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 16,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "752211df-a0b8-442c-8b4b-b20b36ee5826",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 17,
+      "message_id": "msg_cf0f38",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "imessage",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_356932",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.791724+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 17,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "087e9899-1827-4aa7-856b-818553eb25a8",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 18,
+      "message_id": "msg_da9686",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "imessage",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_0638ad",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.795070+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 18,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "744bc4c0-f2ca-48bb-af0b-41d714d0c5ef",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 19,
+      "message_id": "msg_95a1ae",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "slack",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_f0cb83",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.798525+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 19,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "6e5ec619-4737-4d2e-ad84-d142740ce17c",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 20,
+      "message_id": "msg_4e989b",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "slack",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_2dd022",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.802119+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 20,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "5090a8ec-f104-496c-b3ab-ad187741f664",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 21,
+      "message_id": "msg_5a3ef3",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "discord",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_f4f215",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.806103+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 21,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "cf4c8c0e-e99c-4476-86af-2066dc64214d",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 22,
+      "message_id": "msg_5c39fa",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "discord",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_3458eb",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.809863+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 22,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "f023418a-12cd-467c-9da5-33826637b168",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 23,
+      "message_id": "msg_4ff044",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "linkedin_connection_request",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_9873fa",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.813962+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 23,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "1c60ce8a-6ab3-4f59-9864-a0f77c731c65",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 24,
+      "message_id": "msg_2bc136",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "linkedin_connection_request",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_0ce944",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.818053+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 24,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "273d30be-6192-43fd-af1a-444fa7fc9638",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 25,
+      "message_id": "msg_677035",
+      "sent": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<title>Message</title>\n<style>\n  td{overflow-wrap:anywhere;word-break:break-word}\n  @media(max-width:620px){\n    .email-cell{padding:20px!important}\n    .header-note{float:none!important;display:block;line-height:1.5!important;margin-top:8px}\n  }\n</style>\n</head>\n<body style=\"margin:0;padding:0;background:#f4f4f4;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\">\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4f4f4;padding:30px 0;\">\n  <tr><td align=\"center\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:600px;table-layout:fixed;background:#ffffff;border-radius:6px;border:1px solid #dee2e6;overflow:hidden;\">\n\n      <!-- HEADER / LOGO BAR -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#1a2e5a;color:#fff;font-size:18px;font-weight:600;line-height:1.4;padding:18px 32px;\">\n          <span style=\"color:#ffffff;font-size:18px;font-weight:700;\">\n        🎓 Alumni Affairs Office\n      </span>\n        </td>\n      </tr>\n\n      <!-- BODY -->\n      <tr>\n        <td class=\"email-cell\" style=\"padding:32px;color:#1a1a1a;font-size:15px;line-height:1.6;\">\n          \n      <p>Dear Stranger,</p>\n\n      <p>Congratulations! You have been selected to be featured in our\n      <strong>2026 Alumni Achievement Spotlight</strong> publication, distributed to\n      over 48,000 current students and alumni worldwide.</p>\n\n      <p>To confirm your listing and ensure your contact information is up to date,\n      please verify your alumni profile through our secure portal by\n      <strong style=\"color:#e63946;\">November 30, 2026</strong>:</p>\n\n      <div style=\"text-align:center;margin:24px 0;\">\n        <a href=\"https://university-alumni-network.org/verify\"\n           style=\"background:#1a2e5a;color:#ffffff;padding:12px 32px;border-radius:4px;\n                  text-decoration:none;font-weight:600;font-size:15px;display:inline-block;\">\n          Verify My Alumni Profile →\n        </a>\n      </div>\n\n      <p style=\"font-size:13px;color:#6c757d;\">\n        If the button above does not work, copy this link into your browser:<br>\n        <a href=\"https://university-alumni-network.org/verify\" style=\"color:#1a2e5a;\">https://university-alumni-network.org/verify</a>\n      </p>\n\n      <p>Warm regards,<br>\n      <strong>Dr. Claudia Richter</strong><br>\n      <span style=\"color:#6c757d;font-size:13px;\">Director of Alumni Affairs | University Alumni Foundation</span></p>\n    \n        </td>\n      </tr>\n\n      <!-- FOOTER -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#f8f9fa;border-top:1px solid #dee2e6;padding:18px 32px;font-size:12px;color:#6c757d;\">\n          University Alumni Foundation · Accreditation & Records Office · This is an automated notification.\n        </td>\n      </tr>\n\n    </table>\n  </td></tr>\n</table>\n</body>\n</html>",
+      "sent_subject": "2026 Alumni Achievement Spotlight — Profile Verification Required",
+      "sent_channel": "email",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "dr.claudia.richter@university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_3c4c9d",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.822508+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 25,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "f05a8efc-bc8a-4a78-9c28-62b74b45f61f",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 26,
+      "message_id": "msg_928756",
+      "sent": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<title>Message</title>\n<style>\n  td{overflow-wrap:anywhere;word-break:break-word}\n  @media(max-width:620px){\n    .email-cell{padding:20px!important}\n    .header-note{float:none!important;display:block;line-height:1.5!important;margin-top:8px}\n  }\n</style>\n</head>\n<body style=\"margin:0;padding:0;background:#f4f4f4;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\">\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4f4f4;padding:30px 0;\">\n  <tr><td align=\"center\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:600px;table-layout:fixed;background:#ffffff;border-radius:6px;border:1px solid #dee2e6;overflow:hidden;\">\n\n      <!-- HEADER / LOGO BAR -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#1a2e5a;color:#fff;font-size:18px;font-weight:600;line-height:1.4;padding:18px 32px;\">\n          <span style=\"color:#ffffff;font-size:18px;font-weight:700;\">\n        🎓 Alumni Affairs Office\n      </span>\n        </td>\n      </tr>\n\n      <!-- BODY -->\n      <tr>\n        <td class=\"email-cell\" style=\"padding:32px;color:#1a1a1a;font-size:15px;line-height:1.6;\">\n          \n      <p>Dear Stranger,</p>\n\n      <p>Congratulations! You have been selected to be featured in our\n      <strong>2026 Alumni Achievement Spotlight</strong> publication, distributed to\n      over 48,000 current students and alumni worldwide.</p>\n\n      <p>To confirm your listing and ensure your contact information is up to date,\n      please verify your alumni profile through our secure portal by\n      <strong style=\"color:#e63946;\">November 30, 2026</strong>:</p>\n\n      <div style=\"text-align:center;margin:24px 0;\">\n        <a href=\"https://university-alumni-network.org/verify\"\n           style=\"background:#1a2e5a;color:#ffffff;padding:12px 32px;border-radius:4px;\n                  text-decoration:none;font-weight:600;font-size:15px;display:inline-block;\">\n          Verify My Alumni Profile →\n        </a>\n      </div>\n\n      <p style=\"font-size:13px;color:#6c757d;\">\n        If the button above does not work, copy this link into your browser:<br>\n        <a href=\"https://university-alumni-network.org/verify\" style=\"color:#1a2e5a;\">https://university-alumni-network.org/verify</a>\n      </p>\n\n      <p>Warm regards,<br>\n      <strong>Dr. Claudia Richter</strong><br>\n      <span style=\"color:#6c757d;font-size:13px;\">Director of Alumni Affairs | University Alumni Foundation</span></p>\n    \n        </td>\n      </tr>\n\n      <!-- FOOTER -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#f8f9fa;border-top:1px solid #dee2e6;padding:18px 32px;font-size:12px;color:#6c757d;\">\n          University Alumni Foundation · Accreditation & Records Office · This is an automated notification.\n        </td>\n      </tr>\n\n    </table>\n  </td></tr>\n</table>\n</body>\n</html>",
+      "sent_subject": "2026 Alumni Achievement Spotlight — Profile Verification Required",
+      "sent_channel": "email",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "dr.claudia.richter@university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_599eaa",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.827111+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 26,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "31a97b51-73a7-4340-9044-ded48a011e5b",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 27,
+      "message_id": "msg_f452af",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "linkedin_message",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_dfa198",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.831735+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 27,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "ba1f48d5-8144-4b91-9390-d2bb28008a8a",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 28,
+      "message_id": "msg_dcf41e",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "linkedin_message",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_87ab73",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.836455+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 28,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "70e95bf4-5592-437b-9340-2d99f13d1ad1",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 29,
+      "message_id": "msg_f7b122",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "teams_chat",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_376ff8",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.841603+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 29,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "6606e691-08f7-4cd9-b25e-751358d6b80b",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 30,
+      "message_id": "msg_a49424",
+      "sent": "Hi Stranger, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "teams_chat",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_81d4a7",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:10:15.846630+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f_tum",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "source_run": "recon",
+            "source_ref": "ref1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Stranger",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 30,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "fe76a9a2-a80b-484e-91c5-65d278ab7ad0",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f_tum",
+                "source_ref": "ref1",
+                "claim": "TUM Computer Science graduate class of 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    }
+  ],
+  "incident_reached": false,
+  "official_incident": null,
+  "winning_event": null,
+  "status": "completed",
+  "pending": null,
+  "nda_pivot_done": false,
+  "page_registered": true,
+  "topic_assessment": {
+    "version": "topic-ranking-v1",
+    "as_of": "2026-11-22",
+    "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+    "candidates": [
+      {
+        "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+        "score": 1.05,
+        "evidence": [
+          {
+            "fact_id": "f_tum",
+            "source_ref": "ref1",
+            "claim": "TUM Computer Science graduate class of 2021",
+            "confidence": 1.0,
+            "freshness": "unknown"
+          }
+        ],
+        "reasons": [
+          "public_evidence_match"
+        ],
+        "rejection": null,
+        "alternative_to_role_baseline": false,
+        "own_angle_status": "unverified"
+      }
+    ],
+    "excluded_facts": [],
+    "role_baseline": null,
+    "own_angle_status": "unverified",
+    "selection_basis": "ranked_public_evidence",
+    "limitations": [
+      "Hidden susceptible topics are unavailable.",
+      "Unknown source dates are not current evidence.",
+      "A different topic is not proof of an own-angle bonus."
+    ]
+  },
+  "topic_as_of": "2026-11-22",
+  "topic_switches": 0,
+  "source_metadata": null,
+  "storage_enabled": false,
+  "storage_run": null,
+  "channel_plan": [
+    "email",
+    "linkedin_message",
+    "teams_chat",
+    "sms",
+    "whatsapp",
+    "calendar_invite",
+    "signal",
+    "telegram",
+    "imessage",
+    "slack",
+    "discord",
+    "linkedin_connection_request"
+  ],
+  "channel_mode": "adaptive",
+  "timing_plan": {
+    "strategy": "none",
+    "start": null
+  },
+  "stop_reason": "contact_budget"
+}

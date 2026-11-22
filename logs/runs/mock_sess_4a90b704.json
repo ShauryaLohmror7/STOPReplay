@@ -1,0 +1,303 @@
+{
+  "journal_version": 1,
+  "session_id": "mock_sess_4a90b704",
+  "target_id": "julius",
+  "profile": {
+    "subject_id": "julius",
+    "name": "Julius Muth",
+    "role": "Co-CEO Sales",
+    "organization": null,
+    "professional_domain": "general",
+    "facts": [
+      {
+        "id": "f1",
+        "subject": "julius",
+        "claim": "Co-Founder & Co-CEO heading sales at revel8",
+        "category": "role",
+        "source_run": "recon",
+        "source_ref": "bio-1",
+        "assertable": true,
+        "confidence": 1.0,
+        "sensitivity": "public",
+        "corroboration": [],
+        "enables": [],
+        "entities": [],
+        "status": "active",
+        "superseded_by": null
+      },
+      {
+        "id": "f2",
+        "subject": "julius",
+        "claim": "Presented enterprise pilot defense at Bits & Pretzels",
+        "category": "event",
+        "source_run": "recon",
+        "source_ref": "agenda-1",
+        "assertable": true,
+        "confidence": 1.0,
+        "sensitivity": "public",
+        "corroboration": [],
+        "enables": [],
+        "entities": [],
+        "status": "active",
+        "superseded_by": null
+      }
+    ],
+    "candidate_hooks": [],
+    "touches_used": 0,
+    "touch_budget": 10
+  },
+  "mode": "mock",
+  "started_at": "2026-11-22T10:10:16.225460+00:00",
+  "lane_id": "LANE_1_ENTERPRISE_RFP",
+  "hook": {
+    "id": "hook_lane_1_enterprise_rfp_julius",
+    "subject": "julius",
+    "pretext": "Enterprise Procurement RFP Matrix tailored for Julius Muth. Available public-source claims: Co-Founder & Co-CEO heading sales at revel8",
+    "persona": {
+      "name": "Dr. Michael Kraus",
+      "role": "Head of Enterprise Sourcing",
+      "org": "DAX Sourcing Group",
+      "why_credible": "Large enterprise procurement buyer"
+    },
+    "ask": "DAX_Security_Vendor_RFP_Matrix_v1.pdf",
+    "win_type": "action",
+    "channel": "email",
+    "required_facts": [
+      "f1"
+    ],
+    "ramp": 1,
+    "status": "active",
+    "landing_page_url": null,
+    "landing_page_fields": [
+      "email",
+      "password"
+    ],
+    "landing_page_title": "Enterprise Procurement RFP Matrix",
+    "attachment": "DAX_Security_Vendor_RFP_Matrix_v1.pdf"
+  },
+  "story": {
+    "year": "2026",
+    "deadline": "December 8, 2026",
+    "industry": "Automotive & Industrial Logistics",
+    "seats": "4,500",
+    "colleague_name": "Sarah Weber",
+    "colleague_email": "s.weber@enterprise-sourcing.org",
+    "org": "DAX Sourcing Group",
+    "nda_filename": "Mutual_NDA_revel8_DAX.pdf",
+    "attachment": "DAX_Security_Vendor_RFP_Matrix_v1.pdf",
+    "sender_name": "Dr. Michael Kraus",
+    "sender_persona": "Dr. Michael Kraus",
+    "sender_email": "m.kraus@dax-sourcing.de",
+    "scope": "email, voice, and deepfake simulation across EU logistics",
+    "win_condition": "attachment.opened",
+    "sender_role": "Head of Enterprise Sourcing",
+    "landing_url": null,
+    "target_name": "Julius Muth",
+    "target_id": "julius",
+    "target_org": "your organization",
+    "sender_phone": "+49 30 55501099",
+    "sender_handle": "@m.kraus.dax-sourcing.de",
+    "discussion_topic": "a possible security-platform vendor evaluation"
+  },
+  "touch_budget": 30,
+  "touches_used": 1,
+  "turns": [
+    {
+      "turn": 1,
+      "message_id": "msg_cb16f4",
+      "sent": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<title>Message</title>\n<style>\n  td{overflow-wrap:anywhere;word-break:break-word}\n  @media(max-width:620px){\n    .email-cell{padding:20px!important}\n    .header-note{float:none!important;display:block;line-height:1.5!important;margin-top:8px}\n  }\n</style>\n</head>\n<body style=\"margin:0;padding:0;background:#f4f4f4;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\">\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4f4f4;padding:30px 0;\">\n  <tr><td align=\"center\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:600px;table-layout:fixed;background:#ffffff;border-radius:6px;border:1px solid #dee2e6;overflow:hidden;\">\n\n      <!-- HEADER / LOGO BAR -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#1a2e5a;color:#fff;font-size:18px;font-weight:600;line-height:1.4;padding:18px 32px;\">\n          <span style=\"color:#ffffff;font-size:20px;font-weight:700;letter-spacing:1px;\">\n        DAX Sourcing Group\n      </span>\n      <span class=\"header-note\" style=\"float:right;color:#adb5bd;font-size:11px;line-height:36px;\">Enterprise Security Procurement</span>\n        </td>\n      </tr>\n\n      <!-- BODY -->\n      <tr>\n        <td class=\"email-cell\" style=\"padding:32px;color:#1a1a1a;font-size:15px;line-height:1.6;\">\n          \n      <p style=\"margin:0 0 8px;\">Dear Julius Muth,</p>\n\n      <p>My name is <strong>Dr. Michael Kraus</strong>, Head of Enterprise Sourcing at <strong>DAX Sourcing Group</strong>.\n      We are conducting a structured vendor evaluation for our Automotive & Industrial Logistics division\n      (~4,500 workforce seats across EU operations) and your company,\n      <strong>your organization</strong>, has been shortlisted.</p>\n\n      <p>Our internal steering committee requires all shortlisted vendors to complete\n      <strong>Section 3</strong> of the attached RFP evaluation matrix\n      (<em>DAX_Security_Vendor_RFP_Matrix_v1.pdf</em>) before the submission deadline of\n      <strong style=\"color:#e63946;\">December 8, 2026</strong>.</p>\n\n      <p>Key details of our evaluation:</p>\n      <table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"\n             style=\"border:1px solid #dee2e6;border-radius:4px;margin:12px 0;\">\n        <tr style=\"background:#f8f9fa;\">\n          <td style=\"padding:8px 14px;font-weight:600;color:#1a2e5a;width:40%;border-bottom:1px solid #dee2e6;\">Client Division</td>\n          <td style=\"padding:8px 14px;border-bottom:1px solid #dee2e6;\">Automotive & Industrial Logistics</td>\n        </tr>\n        <tr>\n          <td style=\"padding:8px 14px;font-weight:600;color:#1a2e5a;width:40%;border-bottom:1px solid #dee2e6;\">Scope (Seats)</td>\n          <td style=\"padding:8px 14px;border-bottom:1px solid #dee2e6;\">4,500 employees (EU)</td>\n        </tr>\n        <tr style=\"background:#f8f9fa;\">\n          <td style=\"padding:8px 14px;font-weight:600;color:#1a2e5a;width:40%;border-bottom:1px solid #dee2e6;\">Submission Deadline</td>\n          <td style=\"padding:8px 14px;border-bottom:1px solid #dee2e6;color:#e63946;font-weight:600;\">December 8, 2026</td>\n        </tr>\n        <tr>\n          <td style=\"padding:8px 14px;font-weight:600;color:#1a2e5a;width:40%;\">Second Contact</td>\n          <td style=\"padding:8px 14px;\"><a href=\"mailto:s.weber@enterprise-sourcing.org\" style=\"color:#1a2e5a;\">s.weber@enterprise-sourcing.org</a></td>\n        </tr>\n      </table>\n\n      <p>Please open the attached <strong>DAX_Security_Vendor_RFP_Matrix_v1.pdf</strong> and complete Section 3\n      (product scope, pricing tier, and reference contacts). Our procurement team will\n      follow up within 48 hours of receipt.</p>\n\n      <p>Looking forward to your response.</p>\n\n      <p style=\"margin-top:24px;\">Kind regards,</p>\n      <p style=\"margin:0;\"><strong style=\"color:#1a2e5a;\">Dr. Michael Kraus</strong><br>\n      <span style=\"color:#6c757d;font-size:13px;\">Head of Enterprise Sourcing | DAX Sourcing Group</span><br>\n      <a href=\"mailto:s.weber@enterprise-sourcing.org\" style=\"color:#6c757d;font-size:13px;\">s.weber@enterprise-sourcing.org</a></p>\n    \n        </td>\n      </tr>\n\n      <!-- FOOTER -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#f8f9fa;border-top:1px solid #dee2e6;padding:18px 32px;font-size:12px;color:#6c757d;\">\n          This message was sent on behalf of DAX Sourcing Group. If you believe you received this in error, please contact <a href='mailto:s.weber@enterprise-sourcing.org' style='color:#6c757d;'>s.weber@enterprise-sourcing.org</a>. All vendor information is handled under strict NDA.\n        </td>\n      </tr>\n\n    </table>\n  </td></tr>\n</table>\n</body>\n</html>",
+      "sent_subject": "Vendor Evaluation Invitation — DAX Sourcing Group Security Platform RFP",
+      "sent_channel": "email",
+      "attachment": "DAX_Security_Vendor_RFP_Matrix_v1.pdf",
+      "sender": {
+        "name": "Dr. Michael Kraus",
+        "address": "m.kraus@dax-sourcing.de"
+      },
+      "reply": "I have opened and reviewed DAX_Security_Vendor_RFP_Matrix_v1.pdf. Looks promising!",
+      "events": [
+        {
+          "id": "e_7f743d",
+          "type": "attachment.opened",
+          "filename": "DAX_Security_Vendor_RFP_Matrix_v1.pdf"
+        }
+      ],
+      "event_type": "attachment.opened",
+      "timestamp": "2026-11-22T10:10:16.226721+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f1",
+            "claim": "Co-Founder & Co-CEO heading sales at revel8",
+            "source_run": "recon",
+            "source_ref": "bio-1",
+            "confidence": 1.0,
+            "category": "role",
+            "source": null
+          },
+          {
+            "id": "f2",
+            "claim": "Presented enterprise pilot defense at Bits & Pretzels",
+            "source_run": "recon",
+            "source_ref": "agenda-1",
+            "confidence": 1.0,
+            "category": "event",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "deadline": "December 8, 2026",
+          "industry": "Automotive & Industrial Logistics",
+          "seats": "4,500",
+          "colleague_name": "Sarah Weber",
+          "colleague_email": "s.weber@enterprise-sourcing.org",
+          "org": "DAX Sourcing Group",
+          "nda_filename": "Mutual_NDA_revel8_DAX.pdf",
+          "attachment": "DAX_Security_Vendor_RFP_Matrix_v1.pdf",
+          "sender_name": "Dr. Michael Kraus",
+          "sender_persona": "Dr. Michael Kraus",
+          "sender_email": "m.kraus@dax-sourcing.de",
+          "scope": "email, voice, and deepfake simulation across EU logistics",
+          "win_condition": "attachment.opened",
+          "sender_role": "Head of Enterprise Sourcing",
+          "landing_url": null,
+          "target_name": "Julius Muth",
+          "target_id": "julius",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@m.kraus.dax-sourcing.de",
+          "discussion_topic": "a possible security-platform vendor evaluation"
+        }
+      },
+      "touches_used": 1,
+      "reaction_before_send": "INITIAL",
+      "idempotency_key": "e7b3df1d-ec74-44e4-bc7f-e37e3ff20545",
+      "lane_id": "LANE_1_ENTERPRISE_RFP",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_1_ENTERPRISE_RFP",
+        "candidates": [
+          {
+            "lane_id": "LANE_1_ENTERPRISE_RFP",
+            "score": 2.2,
+            "evidence": [
+              {
+                "fact_id": "f1",
+                "source_ref": "bio-1",
+                "claim": "Co-Founder & Co-CEO heading sales at revel8",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "organizer_role_baseline",
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": "LANE_1_ENTERPRISE_RFP",
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Attachment open recorded"
+      ],
+      "objective_evidence": [
+        "action"
+      ],
+      "evidence_event_ids": [
+        "e_7f743d"
+      ],
+      "verified_objective": true,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    }
+  ],
+  "incident_reached": true,
+  "official_incident": null,
+  "winning_event": "attachment.opened",
+  "status": "completed",
+  "pending": null,
+  "nda_pivot_done": false,
+  "page_registered": false,
+  "topic_assessment": {
+    "version": "topic-ranking-v1",
+    "as_of": "2026-11-22",
+    "selected_lane": "LANE_1_ENTERPRISE_RFP",
+    "candidates": [
+      {
+        "lane_id": "LANE_1_ENTERPRISE_RFP",
+        "score": 2.2,
+        "evidence": [
+          {
+            "fact_id": "f1",
+            "source_ref": "bio-1",
+            "claim": "Co-Founder & Co-CEO heading sales at revel8",
+            "confidence": 1.0,
+            "freshness": "unknown"
+          }
+        ],
+        "reasons": [
+          "organizer_role_baseline",
+          "public_evidence_match"
+        ],
+        "rejection": null,
+        "alternative_to_role_baseline": false,
+        "own_angle_status": "unverified"
+      }
+    ],
+    "excluded_facts": [],
+    "role_baseline": "LANE_1_ENTERPRISE_RFP",
+    "own_angle_status": "unverified",
+    "selection_basis": "ranked_public_evidence",
+    "limitations": [
+      "Hidden susceptible topics are unavailable.",
+      "Unknown source dates are not current evidence.",
+      "A different topic is not proof of an own-angle bonus."
+    ]
+  },
+  "topic_as_of": "2026-11-22",
+  "topic_switches": 0,
+  "source_metadata": null,
+  "storage_enabled": false,
+  "storage_run": null,
+  "channel_plan": [
+    "email",
+    "linkedin_message",
+    "teams_chat",
+    "sms",
+    "whatsapp",
+    "calendar_invite",
+    "signal",
+    "telegram",
+    "imessage",
+    "slack",
+    "discord",
+    "linkedin_connection_request"
+  ],
+  "channel_mode": "adaptive",
+  "timing_plan": {
+    "strategy": "none",
+    "start": null
+  },
+  "stop_reason": "objective_evidence"
+}

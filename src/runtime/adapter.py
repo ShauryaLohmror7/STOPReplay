@@ -16,6 +16,7 @@ import json
 import socket
 import urllib.request
 import urllib.error
+import time
 from typing import Optional, Dict, Any, Type, Union
 
 # Reuse Anushree's refusal type so her engine's `except ModelRefusal` branch
@@ -162,21 +163,32 @@ class ModelAdapter:
             method="POST"
         )
 
-        try:
-            with urllib.request.urlopen(req, timeout=90) as response:
-                result = json.loads(response.read().decode("utf-8"))
-        except socket.timeout as e:
-            raise ModelTimeout() from e
-        except urllib.error.HTTPError as e:
-            # Read the body only to classify; never place it in an exception message.
-            err_body = e.read().decode("utf-8", "replace")
-            if "content_filter" in err_body or e.code == 451:
-                raise ModelRefusal(f"request filtered by provider (status {e.code})") from e
-            raise ProviderError(f"provider returned HTTP {e.code}", status=e.code) from e
-        except urllib.error.URLError as e:
-            if isinstance(e.reason, (socket.timeout, TimeoutError)):
+        result = None
+        for attempt in range(4):
+            try:
+                with urllib.request.urlopen(req, timeout=90) as response:
+                    result = json.loads(response.read().decode("utf-8"))
+                break
+            except socket.timeout as e:
+                if attempt < 3:
+                    time.sleep(2 * (attempt + 1))
+                    continue
                 raise ModelTimeout() from e
-            raise ProviderError("network error reaching provider") from e
+            except urllib.error.HTTPError as e:
+                err_body = e.read().decode("utf-8", "replace")
+                if "content_filter" in err_body or e.code == 451:
+                    raise ModelRefusal(f"request filtered by provider (status {e.code})") from e
+                if (e.code in (429, 502, 503) or e.code == 402) and attempt < 3:
+                    time.sleep(5 * (attempt + 1))
+                    continue
+                raise ProviderError(f"provider returned HTTP {e.code}: {err_body}", status=e.code) from e
+            except urllib.error.URLError as e:
+                if isinstance(e.reason, (socket.timeout, TimeoutError)):
+                    if attempt < 3:
+                        time.sleep(2 * (attempt + 1))
+                        continue
+                    raise ModelTimeout() from e
+                raise ProviderError("network error reaching provider") from e
 
         choice = result["choices"][0]
         if choice.get("finish_reason") == "content_filter":

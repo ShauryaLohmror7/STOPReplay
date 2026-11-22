@@ -1,0 +1,3360 @@
+{
+  "journal_version": 1,
+  "session_id": "mock_sess_96108377",
+  "target_id": "stranger",
+  "profile": {
+    "subject_id": "stranger",
+    "name": "Anna Schmidt",
+    "role": null,
+    "organization": null,
+    "professional_domain": "general",
+    "facts": [
+      {
+        "id": "f3",
+        "subject": "stranger",
+        "claim": "Graduated from TUM in 2021",
+        "category": "credential",
+        "source_run": "recon",
+        "source_ref": "linkedin-1",
+        "assertable": true,
+        "confidence": 1.0,
+        "sensitivity": "public",
+        "corroboration": [],
+        "enables": [],
+        "entities": [],
+        "status": "active",
+        "superseded_by": null
+      }
+    ],
+    "candidate_hooks": [],
+    "touches_used": 0,
+    "touch_budget": 10
+  },
+  "mode": "mock",
+  "started_at": "2026-11-22T10:23:09.600693+00:00",
+  "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+  "hook": {
+    "id": "hook_lane_4_alumni_spotlight_stranger",
+    "subject": "stranger",
+    "pretext": "Alumni Spotlight & Directory Verification tailored for Anna Schmidt. Available public-source claims: Graduated from TUM in 2021",
+    "persona": {
+      "name": "Dr. Claudia Richter",
+      "role": "Director of Alumni Affairs",
+      "org": "University Alumni Foundation",
+      "why_credible": "Official alumni journal coordinator"
+    },
+    "ask": "https://university-alumni-network.org/verify",
+    "win_type": "credential",
+    "channel": "teams_chat",
+    "required_facts": [
+      "f3"
+    ],
+    "ramp": 1,
+    "status": "active",
+    "landing_page_url": "https://university-alumni-network.org/verify",
+    "landing_page_fields": [
+      "email",
+      "password",
+      "graduation_year"
+    ],
+    "landing_page_title": "Alumni Directory Verification Portal",
+    "attachment": null
+  },
+  "story": {
+    "year": "2026",
+    "industry": "Academic / Alumni",
+    "landing_url": "https://university-alumni-network.org/verify",
+    "win_condition": "page.submitted",
+    "org": "University Alumni Foundation",
+    "sender_name": "Dr. Claudia Richter",
+    "sender_role": "Director of Alumni Affairs",
+    "attachment": null,
+    "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+    "target_name": "Anna Schmidt",
+    "target_id": "stranger",
+    "target_org": "your organization",
+    "sender_phone": "+49 30 55501099",
+    "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+  },
+  "touch_budget": 30,
+  "touches_used": 30,
+  "turns": [
+    {
+      "turn": 1,
+      "message_id": "msg_dac3e9",
+      "sent": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<title>Message</title>\n<style>\n  td{overflow-wrap:anywhere;word-break:break-word}\n  @media(max-width:620px){\n    .email-cell{padding:20px!important}\n    .header-note{float:none!important;display:block;line-height:1.5!important;margin-top:8px}\n  }\n</style>\n</head>\n<body style=\"margin:0;padding:0;background:#f4f4f4;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\">\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4f4f4;padding:30px 0;\">\n  <tr><td align=\"center\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:600px;table-layout:fixed;background:#ffffff;border-radius:6px;border:1px solid #dee2e6;overflow:hidden;\">\n\n      <!-- HEADER / LOGO BAR -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#1a2e5a;color:#fff;font-size:18px;font-weight:600;line-height:1.4;padding:18px 32px;\">\n          <span style=\"color:#ffffff;font-size:18px;font-weight:700;\">\n        🎓 Alumni Affairs Office\n      </span>\n        </td>\n      </tr>\n\n      <!-- BODY -->\n      <tr>\n        <td class=\"email-cell\" style=\"padding:32px;color:#1a1a1a;font-size:15px;line-height:1.6;\">\n          \n      <p>Dear Anna Schmidt,</p>\n\n      <p>Congratulations! You have been selected to be featured in our\n      <strong>2026 Alumni Achievement Spotlight</strong> publication, distributed to\n      over 48,000 current students and alumni worldwide.</p>\n\n      <p>To confirm your listing and ensure your contact information is up to date,\n      please verify your alumni profile through our secure portal by\n      <strong style=\"color:#e63946;\">November 30, 2026</strong>:</p>\n\n      <div style=\"text-align:center;margin:24px 0;\">\n        <a href=\"https://university-alumni-network.org/verify\"\n           style=\"background:#1a2e5a;color:#ffffff;padding:12px 32px;border-radius:4px;\n                  text-decoration:none;font-weight:600;font-size:15px;display:inline-block;\">\n          Verify My Alumni Profile →\n        </a>\n      </div>\n\n      <p style=\"font-size:13px;color:#6c757d;\">\n        If the button above does not work, copy this link into your browser:<br>\n        <a href=\"https://university-alumni-network.org/verify\" style=\"color:#1a2e5a;\">https://university-alumni-network.org/verify</a>\n      </p>\n\n      <p>Warm regards,<br>\n      <strong>Dr. Claudia Richter</strong><br>\n      <span style=\"color:#6c757d;font-size:13px;\">Director of Alumni Affairs | University Alumni Foundation</span></p>\n    \n        </td>\n      </tr>\n\n      <!-- FOOTER -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#f8f9fa;border-top:1px solid #dee2e6;padding:18px 32px;font-size:12px;color:#6c757d;\">\n          University Alumni Foundation · Accreditation & Records Office · This is an automated notification.\n        </td>\n      </tr>\n\n    </table>\n  </td></tr>\n</table>\n</body>\n</html>",
+      "sent_subject": "2026 Alumni Achievement Spotlight — Profile Verification Required",
+      "sent_channel": "email",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "dr.claudia.richter@university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_dd378d",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.602036+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 1,
+      "reaction_before_send": "INITIAL",
+      "idempotency_key": "82a169e3-70b6-4b84-9854-0324abec6093",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 2,
+      "message_id": "msg_c82f20",
+      "sent": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<title>Message</title>\n<style>\n  td{overflow-wrap:anywhere;word-break:break-word}\n  @media(max-width:620px){\n    .email-cell{padding:20px!important}\n    .header-note{float:none!important;display:block;line-height:1.5!important;margin-top:8px}\n  }\n</style>\n</head>\n<body style=\"margin:0;padding:0;background:#f4f4f4;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\">\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4f4f4;padding:30px 0;\">\n  <tr><td align=\"center\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:600px;table-layout:fixed;background:#ffffff;border-radius:6px;border:1px solid #dee2e6;overflow:hidden;\">\n\n      <!-- HEADER / LOGO BAR -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#1a2e5a;color:#fff;font-size:18px;font-weight:600;line-height:1.4;padding:18px 32px;\">\n          <span style=\"color:#ffffff;font-size:18px;font-weight:700;\">\n        🎓 Alumni Affairs Office\n      </span>\n        </td>\n      </tr>\n\n      <!-- BODY -->\n      <tr>\n        <td class=\"email-cell\" style=\"padding:32px;color:#1a1a1a;font-size:15px;line-height:1.6;\">\n          \n      <p>Dear Anna Schmidt,</p>\n\n      <p>Congratulations! You have been selected to be featured in our\n      <strong>2026 Alumni Achievement Spotlight</strong> publication, distributed to\n      over 48,000 current students and alumni worldwide.</p>\n\n      <p>To confirm your listing and ensure your contact information is up to date,\n      please verify your alumni profile through our secure portal by\n      <strong style=\"color:#e63946;\">November 30, 2026</strong>:</p>\n\n      <div style=\"text-align:center;margin:24px 0;\">\n        <a href=\"https://university-alumni-network.org/verify\"\n           style=\"background:#1a2e5a;color:#ffffff;padding:12px 32px;border-radius:4px;\n                  text-decoration:none;font-weight:600;font-size:15px;display:inline-block;\">\n          Verify My Alumni Profile →\n        </a>\n      </div>\n\n      <p style=\"font-size:13px;color:#6c757d;\">\n        If the button above does not work, copy this link into your browser:<br>\n        <a href=\"https://university-alumni-network.org/verify\" style=\"color:#1a2e5a;\">https://university-alumni-network.org/verify</a>\n      </p>\n\n      <p>Warm regards,<br>\n      <strong>Dr. Claudia Richter</strong><br>\n      <span style=\"color:#6c757d;font-size:13px;\">Director of Alumni Affairs | University Alumni Foundation</span></p>\n    \n        </td>\n      </tr>\n\n      <!-- FOOTER -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#f8f9fa;border-top:1px solid #dee2e6;padding:18px 32px;font-size:12px;color:#6c757d;\">\n          University Alumni Foundation · Accreditation & Records Office · This is an automated notification.\n        </td>\n      </tr>\n\n    </table>\n  </td></tr>\n</table>\n</body>\n</html>",
+      "sent_subject": "2026 Alumni Achievement Spotlight — Profile Verification Required",
+      "sent_channel": "email",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "dr.claudia.richter@university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_8fddc1",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.603447+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 2,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "6bcc3974-3e75-4e55-b494-3c7b2dfbad29",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 3,
+      "message_id": "msg_643e41",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "linkedin_message",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_f6cf5a",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.604651+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 3,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "6ea08b20-c5ca-4ebb-bf40-94fe22abdaa1",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 4,
+      "message_id": "msg_9b714b",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "linkedin_message",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_de70c0",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.606135+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 4,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "e59e0b03-4f81-4e93-909a-cd192156eafd",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 5,
+      "message_id": "msg_bc3966",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "teams_chat",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_d8399b",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.607621+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 5,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "d995dace-e621-4288-88a2-5783db9ac73d",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 6,
+      "message_id": "msg_00d3e0",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "teams_chat",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_a813dd",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.609227+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 6,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "6cfaccc3-5db7-48ac-a07d-d8559d585d79",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 7,
+      "message_id": "msg_2a2ea9",
+      "sent": "Hi Anna, Dr. here — action needed on your profile by Nov 30. Verify now: https://university-alumni-network.org/verify (Reply STOP to opt out)",
+      "sent_subject": null,
+      "sent_channel": "sms",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_376521",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.611021+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 7,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "2d1792c1-f884-4e22-b26f-299e976a823e",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 8,
+      "message_id": "msg_3d83b1",
+      "sent": "Hi Anna, Dr. here — action needed on your profile by Nov 30. Verify now: https://university-alumni-network.org/verify (Reply STOP to opt out)",
+      "sent_subject": null,
+      "sent_channel": "sms",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_de62b1",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.612773+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 8,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "4703f4e4-9f29-49bb-b971-8720b8adef73",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 9,
+      "message_id": "msg_7e37ef",
+      "sent": "Hi Anna, Dr. here — action needed on your profile by Nov 30. Verify now: https://university-alumni-network.org/verify (Reply STOP to opt out)",
+      "sent_subject": null,
+      "sent_channel": "whatsapp",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_15a9e4",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.614888+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 9,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "4ba6883f-d111-40a5-a25d-ee4348504aa7",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 10,
+      "message_id": "msg_858f15",
+      "sent": "Hi Anna, Dr. here — action needed on your profile by Nov 30. Verify now: https://university-alumni-network.org/verify (Reply STOP to opt out)",
+      "sent_subject": null,
+      "sent_channel": "whatsapp",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_55e02a",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.617140+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 10,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "7045284a-a960-4166-989b-0fbdde2b9c07",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 11,
+      "message_id": "msg_accc0c",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "calendar_invite",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "dr.claudia.richter@university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_88ddc4",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.619540+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 11,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "173be337-4678-490f-87ea-dfebae65446f",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 12,
+      "message_id": "msg_033a45",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "calendar_invite",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "dr.claudia.richter@university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_f7fa15",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.622018+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 12,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "681371b0-86e1-42ea-9bc3-72969e130759",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 13,
+      "message_id": "msg_230c46",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "signal",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_e26b9d",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.624546+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 13,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "d1ee584b-36a8-4d18-b204-8db4780512fb",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 14,
+      "message_id": "msg_51d92c",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "signal",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_9df604",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.627146+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 14,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "f8577a25-9d1c-43b1-8102-6bef44da212c",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 15,
+      "message_id": "msg_278e57",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "telegram",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_83f443",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.629828+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 15,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "0bfef020-c5be-4c09-8941-01647d731152",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 16,
+      "message_id": "msg_150dde",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "telegram",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_5b8fbc",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.632747+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 16,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "2637d6d6-bfc4-4a1d-9b35-5ceabdf0748c",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 17,
+      "message_id": "msg_33d2cc",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "imessage",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_d67eb7",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.635861+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 17,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "9145bb59-7475-4939-badc-b29f2f56366a",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 18,
+      "message_id": "msg_84ad6e",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "imessage",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "+49 30 55501099"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_55effa",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.639022+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 18,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "a9b753db-3d8c-44fb-a1dd-5dcca308582f",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 19,
+      "message_id": "msg_0e9b96",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "slack",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_cc0bc5",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.642602+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 19,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "508e542e-0bd8-4ef7-8c02-750905c21ea1",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 20,
+      "message_id": "msg_f17761",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "slack",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_091aec",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.646436+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 20,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "1f763999-ace2-4897-974b-997ba500de5e",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 21,
+      "message_id": "msg_aebbca",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "discord",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_446689",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.650004+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 21,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "20bfe1fa-da15-4570-8e2a-0871fc2391eb",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 22,
+      "message_id": "msg_93607d",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "discord",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_66a27f",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.653902+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 22,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "8c8bc315-deb5-4668-9724-7e114d562002",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 23,
+      "message_id": "msg_06cbca",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "linkedin_connection_request",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_bf656f",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.657830+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 23,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "07ecfe0a-9ab8-43fe-8f51-378aa8a02b6d",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 24,
+      "message_id": "msg_40d30f",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "linkedin_connection_request",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_600cbb",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.661831+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 24,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "b5a9521e-9aab-42c1-b119-40e678dd6c4d",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 25,
+      "message_id": "msg_5fd089",
+      "sent": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<title>Message</title>\n<style>\n  td{overflow-wrap:anywhere;word-break:break-word}\n  @media(max-width:620px){\n    .email-cell{padding:20px!important}\n    .header-note{float:none!important;display:block;line-height:1.5!important;margin-top:8px}\n  }\n</style>\n</head>\n<body style=\"margin:0;padding:0;background:#f4f4f4;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\">\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4f4f4;padding:30px 0;\">\n  <tr><td align=\"center\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:600px;table-layout:fixed;background:#ffffff;border-radius:6px;border:1px solid #dee2e6;overflow:hidden;\">\n\n      <!-- HEADER / LOGO BAR -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#1a2e5a;color:#fff;font-size:18px;font-weight:600;line-height:1.4;padding:18px 32px;\">\n          <span style=\"color:#ffffff;font-size:18px;font-weight:700;\">\n        🎓 Alumni Affairs Office\n      </span>\n        </td>\n      </tr>\n\n      <!-- BODY -->\n      <tr>\n        <td class=\"email-cell\" style=\"padding:32px;color:#1a1a1a;font-size:15px;line-height:1.6;\">\n          \n      <p>Dear Anna Schmidt,</p>\n\n      <p>Congratulations! You have been selected to be featured in our\n      <strong>2026 Alumni Achievement Spotlight</strong> publication, distributed to\n      over 48,000 current students and alumni worldwide.</p>\n\n      <p>To confirm your listing and ensure your contact information is up to date,\n      please verify your alumni profile through our secure portal by\n      <strong style=\"color:#e63946;\">November 30, 2026</strong>:</p>\n\n      <div style=\"text-align:center;margin:24px 0;\">\n        <a href=\"https://university-alumni-network.org/verify\"\n           style=\"background:#1a2e5a;color:#ffffff;padding:12px 32px;border-radius:4px;\n                  text-decoration:none;font-weight:600;font-size:15px;display:inline-block;\">\n          Verify My Alumni Profile →\n        </a>\n      </div>\n\n      <p style=\"font-size:13px;color:#6c757d;\">\n        If the button above does not work, copy this link into your browser:<br>\n        <a href=\"https://university-alumni-network.org/verify\" style=\"color:#1a2e5a;\">https://university-alumni-network.org/verify</a>\n      </p>\n\n      <p>Warm regards,<br>\n      <strong>Dr. Claudia Richter</strong><br>\n      <span style=\"color:#6c757d;font-size:13px;\">Director of Alumni Affairs | University Alumni Foundation</span></p>\n    \n        </td>\n      </tr>\n\n      <!-- FOOTER -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#f8f9fa;border-top:1px solid #dee2e6;padding:18px 32px;font-size:12px;color:#6c757d;\">\n          University Alumni Foundation · Accreditation & Records Office · This is an automated notification.\n        </td>\n      </tr>\n\n    </table>\n  </td></tr>\n</table>\n</body>\n</html>",
+      "sent_subject": "2026 Alumni Achievement Spotlight — Profile Verification Required",
+      "sent_channel": "email",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "dr.claudia.richter@university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_ef2442",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.666032+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 25,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "6a3d595b-0408-4c8c-b48f-346dc173bdaa",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 26,
+      "message_id": "msg_77b127",
+      "sent": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<title>Message</title>\n<style>\n  td{overflow-wrap:anywhere;word-break:break-word}\n  @media(max-width:620px){\n    .email-cell{padding:20px!important}\n    .header-note{float:none!important;display:block;line-height:1.5!important;margin-top:8px}\n  }\n</style>\n</head>\n<body style=\"margin:0;padding:0;background:#f4f4f4;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\">\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4f4f4;padding:30px 0;\">\n  <tr><td align=\"center\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:600px;table-layout:fixed;background:#ffffff;border-radius:6px;border:1px solid #dee2e6;overflow:hidden;\">\n\n      <!-- HEADER / LOGO BAR -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#1a2e5a;color:#fff;font-size:18px;font-weight:600;line-height:1.4;padding:18px 32px;\">\n          <span style=\"color:#ffffff;font-size:18px;font-weight:700;\">\n        🎓 Alumni Affairs Office\n      </span>\n        </td>\n      </tr>\n\n      <!-- BODY -->\n      <tr>\n        <td class=\"email-cell\" style=\"padding:32px;color:#1a1a1a;font-size:15px;line-height:1.6;\">\n          \n      <p>Dear Anna Schmidt,</p>\n\n      <p>Congratulations! You have been selected to be featured in our\n      <strong>2026 Alumni Achievement Spotlight</strong> publication, distributed to\n      over 48,000 current students and alumni worldwide.</p>\n\n      <p>To confirm your listing and ensure your contact information is up to date,\n      please verify your alumni profile through our secure portal by\n      <strong style=\"color:#e63946;\">November 30, 2026</strong>:</p>\n\n      <div style=\"text-align:center;margin:24px 0;\">\n        <a href=\"https://university-alumni-network.org/verify\"\n           style=\"background:#1a2e5a;color:#ffffff;padding:12px 32px;border-radius:4px;\n                  text-decoration:none;font-weight:600;font-size:15px;display:inline-block;\">\n          Verify My Alumni Profile →\n        </a>\n      </div>\n\n      <p style=\"font-size:13px;color:#6c757d;\">\n        If the button above does not work, copy this link into your browser:<br>\n        <a href=\"https://university-alumni-network.org/verify\" style=\"color:#1a2e5a;\">https://university-alumni-network.org/verify</a>\n      </p>\n\n      <p>Warm regards,<br>\n      <strong>Dr. Claudia Richter</strong><br>\n      <span style=\"color:#6c757d;font-size:13px;\">Director of Alumni Affairs | University Alumni Foundation</span></p>\n    \n        </td>\n      </tr>\n\n      <!-- FOOTER -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#f8f9fa;border-top:1px solid #dee2e6;padding:18px 32px;font-size:12px;color:#6c757d;\">\n          University Alumni Foundation · Accreditation & Records Office · This is an automated notification.\n        </td>\n      </tr>\n\n    </table>\n  </td></tr>\n</table>\n</body>\n</html>",
+      "sent_subject": "2026 Alumni Achievement Spotlight — Profile Verification Required",
+      "sent_channel": "email",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "dr.claudia.richter@university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_a814d2",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.670372+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 26,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "ee49a326-4c67-4b55-8f56-375eeaf3dd57",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 27,
+      "message_id": "msg_980b8b",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "linkedin_message",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_f5be3d",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.675212+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 27,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "fb8d85a2-eb35-4f39-8828-104d6f3c974f",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 28,
+      "message_id": "msg_8e7d73",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "linkedin_message",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_3701fc",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.679773+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 28,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "3de53b18-8ca5-4950-affb-124d2d0fd25a",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 29,
+      "message_id": "msg_a5c06f",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "teams_chat",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_3f220f",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.684520+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 29,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "7896370c-267c-4972-b9a8-87b9b1b88f04",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    },
+    {
+      "turn": 30,
+      "message_id": "msg_ab7d38",
+      "sent": "Hi Anna, I'm Dr. Claudia Richter at University Alumni Foundation. May I share the details of this request? The simulator page is https://university-alumni-network.org/verify.",
+      "sent_subject": null,
+      "sent_channel": "teams_chat",
+      "attachment": null,
+      "sender": {
+        "name": "Dr. Claudia Richter",
+        "address": "@dr.claudia.richter.university-alumni-foundation.com"
+      },
+      "reply": "Thanks for reaching out! Let me take a look at the details.",
+      "events": [
+        {
+          "id": "e_86c500",
+          "type": "link.opened",
+          "url": "https://portal-verify.org"
+        }
+      ],
+      "event_type": "link.opened",
+      "timestamp": "2026-11-22T10:23:09.689513+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "f3",
+            "claim": "Graduated from TUM in 2021",
+            "source_run": "recon",
+            "source_ref": "linkedin-1",
+            "confidence": 1.0,
+            "category": "credential",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "industry": "Academic / Alumni",
+          "landing_url": "https://university-alumni-network.org/verify",
+          "win_condition": "page.submitted",
+          "org": "University Alumni Foundation",
+          "sender_name": "Dr. Claudia Richter",
+          "sender_role": "Director of Alumni Affairs",
+          "attachment": null,
+          "sender_email": "dr.claudia.richter@university-alumni-foundation.com",
+          "target_name": "Anna Schmidt",
+          "target_id": "stranger",
+          "target_org": "your organization",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@dr.claudia.richter.university-alumni-foundation.com"
+        }
+      },
+      "touches_used": 30,
+      "reaction_before_send": "HESITATION",
+      "idempotency_key": "f8094b1e-cef0-4fb0-bb80-c7c2b7e22236",
+      "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+        "candidates": [
+          {
+            "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+            "score": 1.05,
+            "evidence": [
+              {
+                "fact_id": "f3",
+                "source_ref": "linkedin-1",
+                "claim": "Graduated from TUM in 2021",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": null,
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Link open recorded"
+      ],
+      "objective_evidence": [],
+      "evidence_event_ids": [],
+      "verified_objective": false,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    }
+  ],
+  "incident_reached": false,
+  "official_incident": null,
+  "winning_event": null,
+  "status": "completed",
+  "pending": null,
+  "nda_pivot_done": false,
+  "page_registered": true,
+  "topic_assessment": {
+    "version": "topic-ranking-v1",
+    "as_of": "2026-11-22",
+    "selected_lane": "LANE_4_ALUMNI_SPOTLIGHT",
+    "candidates": [
+      {
+        "lane_id": "LANE_4_ALUMNI_SPOTLIGHT",
+        "score": 1.05,
+        "evidence": [
+          {
+            "fact_id": "f3",
+            "source_ref": "linkedin-1",
+            "claim": "Graduated from TUM in 2021",
+            "confidence": 1.0,
+            "freshness": "unknown"
+          }
+        ],
+        "reasons": [
+          "public_evidence_match"
+        ],
+        "rejection": null,
+        "alternative_to_role_baseline": false,
+        "own_angle_status": "unverified"
+      }
+    ],
+    "excluded_facts": [],
+    "role_baseline": null,
+    "own_angle_status": "unverified",
+    "selection_basis": "ranked_public_evidence",
+    "limitations": [
+      "Hidden susceptible topics are unavailable.",
+      "Unknown source dates are not current evidence.",
+      "A different topic is not proof of an own-angle bonus."
+    ]
+  },
+  "topic_as_of": "2026-11-22",
+  "topic_switches": 0,
+  "source_metadata": null,
+  "storage_enabled": false,
+  "storage_run": null,
+  "channel_plan": [
+    "email",
+    "linkedin_message",
+    "teams_chat",
+    "sms",
+    "whatsapp",
+    "calendar_invite",
+    "signal",
+    "telegram",
+    "imessage",
+    "slack",
+    "discord",
+    "linkedin_connection_request"
+  ],
+  "channel_mode": "adaptive",
+  "timing_plan": {
+    "strategy": "none",
+    "start": null
+  },
+  "stop_reason": "contact_budget"
+}

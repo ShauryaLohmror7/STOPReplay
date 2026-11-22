@@ -1,0 +1,398 @@
+{
+  "journal_version": 1,
+  "session_id": "mock_sess_bb6e686f",
+  "target_id": "robert",
+  "profile": {
+    "subject_id": "robert",
+    "name": "Robert Seilbeck",
+    "role": "Co-Founder & CTO",
+    "organization": "revel8",
+    "professional_domain": "general",
+    "facts": [
+      {
+        "id": "fact_robert_1",
+        "subject": "robert",
+        "claim": "Co-Founder & CTO heading engineering architecture at revel8",
+        "category": "role",
+        "source_run": "recon",
+        "source_ref": "baseline-robert",
+        "assertable": true,
+        "confidence": 1.0,
+        "sensitivity": "public",
+        "corroboration": [],
+        "enables": [],
+        "entities": [],
+        "status": "active",
+        "superseded_by": null
+      },
+      {
+        "id": "fact_robert_2",
+        "subject": "robert",
+        "claim": "Active maintainer of async Python orchestration frameworks on GitHub",
+        "category": "project",
+        "source_run": "recon",
+        "source_ref": "baseline-robert",
+        "assertable": true,
+        "confidence": 1.0,
+        "sensitivity": "public",
+        "corroboration": [],
+        "enables": [],
+        "entities": [],
+        "status": "active",
+        "superseded_by": null
+      },
+      {
+        "id": "fact_robert_3",
+        "subject": "robert",
+        "claim": "Presented ACM research paper on real-time agentic streaming loops",
+        "category": "event",
+        "source_run": "recon",
+        "source_ref": "baseline-robert",
+        "assertable": true,
+        "confidence": 1.0,
+        "sensitivity": "public",
+        "corroboration": [],
+        "enables": [],
+        "entities": [],
+        "status": "active",
+        "superseded_by": null
+      },
+      {
+        "id": "fact_robert_4",
+        "subject": "robert",
+        "claim": "Munich, Germany office (location)",
+        "category": "contact",
+        "source_run": "recon",
+        "source_ref": "baseline-robert",
+        "assertable": true,
+        "confidence": 1.0,
+        "sensitivity": "public",
+        "corroboration": [],
+        "enables": [],
+        "entities": [],
+        "status": "active",
+        "superseded_by": null
+      },
+      {
+        "id": "fact_robert_5",
+        "subject": "robert",
+        "claim": "robert@revel8.ai (target_email)",
+        "category": "contact",
+        "source_run": "recon",
+        "source_ref": "baseline-robert",
+        "assertable": true,
+        "confidence": 1.0,
+        "sensitivity": "public",
+        "corroboration": [],
+        "enables": [],
+        "entities": [],
+        "status": "active",
+        "superseded_by": null
+      }
+    ],
+    "candidate_hooks": [],
+    "touches_used": 0,
+    "touch_budget": 10
+  },
+  "mode": "mock",
+  "started_at": "2026-11-22T10:23:05.548681+00:00",
+  "lane_id": "LANE_3_CVE_ASYNC_LEAK",
+  "hook": {
+    "id": "hook_lane_3_cve_async_leak_robert",
+    "subject": "robert",
+    "pretext": "Async Websocket Thread Leak Advisory tailored for Robert Seilbeck. Available public-source claims: Co-Founder & CTO heading engineering architecture at revel8",
+    "persona": {
+      "name": "Alexej Berg",
+      "role": "Security Researcher",
+      "org": "Runtime Reliability Labs",
+      "why_credible": "Open-source contributor and async benchmark maintainer"
+    },
+    "ask": "websocket_leak_poc.pdf",
+    "win_type": "action",
+    "channel": "email",
+    "required_facts": [
+      "fact_robert_1"
+    ],
+    "ramp": 1,
+    "status": "active",
+    "landing_page_url": null,
+    "landing_page_fields": [
+      "email",
+      "password"
+    ],
+    "landing_page_title": "Async Websocket Thread Leak Advisory",
+    "attachment": "websocket_leak_poc.pdf"
+  },
+  "story": {
+    "year": "2026",
+    "org": "Runtime Reliability Labs",
+    "sender_name": "Alexej Berg",
+    "sender_role": "Security Researcher",
+    "attachment": "websocket_leak_poc.pdf",
+    "landing_url": null,
+    "sender_email": "alexej.berg@runtime-reliability-labs.com",
+    "target_name": "Robert Seilbeck",
+    "target_id": "robert",
+    "target_org": "revel8",
+    "sender_phone": "+49 30 55501099",
+    "sender_handle": "@alexej.berg.runtime-reliability-labs.com",
+    "discussion_topic": "general asynchronous WebSocket reliability"
+  },
+  "touch_budget": 30,
+  "touches_used": 1,
+  "turns": [
+    {
+      "turn": 1,
+      "message_id": "msg_311b27",
+      "sent": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<title>Message</title>\n<style>\n  td{overflow-wrap:anywhere;word-break:break-word}\n  @media(max-width:620px){\n    .email-cell{padding:20px!important}\n    .header-note{float:none!important;display:block;line-height:1.5!important;margin-top:8px}\n  }\n</style>\n</head>\n<body style=\"margin:0;padding:0;background:#f4f4f4;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;\">\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4f4f4;padding:30px 0;\">\n  <tr><td align=\"center\">\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%;max-width:600px;table-layout:fixed;background:#ffffff;border-radius:6px;border:1px solid #dee2e6;overflow:hidden;\">\n\n      <!-- HEADER / LOGO BAR -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#1a2e5a;color:#fff;font-size:18px;font-weight:600;line-height:1.4;padding:18px 32px;\">\n          Runtime Reliability Labs\n        </td>\n      </tr>\n\n      <!-- BODY -->\n      <tr>\n        <td class=\"email-cell\" style=\"padding:32px;color:#1a1a1a;font-size:15px;line-height:1.6;\">\n          <p>Dear Robert Seilbeck,</p><p>Async Websocket Thread Leak Advisory</p><p>websocket_leak_poc.pdf</p><p>Alexej Berg<br>Security Researcher</p>\n        </td>\n      </tr>\n\n      <!-- FOOTER -->\n      <tr>\n        <td class=\"email-cell\" style=\"background:#f8f9fa;border-top:1px solid #dee2e6;padding:18px 32px;font-size:12px;color:#6c757d;\">\n          Runtime Reliability Labs\n        </td>\n      </tr>\n\n    </table>\n  </td></tr>\n</table>\n</body>\n</html>",
+      "sent_subject": "Important: Action required from Runtime Reliability Labs",
+      "sent_channel": "email",
+      "attachment": "websocket_leak_poc.pdf",
+      "sender": {
+        "name": "Alexej Berg",
+        "address": "alexej.berg@runtime-reliability-labs.com"
+      },
+      "reply": "I have opened and reviewed websocket_leak_poc.pdf. Looks promising!",
+      "events": [
+        {
+          "id": "e_51cbbd",
+          "type": "attachment.opened",
+          "filename": "websocket_leak_poc.pdf"
+        }
+      ],
+      "event_type": "attachment.opened",
+      "timestamp": "2026-11-22T10:23:05.550661+00:00",
+      "sent_at": null,
+      "story_time_end": null,
+      "conversation_id": null,
+      "conversation_stop": null,
+      "dialogue": [],
+      "opening": null,
+      "grounding": null,
+      "evidence_context": {
+        "available_facts": [
+          {
+            "id": "fact_robert_1",
+            "claim": "Co-Founder & CTO heading engineering architecture at revel8",
+            "source_run": "recon",
+            "source_ref": "baseline-robert",
+            "confidence": 1.0,
+            "category": "role",
+            "source": null
+          },
+          {
+            "id": "fact_robert_2",
+            "claim": "Active maintainer of async Python orchestration frameworks on GitHub",
+            "source_run": "recon",
+            "source_ref": "baseline-robert",
+            "confidence": 1.0,
+            "category": "project",
+            "source": null
+          },
+          {
+            "id": "fact_robert_3",
+            "claim": "Presented ACM research paper on real-time agentic streaming loops",
+            "source_run": "recon",
+            "source_ref": "baseline-robert",
+            "confidence": 1.0,
+            "category": "event",
+            "source": null
+          },
+          {
+            "id": "fact_robert_4",
+            "claim": "Munich, Germany office (location)",
+            "source_run": "recon",
+            "source_ref": "baseline-robert",
+            "confidence": 1.0,
+            "category": "contact",
+            "source": null
+          },
+          {
+            "id": "fact_robert_5",
+            "claim": "robert@revel8.ai (target_email)",
+            "source_run": "recon",
+            "source_ref": "baseline-robert",
+            "confidence": 1.0,
+            "category": "contact",
+            "source": null
+          }
+        ],
+        "sources": {},
+        "scenario_details": {
+          "year": "2026",
+          "org": "Runtime Reliability Labs",
+          "sender_name": "Alexej Berg",
+          "sender_role": "Security Researcher",
+          "attachment": "websocket_leak_poc.pdf",
+          "landing_url": null,
+          "sender_email": "alexej.berg@runtime-reliability-labs.com",
+          "target_name": "Robert Seilbeck",
+          "target_id": "robert",
+          "target_org": "revel8",
+          "sender_phone": "+49 30 55501099",
+          "sender_handle": "@alexej.berg.runtime-reliability-labs.com",
+          "discussion_topic": "general asynchronous WebSocket reliability"
+        }
+      },
+      "touches_used": 1,
+      "reaction_before_send": "INITIAL",
+      "idempotency_key": "f5e53402-dcf3-4fe8-a285-558bad200267",
+      "lane_id": "LANE_3_CVE_ASYNC_LEAK",
+      "topic_assessment": {
+        "version": "topic-ranking-v1",
+        "as_of": "2026-11-22",
+        "selected_lane": "LANE_3_CVE_ASYNC_LEAK",
+        "candidates": [
+          {
+            "lane_id": "LANE_3_CVE_ASYNC_LEAK",
+            "score": 2.2,
+            "evidence": [
+              {
+                "fact_id": "fact_robert_1",
+                "source_ref": "baseline-robert",
+                "claim": "Co-Founder & CTO heading engineering architecture at revel8",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "organizer_role_baseline",
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": false,
+            "own_angle_status": "unverified"
+          },
+          {
+            "lane_id": "LANE_9_CREATIVE_CONTRIBUTOR_RELEASE",
+            "score": 2.1,
+            "evidence": [
+              {
+                "fact_id": "fact_robert_3",
+                "source_ref": "baseline-robert",
+                "claim": "Presented ACM research paper on real-time agentic streaming loops",
+                "confidence": 1.0,
+                "freshness": "unknown"
+              }
+            ],
+            "reasons": [
+              "public_evidence_match"
+            ],
+            "rejection": null,
+            "alternative_to_role_baseline": true,
+            "own_angle_status": "unverified"
+          }
+        ],
+        "excluded_facts": [],
+        "role_baseline": "LANE_3_CVE_ASYNC_LEAK",
+        "own_angle_status": "unverified",
+        "selection_basis": "ranked_public_evidence",
+        "limitations": [
+          "Hidden susceptible topics are unavailable.",
+          "Unknown source dates are not current evidence.",
+          "A different topic is not proof of an own-angle bonus."
+        ]
+      },
+      "observations": [
+        "Attachment open recorded"
+      ],
+      "objective_evidence": [
+        "action"
+      ],
+      "evidence_event_ids": [
+        "e_51cbbd"
+      ],
+      "verified_objective": true,
+      "official_incident": null,
+      "information_observations": [],
+      "verification": "synthetic_fixture"
+    }
+  ],
+  "incident_reached": true,
+  "official_incident": null,
+  "winning_event": "attachment.opened",
+  "status": "completed",
+  "pending": null,
+  "nda_pivot_done": false,
+  "page_registered": false,
+  "topic_assessment": {
+    "version": "topic-ranking-v1",
+    "as_of": "2026-11-22",
+    "selected_lane": "LANE_3_CVE_ASYNC_LEAK",
+    "candidates": [
+      {
+        "lane_id": "LANE_3_CVE_ASYNC_LEAK",
+        "score": 2.2,
+        "evidence": [
+          {
+            "fact_id": "fact_robert_1",
+            "source_ref": "baseline-robert",
+            "claim": "Co-Founder & CTO heading engineering architecture at revel8",
+            "confidence": 1.0,
+            "freshness": "unknown"
+          }
+        ],
+        "reasons": [
+          "organizer_role_baseline",
+          "public_evidence_match"
+        ],
+        "rejection": null,
+        "alternative_to_role_baseline": false,
+        "own_angle_status": "unverified"
+      },
+      {
+        "lane_id": "LANE_9_CREATIVE_CONTRIBUTOR_RELEASE",
+        "score": 2.1,
+        "evidence": [
+          {
+            "fact_id": "fact_robert_3",
+            "source_ref": "baseline-robert",
+            "claim": "Presented ACM research paper on real-time agentic streaming loops",
+            "confidence": 1.0,
+            "freshness": "unknown"
+          }
+        ],
+        "reasons": [
+          "public_evidence_match"
+        ],
+        "rejection": null,
+        "alternative_to_role_baseline": true,
+        "own_angle_status": "unverified"
+      }
+    ],
+    "excluded_facts": [],
+    "role_baseline": "LANE_3_CVE_ASYNC_LEAK",
+    "own_angle_status": "unverified",
+    "selection_basis": "ranked_public_evidence",
+    "limitations": [
+      "Hidden susceptible topics are unavailable.",
+      "Unknown source dates are not current evidence.",
+      "A different topic is not proof of an own-angle bonus."
+    ]
+  },
+  "topic_as_of": "2026-11-22",
+  "topic_switches": 0,
+  "source_metadata": null,
+  "storage_enabled": false,
+  "storage_run": null,
+  "channel_plan": [
+    "email",
+    "linkedin_message",
+    "teams_chat",
+    "sms",
+    "whatsapp",
+    "calendar_invite",
+    "signal",
+    "telegram",
+    "imessage",
+    "slack",
+    "discord",
+    "linkedin_connection_request"
+  ],
+  "channel_mode": "adaptive",
+  "timing_plan": {
+    "strategy": "none",
+    "start": null
+  },
+  "stop_reason": "objective_evidence"
+}
