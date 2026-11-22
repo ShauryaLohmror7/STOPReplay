@@ -9,13 +9,16 @@ the web, and populates the database with:
    - Social posts, articles, and thought leadership (X/Twitter, Substack, Medium, blogs)
    - Public talks, presentations, podcasts, and video transcripts
    - Press releases, launch announcements, and funding rounds
-3. Deep GitHub OSINT:
+   - Colleague, leadership roster & organizational graph mining
+3. Hacker News Algolia integration (posts, comments, discussions).
+4. Academic research & preprints via arXiv (papers, co-authors, topics).
+5. Deep GitHub OSINT:
    - Profile avatar picture, bio, company, location, website, email, X handle
    - Public repositories, tech stack, languages, and topic tags
    - Public activity: issue comments and commit messages
-4. Auto-detected media and video transcripts (YouTube).
-5. Comprehensive fact extraction:
-   - Roles, posts, comments, photos, education, relationships, and domain interests.
+6. Auto-detected media and video transcripts (YouTube).
+7. Comprehensive fact extraction:
+   - Roles, posts, comments, photos, education, relationships, colleague senders, and domain interests.
 
 Usage:
     python -m stopreplay_collect.recon --subject julius \
@@ -31,7 +34,13 @@ from typing import Any
 
 from stopreplay_db import Storage, db
 
-from .adapters import FirecrawlAdapter, GitHubAdapter, YouTubeAdapter
+from .adapters import (
+    ArxivAdapter,
+    FirecrawlAdapter,
+    GitHubAdapter,
+    HackerNewsAdapter,
+    YouTubeAdapter,
+)
 from .extract import extract_facts
 from .models import CollectionOutput, ImportReport, ResearchRequest
 from .pipeline import CollectionPipeline
@@ -39,7 +48,10 @@ from .run import _load_env
 from .seed import SeedAdapter, analyze_seed
 from .static import StaticAdapter
 
-_YOUTUBE_RE = re.compile(r'https?://(?:www\.)?(?:youtube\.com/watch\?v=[A-Za-z0-9_-]{11}|youtu\.be/[A-Za-z0-9_-]{11})', re.I)
+_YOUTUBE_RE = re.compile(
+    r'https?://(?:www\.)?(?:youtube\.com/watch\?v=[A-Za-z0-9_-]{11}|youtu\.be/[A-Za-z0-9_-]{11})',
+    re.I
+)
 
 
 def _last_name(name: str | None) -> str | None:
@@ -59,7 +71,6 @@ def run_recon(storage: Storage, subject: str, seed_text: str, *, source_run: str
         ResearchRequest(source_run, subject, synthetic_authorized=authorized))
 
     # 2. Multi-Channel Web Reconnaissance via Firecrawl
-    # Build multiple targeted queries to uncover the full target footprint
     queries: list[dict[str, Any]] = []
 
     # Channel 1: Core Company & Executive Bio
@@ -93,6 +104,14 @@ def run_recon(storage: Storage, subject: str, seed_text: str, *, source_run: str
             "query": f'"{analysis.name}" "{analysis.org}" (announcement OR launch OR funding OR founder)',
             "must_include": analysis.must_include,
             "desc": "press & announcements"
+        })
+
+    # Channel 5: Colleagues, Leadership & Org Graph Mining
+    if analysis.org:
+        queries.append({
+            "query": f'"{analysis.org}" (team OR founders OR "co-founder" OR "head of" OR cto OR ceo OR ciso OR leadership)',
+            "must_include": analysis.must_include,
+            "desc": "colleagues & leadership roster"
         })
 
     web_report = ImportReport(adapter="firecrawl", source_run=source_run)
@@ -135,14 +154,23 @@ def run_recon(storage: Storage, subject: str, seed_text: str, *, source_run: str
             web_report.retrieval_failures.extend(yt_report.retrieval_failures)
             web_report.extraction_failures.extend(yt_report.extraction_failures)
 
-    # 4. Deep GitHub OSINT (Avatar, bio, repos, topics, comments, commits)
+    # 4. Hacker News Search (Discussions, stories, and comments)
+    hn_adapter = HackerNewsAdapter()
+    hn_query = f"{analysis.name} {analysis.org}".strip() if analysis.org else (analysis.name or subject)
+    hn_report = pipe.run(hn_adapter, ResearchRequest(source_run, subject, query=hn_query, limit=limit))
+
+    # 5. Academic Research Papers via arXiv
+    arxiv_adapter = ArxivAdapter()
+    arxiv_report = pipe.run(arxiv_adapter, ResearchRequest(source_run, subject, query=analysis.name or subject, limit=3))
+
+    # 6. Deep GitHub OSINT (Avatar, bio, repos, topics, comments, commits)
     github_report = pipe.run(
         GitHubAdapter(anchors=analysis.must_include, org_domains=analysis.include_domains,
                       strict=github_strict),
         ResearchRequest(source_run, subject, query=analysis.name or subject))
 
-    # 5. Comprehensive Fact Extraction across ALL collected sources
-    # Extracts roles, posts, comments, photos, education, location, relations, and interests
+    # 7. Comprehensive Fact Extraction across ALL collected sources
+    # Extracts roles, posts, comments, photos, education, location, relations, colleague senders, and interests
     all_sources = storage.get_sources(source_run)
     extracted = extract_facts(all_sources, subject,
                               name=analysis.name, org_domains=analysis.include_domains)
@@ -151,7 +179,7 @@ def run_recon(storage: Storage, subject: str, seed_text: str, *, source_run: str
         StaticAdapter(CollectionOutput(facts=extracted), "extract"),
         ResearchRequest(source_run, subject))
 
-    return analysis, seed_report, web_report, github_report, extract_report
+    return analysis, seed_report, web_report, github_report, extract_report, hn_report, arxiv_report
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -177,7 +205,7 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     with conn:
-        analysis, seed_report, web_report, github_report, extract_report = run_recon(
+        analysis, seed_report, web_report, github_report, extract_report, hn_report, arxiv_report = run_recon(
             Storage(conn), args.subject, args.seed, source_run=args.run,
             limit=args.limit, authorized=args.authorized,
             github_strict=not args.github_loose,
@@ -197,8 +225,21 @@ def main(argv: list[str] | None = None) -> int:
             "filtered": len(web_report.filtered),
             "retrieval_failures": web_report.retrieval_failures
         },
-        "github": {"summary": github_report.summary(), "accepted": github_report.accepted,
-                   "retrieval_failures": github_report.retrieval_failures},
+        "hacker_news": {
+            "summary": hn_report.summary(),
+            "accepted": hn_report.accepted,
+            "retrieval_failures": hn_report.retrieval_failures
+        },
+        "arxiv": {
+            "summary": arxiv_report.summary(),
+            "accepted": arxiv_report.accepted,
+            "retrieval_failures": arxiv_report.retrieval_failures
+        },
+        "github": {
+            "summary": github_report.summary(),
+            "accepted": github_report.accepted,
+            "retrieval_failures": github_report.retrieval_failures
+        },
         "extracted_facts": {
             "summary": extract_report.summary(),
             "accepted_count": len(extract_report.accepted),

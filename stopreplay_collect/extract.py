@@ -1,7 +1,7 @@
 """Turn stored (scraped) sources into structured, actionable facts.
 
 Extracts rich target intelligence across web sources, social media, articles,
-talks, and profiles:
+talks, profiles, and team rosters:
 - Social & professional platform profiles and handles
 - Visual assets: profile pictures, headshots, and photos
 - Roles, job titles, and company affiliations
@@ -10,7 +10,7 @@ talks, and profiles:
 - Talks, podcast appearances, and interview transcripts
 - Educational background, degrees, and universities
 - Location / residency signals
-- Known associates, co-founders, and colleagues
+- Known associates, co-founders, and colleagues + synthesized sender contacts
 - Professional and technical topics/interests
 """
 from __future__ import annotations
@@ -56,7 +56,11 @@ _EDU_RE = re.compile(
     re.I
 )
 _LOCATION_RE = re.compile(r'\b(?:based in|living in|located in)\s+([A-Z][a-zA-Z\s]+(?:,\s*[A-Z][a-zA-Z]+)?)', re.I)
-_COLLEAGUE_RE = re.compile(r'\b(?:co-founded with|together with|alongside)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})', re.I)
+_COLLEAGUE_PHRASE_RE = re.compile(r'\b(?:co-founded with|together with|alongside)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})', re.I)
+_COLLEAGUE_ROSTER_RE = re.compile(
+    r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})\s*[,-–|]\s*((?:Co-Founder|Founder|CTO|CEO|COO|CFO|CISO|VP|Head of [A-Za-z]+|Lead [A-Za-z]+|Director)[A-Za-z\s/&]*)\b',
+    re.I
+)
 
 
 def _registrable(domain: str) -> str:
@@ -84,6 +88,7 @@ def _clean_str(text: str, max_len: int = 240) -> str:
 def extract_facts(sources: list[dict[str, Any]], subject: str, name: str | None = None,
                   org_domains: list[str] | None = None) -> list[DraftFact]:
     org = {d.lower() for d in (org_domains or [])}
+    primary_domain = org_domains[0] if org_domains else None
     tokens = _name_tokens(name)
     first = tokens[0] if tokens else None
     last = tokens[-1] if tokens else None
@@ -128,7 +133,7 @@ def extract_facts(sources: list[dict[str, Any]], subject: str, name: str | None 
 
         # 1. Profiles & Platforms from URL
         platform = PROFILE_PLATFORMS.get(base)
-        if platform:
+        if platform and _mentions(last, url, excerpt):
             add_fact(f"{platform}_profile: {url}", category="contact", confidence=0.7,
                      assertable_why=f"profile page on {platform}", source_ref=ref)
         elif base in org or domain in org:
@@ -169,7 +174,6 @@ def extract_facts(sources: list[dict[str, Any]], subject: str, name: str | None 
             line_lower = line_clean.lower()
             has_name = bool(last and last in line_lower)
             if has_name and any(rw in line_lower for rw in _ROLE_KEYWORDS):
-                # Pattern: "[Name] is [Role] at [Company]" or "[Role] at [Company]"
                 role_match = re.search(
                     r'(?:is|serves as|working as|works as)?\s*(?:the|a)?\s*([A-Za-z0-9\s/&,-]+(?:'
                     + "|".join(re.escape(k) for k in _ROLE_KEYWORDS) + r')[^.,;()]+)',
@@ -187,7 +191,7 @@ def extract_facts(sources: list[dict[str, Any]], subject: str, name: str | None 
             "medium.com" in base or "substack.com" in base or
             "author" in locator.lower() or "article" in locator.lower()
         )
-        if is_article_source:
+        if is_article_source and _mentions(last, url, excerpt):
             title = locator if locator and "scraped" not in locator else ""
             if not title:
                 for line in lines:
@@ -210,11 +214,10 @@ def extract_facts(sources: list[dict[str, Any]], subject: str, name: str | None 
             origin == "public_talk" or "youtube.com" in base or "youtu.be" in base or
             any(w in locator.lower() or w in url.lower() for w in ("podcast", "talk", "interview", "keynote", "presentation"))
         )
-        if is_talk:
+        if is_talk and _mentions(last, url, excerpt):
             talk_title = locator or "Video/Podcast Talk"
             add_fact(f"public_appearance: {talk_title} ({url})", category="event", confidence=0.8,
                      assertable_why="public talk, podcast, or interview appearance", source_ref=ref)
-            # Quote / transcript excerpt
             if excerpt:
                 snippet = _clean_str(excerpt, max_len=200)
                 add_fact(f"talk_statement: \"{snippet}\"", category="other", confidence=0.75,
@@ -222,32 +225,50 @@ def extract_facts(sources: list[dict[str, Any]], subject: str, name: str | None 
 
         # 7. Education & Academic Background
         edu_match = _EDU_RE.search(excerpt)
-        if edu_match:
+        if edu_match and _mentions(last, url, excerpt):
             edu_str = _clean_str(edu_match.group(0), max_len=140)
             add_fact(f"education: {edu_str}", category="other", confidence=0.8,
                      assertable_why="academic history identified in source", source_ref=ref)
 
         # 8. Location & Base
         loc_match = _LOCATION_RE.search(excerpt)
-        if loc_match:
+        if loc_match and _mentions(last, url, excerpt):
             loc_str = _clean_str(loc_match.group(1), max_len=60)
             add_fact(f"based_in: {loc_str}", category="other", confidence=0.75,
                      assertable_why="location signal identified in source", source_ref=ref)
 
-        # 9. Relationships / Associates
-        colleague_match = _COLLEAGUE_RE.search(excerpt)
-        if colleague_match:
-            colleague = _clean_str(colleague_match.group(1), max_len=60)
-            if colleague and (not last or last not in colleague.lower()):
-                add_fact(f"colleague: {colleague}", category="relationship", confidence=0.75,
-                         assertable_why="associated colleague or co-founder mentioned", source_ref=ref)
+        # 9. Relationships / Colleagues & Org Chart Mining
+        found_colleagues: list[tuple[str, str]] = []
+        for m in _COLLEAGUE_PHRASE_RE.finditer(excerpt):
+            c_name = _clean_str(m.group(1), max_len=60)
+            if c_name and (not last or last not in c_name.lower()):
+                found_colleagues.append((c_name, "Co-founder / Associate"))
+
+        for m in _COLLEAGUE_ROSTER_RE.finditer(excerpt):
+            c_name = _clean_str(m.group(1), max_len=60)
+            c_role = _clean_str(m.group(2), max_len=80)
+            if c_name and (not last or last not in c_name.lower()):
+                found_colleagues.append((c_name, c_role))
+
+        for c_name, c_role in found_colleagues:
+            add_fact(f"colleague: {c_name} ({c_role})", category="relationship", confidence=0.8,
+                     assertable_why="associated colleague or co-founder mentioned", source_ref=ref)
+            # Synthesize fake sender address candidate for Shaurya's from field
+            if primary_domain:
+                c_toks = _name_tokens(c_name)
+                if len(c_toks) >= 2:
+                    email_cand = f"{c_toks[0]}.{c_toks[-1]}@{primary_domain}"
+                    add_fact(f"colleague_sender: {c_name} <{email_cand}>", category="contact", confidence=0.85,
+                             assertable_why=f"synthesized sender candidate for {c_name} at {primary_domain}",
+                             source_ref=ref)
 
         # 10. Technical / Domain Interests
-        for topic in _INTEREST_KEYWORDS:
-            # Check if mentioned near target or multiple times
-            pattern = rf"\b{re.escape(topic)}\b"
-            if len(re.findall(pattern, excerpt, re.I)) >= 1:
-                add_fact(f"interest: {topic}", category="interest", confidence=0.7,
-                         assertable_why=f"domain topic '{topic}' frequently referenced in target sources", source_ref=ref)
+        if _mentions(last, url, excerpt):
+            for topic in _INTEREST_KEYWORDS:
+                pattern = rf"\b{re.escape(topic)}\b"
+                if len(re.findall(pattern, excerpt, re.I)) >= 1:
+                    add_fact(f"interest: {topic}", category="interest", confidence=0.7,
+                             assertable_why=f"domain topic '{topic}' frequently referenced in target sources",
+                             source_ref=ref)
 
     return facts

@@ -44,7 +44,7 @@ def test_run_recon_flow():
     storage = MemoryStorage()
     seed = "Julius Muth, revel8.ai Co-founder and Co-CEO"
 
-    analysis, seed_rep, web_rep, gh_rep, ext_rep = run_recon(
+    analysis, seed_rep, web_rep, gh_rep, ext_rep, hn_rep, arxiv_rep = run_recon(
         storage, "julius", seed, source_run="test-recon", limit=2,
         fetch_transcripts=False
     )
@@ -52,6 +52,8 @@ def test_run_recon_flow():
     assert analysis.name == "Julius Muth"
     assert "revel8" in analysis.must_include
     assert "revel8.ai" in analysis.include_domains
+    assert hn_rep is not None
+    assert arxiv_rep is not None
 
     # Seed facts should be persisted
     seed_facts = storage.get_facts("test-recon", subject="julius")

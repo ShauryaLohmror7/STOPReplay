@@ -57,6 +57,7 @@ def test_extract_media_photos_and_roles():
     assert any("based_in: Munich" in c for c in claims)
     assert any("education:" in c and "TUM" in c for c in claims)
     assert any("colleague: Robert Seilbeck" in c for c in claims)
+    assert any("colleague_sender: Robert Seilbeck <robert.seilbeck@revel8.ai>" in c for c in claims)
     assert any("interest: Cybersecurity" in c for c in claims)
     assert any("interest: AI" in c for c in claims)
     assert "role" in categories

@@ -6,10 +6,13 @@ and normalize; the pipeline validates, applies guardrails, persists, and reports
 from __future__ import annotations
 
 from .adapters import (
+    ArxivAdapter,
     BraveSearchAdapter,
     FirecrawlAdapter,
     GitHubAdapter,
+    HackerNewsAdapter,
     IdentityAdapter,
+    YouTubeAdapter,
 )
 from .base import CollectionAdapter
 from .models import (
@@ -35,4 +38,7 @@ __all__ = [
     "BraveSearchAdapter",
     "FirecrawlAdapter",
     "GitHubAdapter",
+    "HackerNewsAdapter",
+    "ArxivAdapter",
+    "YouTubeAdapter",
 ]
