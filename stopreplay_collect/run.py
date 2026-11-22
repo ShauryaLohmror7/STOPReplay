@@ -30,11 +30,23 @@ import sys
 
 from stopreplay_db import Storage, db
 
-from .adapters import BraveSearchAdapter, FirecrawlAdapter, IdentityAdapter
+from .adapters import (
+    AgentReachAdapter, AnyMDAdapter, BraveSearchAdapter, FirecrawlAdapter,
+    IdentityAdapter, OSMnxAdapter, YouTubeAdapter,
+)
 from .models import ResearchRequest
 from .pipeline import CollectionPipeline
 
 _ENV = pathlib.Path(__file__).resolve().parent.parent / ".env"
+_ADAPTERS = {
+    "identity": IdentityAdapter,
+    "brave": BraveSearchAdapter,
+    "firecrawl": FirecrawlAdapter,
+    "anymd": AnyMDAdapter,
+    "agent-reach": AgentReachAdapter,
+    "youtube": YouTubeAdapter,
+    "osmnx": OSMnxAdapter,
+}
 
 
 def _load_env(path: pathlib.Path = _ENV) -> None:
@@ -52,23 +64,21 @@ def _load_env(path: pathlib.Path = _ENV) -> None:
 
 
 def _build_adapter(name: str):
-    if name == "identity":
-        return IdentityAdapter()
-    if name == "brave":
-        return BraveSearchAdapter()
-    if name == "firecrawl":
-        return FirecrawlAdapter()
-    raise SystemExit(f"unknown adapter {name!r} (identity|brave|firecrawl)")
+    return _ADAPTERS[name]()
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="STOPReplay recon runner")
-    parser.add_argument("--adapter", required=True, choices=["identity", "brave", "firecrawl"])
+    parser.add_argument("--adapter", required=True, choices=_ADAPTERS)
     parser.add_argument("--subject", required=True)
     parser.add_argument("--run", default="recon", help="source_run (default: recon)")
     parser.add_argument("--query")
-    parser.add_argument("--url", action="append", default=[], help="repeatable (firecrawl)")
+    parser.add_argument("--url", action="append", default=[], help="repeatable source URL (firecrawl, agent-reach, youtube)")
+    parser.add_argument("--language", action="append", default=[], help="repeatable caption language code (youtube)")
     parser.add_argument("--profile", help="path to a JSON profile (identity)")
+    parser.add_argument("--document", action="append", default=[], help="repeatable PDF or DOCX path (anymd)")
+    parser.add_argument("--based-in-fact", metavar="FACT_ID",
+                        help="existing public based_in: City, Country fact for this run and subject (osmnx)")
     parser.add_argument("--synthetic-authorized", action="store_true",
                         help="allow sensitive/private/credential facts (authorized synthetic data)")
     parser.add_argument("--limit", type=int)
@@ -87,6 +97,10 @@ def main(argv: list[str] | None = None) -> int:
         params["urls"] = args.url
     if args.profile:
         params["profile"] = json.loads(pathlib.Path(args.profile).read_text(encoding="utf-8"))
+    if args.document:
+        params["documents"] = args.document
+    if args.language:
+        params["languages"] = args.language
 
     request = ResearchRequest(
         source_run=args.run, subject=args.subject, query=args.query,
@@ -102,7 +116,14 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     with conn:
-        report = CollectionPipeline(Storage(conn)).run(_build_adapter(args.adapter), request)
+        storage = Storage(conn)
+        if args.adapter == "osmnx" and args.based_in_fact:
+            for fact in storage.get_facts(args.run, subject=args.subject, category="other"):
+                if (str(fact["id"]) == args.based_in_fact and fact["status"] == "active"
+                        and fact["sensitivity"] == "public" and fact["assertable"] is True):
+                    request.params["based_in"] = fact["claim"]
+                    break
+        report = CollectionPipeline(storage).run(_build_adapter(args.adapter), request)
 
     print(json.dumps({
         "adapter": report.adapter, "source_run": report.source_run,

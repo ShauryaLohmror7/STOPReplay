@@ -10,12 +10,17 @@ search users by name, then keeps a candidate only if it matches the target:
   same-name stranger is possible — attaching the wrong profile is a penalised
   incorrect fact, so this is off by default.
 
-If nothing matches at the allowed level, the adapter emits nothing rather than
-guess. Facts emitted: github_profile, github_company, website, based_in.
+Extracts:
+- github_profile, github_company, website, based_in, email, x_profile
+- profile_picture (avatar_url)
+- github_bio
+- github_repo repositories, descriptions, languages, and topic interests
+- public issue/PR comments and recent commit activities
 """
 from __future__ import annotations
 
 import re
+from typing import Any
 
 from ..base import CollectionAdapter
 from ..models import CollectionOutput, DraftFact, DraftSource, ResearchRequest
@@ -38,9 +43,22 @@ class OctoGitHubClient:
         data = self._gh.get(f"{self._base}/users/{login}")
         return data if isinstance(data, dict) else {}
 
+    def get_user_repos(self, login: str, limit: int = 5) -> list[dict]:
+        data = self._gh.get(f"{self._base}/users/{login}/repos", {"sort": "updated", "per_page": limit})
+        return data if isinstance(data, list) else []
+
+    def get_user_events(self, login: str, limit: int = 10) -> list[dict]:
+        data = self._gh.get(f"{self._base}/users/{login}/events/public", {"per_page": limit})
+        return data if isinstance(data, list) else []
+
 
 def _name_tokens(name: str | None) -> list[str]:
     return [t.lower() for t in re.split(r"\s+", (name or "").strip()) if len(t) > 1]
+
+
+def _clean_text(s: str, max_len: int = 160) -> str:
+    cleaned = re.sub(r"\s+", " ", s).strip()
+    return cleaned[:max_len - 3] + "..." if len(cleaned) > max_len else cleaned
 
 
 class GitHubAdapter(CollectionAdapter):
@@ -86,7 +104,7 @@ class GitHubAdapter(CollectionAdapter):
                 best = ("name", profile)  # keep looking for an anchor match
 
         if best:
-            self._emit(out, request.subject, best[1], quality=best[0])
+            self._emit(out, request.subject, best[1], quality=best[0], client=client)
         return out
 
     def _match_quality(self, profile: dict, target_name: str) -> str | None:
@@ -106,8 +124,10 @@ class GitHubAdapter(CollectionAdapter):
             return "name"
         return None
 
-    def _emit(self, out: CollectionOutput, subject: str, p: dict, *, quality: str) -> None:
-        html = p.get("html_url") or f"https://github.com/{p.get('login')}"
+    def _emit(self, out: CollectionOutput, subject: str, p: dict, *,
+              quality: str, client: Any = None) -> None:
+        login = p.get("login") or ""
+        html = p.get("html_url") or f"https://github.com/{login}"
         conf = 0.75 if quality == "anchor" else 0.55
         why = ("matched GitHub profile (org anchor)" if quality == "anchor"
                else "GitHub profile name match only, org unverified")
@@ -115,18 +135,91 @@ class GitHubAdapter(CollectionAdapter):
                              ("name", "company", "bio", "blog", "location") if p.get(k))
         out.sources.append(DraftSource(
             source_ref=html, origin="github", url=html, publisher=domain_of(html),
-            locator="github profile", excerpt=summary or f"GitHub profile: {p.get('login')}"))
+            locator="github profile", excerpt=summary or f"GitHub profile: {login}"))
 
-        def fact(claim, category, c=conf):
+        def fact(claim, category, c=conf, why_text=why):
             out.facts.append(DraftFact(
                 subject=subject, claim=claim, category=category, source_ref=html,
-                confidence=c, assertable=(quality == "anchor"), assertable_why=why,
+                confidence=c, assertable=(quality == "anchor"), assertable_why=why_text,
                 sensitivity="public"))
 
         fact(f"github_profile: {html}", "contact")
+        if p.get("avatar_url"):
+            fact(f"profile_picture: {p['avatar_url']} (GitHub avatar)", "other",
+                 why_text="target GitHub avatar headshot")
         if p.get("company"):
             fact(f"github_company: {p['company']}", "other")
+        if p.get("bio"):
+            fact(f"github_bio: {p['bio']}", "other")
         if p.get("blog"):
             fact(f"website: {p['blog']}", "contact")
         if p.get("location"):
             fact(f"based_in: {p['location']}", "other")
+        if p.get("email"):
+            fact(f"email: {p['email']}", "contact")
+        if p.get("twitter_username"):
+            fact(f"x_profile: https://x.com/{p['twitter_username']}", "contact")
+
+        # 2. Fetch User Repositories & Topic Interests
+        if client and hasattr(client, "get_user_repos"):
+            try:
+                repos = client.get_user_repos(login, limit=5)
+            except Exception:
+                repos = []
+            for r in repos:
+                r_name = r.get("name") or ""
+                r_desc = r.get("description") or ""
+                r_lang = r.get("language") or ""
+                r_topics = r.get("topics") or []
+                if r_name:
+                    claim_parts = [r_name]
+                    if r_desc:
+                        claim_parts.append(f"- {_clean_text(r_desc, 80)}")
+                    if r_lang:
+                        claim_parts.append(f"({r_lang})")
+                    fact(f"github_repo: {' '.join(claim_parts)}", "project", c=conf,
+                         why_text="public repository owned by target")
+                    for t in r_topics[:3]:
+                        fact(f"interest: {t}", "interest", c=conf,
+                             why_text=f"topic tag on repository {r_name}")
+
+        # 3. Fetch User Public Events (Comments & Commit Messages)
+        if client and hasattr(client, "get_user_events"):
+            try:
+                events = client.get_user_events(login, limit=10)
+            except Exception:
+                events = []
+            for ev in events:
+                ev_type = ev.get("type")
+                repo_info = ev.get("repo") or {}
+                repo_name = repo_info.get("name") or ""
+                payload = ev.get("payload") or {}
+
+                if ev_type in ("IssueCommentEvent", "CommitCommentEvent", "PullRequestReviewCommentEvent"):
+                    comment = payload.get("comment") or {}
+                    c_body = (comment.get("body") or "").strip()
+                    c_url = comment.get("html_url") or f"{html}#event-{ev.get('id', '')}"
+                    if c_body:
+                        # Register comment as an independent social_post source
+                        out.sources.append(DraftSource(
+                            source_ref=c_url, origin="social_post", url=c_url,
+                            publisher="GitHub", locator=f"GitHub comment on {repo_name}",
+                            excerpt=c_body
+                        ))
+                        out.facts.append(DraftFact(
+                            subject=subject,
+                            claim=f"github_comment on {repo_name}: '{_clean_text(c_body, 140)}'",
+                            category="other",
+                            source_ref=c_url,
+                            confidence=conf,
+                            assertable=(quality == "anchor"),
+                            assertable_why=f"public comment on GitHub repo {repo_name}",
+                            sensitivity="public"
+                        ))
+                elif ev_type == "PushEvent":
+                    commits = payload.get("commits") or []
+                    for c in commits[:2]:
+                        msg = (c.get("message") or "").split("\n")[0].strip()
+                        if msg:
+                            fact(f"recent_activity: commit to {repo_name} '{_clean_text(msg, 100)}'",
+                                 "project", c=conf, why_text=f"recent commit to {repo_name}")
