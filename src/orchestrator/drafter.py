@@ -170,7 +170,8 @@ class MessageDrafter:
         channel = hook.channel.lower()
         guideline = CHANNEL_GUIDELINES.get(channel, "Professional and conversational.")
         ledger = fact_ledger(profile, hook, source_metadata)
-        facts_text = json.dumps(ledger, ensure_ascii=False)
+        claims_summary = [{"id": f["id"], "claim": f["claim"], "category": f["category"]} for f in ledger]
+        facts_text = json.dumps(claims_summary, ensure_ascii=False)
 
         # Build story invariants
         if story is None:

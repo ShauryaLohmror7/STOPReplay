@@ -50,10 +50,22 @@ def review_content(result):
 def fact_ledger(profile, hook, source_metadata=None):
     facts = [f for f in profile.facts if replace(profile, facts=[f]).get_assertable_claims()]
     facts.sort(key=lambda f: f.id not in hook.required_facts)
-    return [{"id": f.id, "claim": f.claim, "source_run": f.source_run,
-             "source_ref": f.source_ref, "confidence": f.confidence,
-             "category": f.category,
-             "source": (source_metadata or {}).get(f.source_ref)} for f in facts[:12]]
+    ledger = []
+    for f in facts[:10]:
+        src = (source_metadata or {}).get(f.source_ref)
+        compact_src = None
+        if isinstance(src, dict):
+            excerpt = src.get("excerpt") or ""
+            compact_src = {
+                "publisher": src.get("publisher"),
+                "locator": src.get("locator"),
+                "excerpt": (excerpt[:300] + "...") if len(excerpt) > 300 else excerpt
+            }
+        ledger.append({"id": f.id, "claim": f.claim, "source_run": f.source_run,
+                       "source_ref": f.source_ref, "confidence": f.confidence,
+                       "category": f.category,
+                       "source": compact_src})
+    return ledger
 
 
 def prompt_history(history):

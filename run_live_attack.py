@@ -157,8 +157,7 @@ def main(argv=None):
         print("Run interrupted. Any saved request remains in its journal; use --resume to recover it safely.", flush=True)
         return 130
     except Exception as exc:
-        print(f"Run stopped ({type(exc).__name__}). Inspect configuration and the saved journal; no mock fallback was used.")
-        # Fixed local validation messages contain no provider response bodies.
+        print(f"Run stopped ({type(exc).__name__}): {exc}. Inspect configuration and the saved journal; no mock fallback was used.")
         if isinstance(exc, ValueError):
             print(str(exc))
         return 1
