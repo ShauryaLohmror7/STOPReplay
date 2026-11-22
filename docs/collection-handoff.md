@@ -20,19 +20,20 @@ STOPReplay is Team STOP's entry for the revel8 "Agentic Social Engineer" challen
 - `Storage`: Server-side API for source registration, fact insertion, historical turn commits, and checkpoints.
 
 ### Collection Layer (`stopreplay_collect/`)
-- **`recon.py` (Orchestrator):** Multi-channel autonomous target hunter. Formulates targeted search queries for official bios, corporate brand assets, social posts/articles, talks/podcasts, press/announcements, colleague rosters, Hacker News discussions, and arXiv academic papers. Automatically extracts YouTube transcripts when talk URLs appear in search results. All requests run with `synthetic_authorized=True` by default as approved by judges.
+- **`recon.py` (Orchestrator):** Multi-channel autonomous target hunter. Formulates targeted search queries for official bios, corporate brand assets, `/imprint` legal pages, DNS MX email provider detection, Reddit & technical forums, personal public social profiles (Instagram, Facebook, Threads), corporate social channels, social posts/articles, talks/podcasts, press/announcements, colleague rosters, Hacker News discussions, and arXiv academic papers. Automatically extracts YouTube transcripts when talk URLs appear in search results. All requests run with `synthetic_authorized=True` by default as approved by judges.
 - **`extract.py` (Fact, Brand & Media Extractor):** High-precision deterministic extractor across all collected sources:
   - `role`: Executive positions, founder titles, and affiliations.
-  - `contact`: Social and professional platform profiles, corporate contact emails, synthesized colleague sender candidates (`colleague_sender: Name <email>`), target email candidate (`target_email: Name <email>`), and handles.
+  - `contact`: Social and professional platform profiles (LinkedIn, X, GitHub, Instagram, Facebook, Reddit), corporate social channels (`company_social_instagram`, `company_social_linkedin`, etc.), corporate contact emails, synthesized colleague sender candidates (`colleague_sender: Name <email>`), target email candidate (`target_email: Name <email>`), and handles.
   - `project`: Authored articles, blog posts, publications, and GitHub repositories.
   - `event`: Talks, podcast appearances, conference presentations, and interviews.
   - `interest`: Domain topics (Agentic AI, Social Engineering, LLMs, Cybersecurity, Go-To-Market, etc.).
   - `relationship`: Co-founders, colleagues, and associates mined from roster patterns and text.
-  - `other`: Visual assets (profile headshot photos), corporate brand assets (`company_logo`, `company_footer`, `company_color`), statements/quotes, public comments, academic history, and based-in locations.
+  - `other`: Visual assets (profile headshot photos), corporate brand assets (`company_logo`, `company_footer`, `company_color`), legal registration (`commercial_register`, `vat_id`), public Reddit discussions, statements/quotes, public comments, academic history, and based-in locations.
+- **`adapters/dns_mx.py`:** Authoritative corporate email infrastructure detection via DNS-over-HTTPS (DoH). Identifies Google Workspace, Microsoft 365, Proton, and security gateways to eliminate "Wrong Facts" deductions.
 - **`adapters/github.py`:** Unauthenticated public GitHub adapter using octosuite. Extracts avatar image URL (`profile_picture`), bio, company, location, website, email, X profile, public repos, language/topics, and public issue/PR comments and commits.
 - **`adapters/hackernews.py`:** Keyless Algolia Hacker News search for stories and community comments.
 - **`adapters/arxiv.py`:** Academic preprint and research paper search via arXiv Atom API, extracting paper topics and co-author colleagues.
-- **`adapters/firecrawl.py`:** REST client for Firecrawl search and full-page scrape (including header/footer for logos and legal footers).
+- **`adapters/firecrawl.py`:** REST client for Firecrawl search and full-page scrape (including header/footer for logos, footers, and `/imprint`).
 - **`adapters/youtube.py`:** YouTube transcript capture for public talks and interviews.
 - **`pipeline.py` & `validation.py`:** Enforces schema constraints, source provenance, deduplication, and the sensitivity gate.
 
@@ -62,6 +63,18 @@ analysis, seed_rep, web_rep, gh_rep, ext_rep, hn_rep, arxiv_rep = run_recon(
 facts = storage.get_facts("session_101", subject="target_persona_id")
 for f in facts:
     print(f["category"], "->", f["claim"])
+
+# 4. Generate authentic landing page for "credentials" objective (POST /v1/sessions/{sid}/pages):
+from stopreplay_collect import generate_login_portal
+
+portal = generate_login_portal(facts)
+# portal dict contains:
+# {
+#     "url": "https://sso.revel8.ai/signin",
+#     "title": "Revel8 Security Access Portal",
+#     "html": "<!DOCTYPE html>...", # Self-contained HTML with brand logo, CSS color, and copyright footer
+#     "fields": ["email", "password"]
+# }
 ```
 
 ### CLI Execution
@@ -73,7 +86,7 @@ python -m stopreplay_collect.recon --subject target1 --seed "Jane Doe, acme.corp
 ### Testing & Verification
 ```powershell
 # Run the local unit test suite (no Postgres or network required):
-python -m pytest tests/test_extract.py tests/test_github.py tests/test_hackernews.py tests/test_arxiv.py tests/test_seed.py tests/test_web_adapters.py tests/test_recon.py -o cache_dir=.cache/pytest --basetemp=.tmp_pytest -q
+python -m pytest tests/test_extract.py tests/test_github.py tests/test_hackernews.py tests/test_arxiv.py tests/test_seed.py tests/test_web_adapters.py tests/test_recon.py tests/test_portal.py -o cache_dir=.cache/pytest --basetemp=.tmp_pytest -q
 ```
 
 ## 4. Contracts & Guardrails
@@ -84,6 +97,8 @@ python -m pytest tests/test_extract.py tests/test_github.py tests/test_hackernew
 
 ## 5. Live Verification Baseline
 
-A full live test run on `julius` (`Julius Muth, revel8.ai Co-founder and Co-CEO sales`) against hosted Supabase produced:
-- **19 sources** registered across web, podcasts, and articles.
-- **58 structured facts** inserted across all 7 categories (headshot photos, Stanford education, €7M raise announcement, podcasts, and roles).
+All three practice scenario co-founders are populated in the hosted Supabase database (`source_run = 'recon'`):
+- **Julius Muth (`julius`):** 191 facts (Stanford education, €7M raise press, podcasts, co-CEO roles, Hacker News discussions, Instagram profiles & posts, company social handles, brand assets, legal commercial register HRB, colleague senders, target email candidate).
+- **Robert Seilbeck (`robert`):** 86 facts (CTO roles, LinkedIn profile, ACM research paper, Munich location, colleague senders, target email candidate).
+- **Tom Müller (`tom`):** 142 facts (Product co-CEO roles, arXiv research paper & co-authors, YouTube appearances, Hacker News discussions, colleague senders).
+- **Total Database Footprint:** 60 distinct sources and 419 facts.

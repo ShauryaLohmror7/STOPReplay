@@ -33,6 +33,11 @@ PROFILE_PLATFORMS = {
     "about.me": "about_me",
     "substack.com": "substack",
     "youtube.com": "youtube",
+    "instagram.com": "instagram",
+    "facebook.com": "facebook",
+    "reddit.com": "reddit",
+    "threads.net": "threads",
+    "tiktok.com": "tiktok",
 }
 
 _ROLE_KEYWORDS = (
@@ -81,6 +86,8 @@ _COPYRIGHT_SIMPLE_RE = re.compile(
 )
 _EMAIL_RE = re.compile(r'\b([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\b')
 _GENERIC_LOCAL_PARTS = {"info", "contact", "support", "hello", "press", "sales", "team", "jobs", "careers", "security", "help", "admin"}
+_IMPRINT_HRB_RE = re.compile(r'\b((?:Amtsgericht\s+[\w\-]+[ \t]+)?HRB\s*[0-9]{3,7}\s*(?:[A-Za-z]+)?)\b', re.I)
+_VAT_ID_RE = re.compile(r'\b(?:USt-IdNr\.?|USt-Id|VAT\s*ID)[:\s]+([A-Z]{2}\s*[0-9]{6,12})\b', re.I)
 
 
 def _registrable(domain: str) -> str:
@@ -268,6 +275,48 @@ def extract_facts(sources: list[dict[str, Any]], subject: str, name: str | None 
                 c_hex = color_match.group(1).lower()
                 add_fact(f"company_color: {c_hex}", category="other", confidence=0.8,
                          assertable_why=f"brand color extracted from {domain or base}", source_ref=ref)
+
+            # Company Legal Imprint / Commercial Register
+            hrb_match = _IMPRINT_HRB_RE.search(excerpt)
+            if hrb_match:
+                hrb_text = _clean_str(hrb_match.group(1), max_len=60)
+                add_fact(f"commercial_register: {hrb_text}", category="other", confidence=0.85,
+                         assertable_why=f"commercial registration identified on {domain or base}", source_ref=ref)
+
+            vat_match = _VAT_ID_RE.search(excerpt)
+            if vat_match:
+                vat_text = _clean_str(vat_match.group(0), max_len=40)
+                add_fact(f"vat_id: {vat_text}", category="other", confidence=0.85,
+                         assertable_why=f"VAT registration identified on {domain or base}", source_ref=ref)
+
+            # Company Social Handles & Profiles embedded on company pages
+            for match in _URL_IN_TEXT_RE.finditer(excerpt):
+                link_domain = _registrable(match.group(1).lower())
+                if link_domain in PROFILE_PLATFORMS and link_domain != base:
+                    plat = PROFILE_PLATFORMS[link_domain]
+                    full_link = match.group(0).rstrip(").,'\"")
+                    if org and any(o.split(".")[0] in full_link.lower() for o in org):
+                        add_fact(f"company_social_{plat}: {full_link}", category="contact", confidence=0.8,
+                                 assertable_why=f"official company {plat} profile on {domain or base}", source_ref=ref)
+
+        # Discovery of company profile on social networks (Facebook, Instagram, LinkedIn, X)
+        if base in PROFILE_PLATFORMS and org and any(o.split(".")[0] in url.lower() for o in org):
+            plat = PROFILE_PLATFORMS[base]
+            add_fact(f"company_social_{plat}: {url}", category="contact", confidence=0.8,
+                     assertable_why=f"company profile page on {plat}", source_ref=ref)
+
+        # Reddit discussions referencing target or company
+        if base == "reddit.com":
+            title = locator if locator and "search snippet" not in locator else ""
+            if not title:
+                for line in excerpt.split("\n"):
+                    line_s = line.strip("# *-_`\t")
+                    if line_s and len(line_s) > 10:
+                        title = line_s
+                        break
+            if title:
+                add_fact(f"reddit_discussion: '{title}' ({url})", category="other", confidence=0.75,
+                         assertable_why="public Reddit discussion referencing target/company", source_ref=ref)
 
         # B. Target-Specific Facts (Strictly requires target name mention)
         if mentions_target:

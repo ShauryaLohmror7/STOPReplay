@@ -8,6 +8,7 @@ from __future__ import annotations
 from .adapters import (
     ArxivAdapter,
     BraveSearchAdapter,
+    DnsMxAdapter,
     FirecrawlAdapter,
     GitHubAdapter,
     HackerNewsAdapter,
@@ -23,6 +24,7 @@ from .models import (
     ResearchRequest,
 )
 from .pipeline import CollectionPipeline
+from .portal import generate_login_portal
 from .registry import AdapterRegistry
 
 __all__ = [
@@ -36,9 +38,11 @@ __all__ = [
     "ImportReport",
     "IdentityAdapter",
     "BraveSearchAdapter",
+    "DnsMxAdapter",
     "FirecrawlAdapter",
     "GitHubAdapter",
     "HackerNewsAdapter",
     "ArxivAdapter",
     "YouTubeAdapter",
+    "generate_login_portal",
 ]

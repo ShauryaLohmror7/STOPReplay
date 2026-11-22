@@ -116,6 +116,7 @@ def test_extract_brand_assets_and_email_patterns():
                 'Robert Seilbeck, CTO & Co-Founder\n'
                 'Sarah Jenkins, Head of Product\n\n'
                 '<footer>\n'
+                'Amtsgericht München HRB 291823 | USt-IdNr.: DE367891234\n'
                 '© 2026 revel8 GmbH, Munich. All rights reserved.\n'
                 '</footer>'
             )
@@ -125,11 +126,13 @@ def test_extract_brand_assets_and_email_patterns():
     facts = extract_facts(sources, "julius", name="Julius Muth", org_domains=["revel8.ai"])
     claims = [f.claim for f in facts]
 
-    # Brand assets
+    # Brand & legal imprint assets
     assert any("company_logo: https://revel8.ai/assets/logo.svg (revel8 logo)" in c for c in claims)
     assert any("company_logo: https://revel8.ai/static/brand_mark.png" in c for c in claims)
     assert any("company_footer: © 2026 revel8 GmbH, Munich. All rights reserved." in c for c in claims)
     assert any("company_color: #4f46e5" in c for c in claims)
+    assert any("commercial_register: Amtsgericht München HRB 291823" in c for c in claims)
+    assert any("vat_id: USt-IdNr.: DE367891234" in c for c in claims)
 
     # Corporate contact emails
     assert any("company_contact_email: contact@revel8.ai" in c for c in claims)
@@ -144,3 +147,54 @@ def test_extract_brand_assets_and_email_patterns():
 
     # Target email formatted with inferred pattern
     assert any("target_email: Julius Muth <julius@revel8.ai>" in c for c in claims)
+
+
+def test_extract_social_media_and_reddit():
+    sources = [
+        {
+            "origin": "public_web",
+            "source_ref": "https://www.instagram.com/julius_muth",
+            "url": "https://www.instagram.com/julius_muth",
+            "locator": "Julius Muth (@julius_muth) on Instagram",
+            "excerpt": "Julius Muth. Co-Founder @revel8. Building autonomous cyber defenses."
+        },
+        {
+            "origin": "public_web",
+            "source_ref": "https://www.facebook.com/julius.muth.munich",
+            "url": "https://www.facebook.com/julius.muth.munich",
+            "locator": "Julius Muth | Facebook",
+            "excerpt": "Julius Muth lives in Munich, Germany. Co-Founder at revel8."
+        },
+        {
+            "origin": "public_web",
+            "source_ref": "https://www.reddit.com/r/cybersecurity/comments/abc123/revel8_ai_defense",
+            "url": "https://www.reddit.com/r/cybersecurity/comments/abc123/revel8_ai_defense",
+            "locator": "Discussion on revel8 AI defense by Julius Muth",
+            "excerpt": "Julius Muth from revel8 shared their architecture for synthetic persona training."
+        },
+        {
+            "origin": "public_web",
+            "source_ref": "https://revel8.ai/community",
+            "url": "https://revel8.ai/community",
+            "locator": "revel8 Community",
+            "excerpt": (
+                "Connect with revel8 across the web:\n"
+                "- Follow our Instagram: https://www.instagram.com/revel8.ai\n"
+                "- Join Facebook page: https://www.facebook.com/revel8ai\n"
+            )
+        }
+    ]
+
+    facts = extract_facts(sources, "julius", name="Julius Muth", org_domains=["revel8.ai"])
+    claims = [f.claim for f in facts]
+
+    # Personal social profiles
+    assert any("instagram_profile: https://www.instagram.com/julius_muth" in c for c in claims)
+    assert any("facebook_profile: https://www.facebook.com/julius.muth.munich" in c for c in claims)
+
+    # Reddit discussion
+    assert any("reddit_discussion: 'Discussion on revel8 AI defense by Julius Muth'" in c for c in claims)
+
+    # Company social channels
+    assert any("company_social_instagram: https://www.instagram.com/revel8.ai" in c for c in claims)
+    assert any("company_social_facebook: https://www.facebook.com/revel8ai" in c for c in claims)
