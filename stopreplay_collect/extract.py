@@ -81,6 +81,8 @@ _COPYRIGHT_SIMPLE_RE = re.compile(
 )
 _EMAIL_RE = re.compile(r'\b([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\b')
 _GENERIC_LOCAL_PARTS = {"info", "contact", "support", "hello", "press", "sales", "team", "jobs", "careers", "security", "help", "admin"}
+_IMPRINT_HRB_RE = re.compile(r'\b((?:Amtsgericht\s+[\w\-]+[ \t]+)?HRB\s*[0-9]{3,7}\s*(?:[A-Za-z]+)?)\b', re.I)
+_VAT_ID_RE = re.compile(r'\b(?:USt-IdNr\.?|USt-Id|VAT\s*ID)[:\s]+([A-Z]{2}\s*[0-9]{6,12})\b', re.I)
 
 
 def _registrable(domain: str) -> str:
@@ -260,6 +262,19 @@ def extract_facts(sources: list[dict[str, Any]], subject: str, name: str | None 
                 c_hex = color_match.group(1).lower()
                 add_fact(f"company_color: {c_hex}", category="other", confidence=0.8,
                          assertable_why=f"brand color extracted from {domain or base}", source_ref=ref)
+
+            # Company Legal Imprint / Commercial Register
+            hrb_match = _IMPRINT_HRB_RE.search(excerpt)
+            if hrb_match:
+                hrb_text = _clean_str(hrb_match.group(1), max_len=60)
+                add_fact(f"commercial_register: {hrb_text}", category="other", confidence=0.85,
+                         assertable_why=f"commercial registration identified on {domain or base}", source_ref=ref)
+
+            vat_match = _VAT_ID_RE.search(excerpt)
+            if vat_match:
+                vat_text = _clean_str(vat_match.group(0), max_len=40)
+                add_fact(f"vat_id: {vat_text}", category="other", confidence=0.85,
+                         assertable_why=f"VAT registration identified on {domain or base}", source_ref=ref)
 
         # B. Target-Specific Facts (Strictly requires target name mention)
         if mentions_target:

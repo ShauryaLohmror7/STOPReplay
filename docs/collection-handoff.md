@@ -20,7 +20,7 @@ STOPReplay is Team STOP's entry for the revel8 "Agentic Social Engineer" challen
 - `Storage`: Server-side API for source registration, fact insertion, historical turn commits, and checkpoints.
 
 ### Collection Layer (`stopreplay_collect/`)
-- **`recon.py` (Orchestrator):** Multi-channel autonomous target hunter. Formulates targeted search queries for official bios, corporate brand assets, social posts/articles, talks/podcasts, press/announcements, colleague rosters, Hacker News discussions, and arXiv academic papers. Automatically extracts YouTube transcripts when talk URLs appear in search results. All requests run with `synthetic_authorized=True` by default as approved by judges.
+- **`recon.py` (Orchestrator):** Multi-channel autonomous target hunter. Formulates targeted search queries for official bios, corporate brand assets, `/imprint` legal pages, DNS MX email provider detection, social posts/articles, talks/podcasts, press/announcements, colleague rosters, Hacker News discussions, and arXiv academic papers. Automatically extracts YouTube transcripts when talk URLs appear in search results. All requests run with `synthetic_authorized=True` by default as approved by judges.
 - **`extract.py` (Fact, Brand & Media Extractor):** High-precision deterministic extractor across all collected sources:
   - `role`: Executive positions, founder titles, and affiliations.
   - `contact`: Social and professional platform profiles, corporate contact emails, synthesized colleague sender candidates (`colleague_sender: Name <email>`), target email candidate (`target_email: Name <email>`), and handles.
@@ -28,11 +28,12 @@ STOPReplay is Team STOP's entry for the revel8 "Agentic Social Engineer" challen
   - `event`: Talks, podcast appearances, conference presentations, and interviews.
   - `interest`: Domain topics (Agentic AI, Social Engineering, LLMs, Cybersecurity, Go-To-Market, etc.).
   - `relationship`: Co-founders, colleagues, and associates mined from roster patterns and text.
-  - `other`: Visual assets (profile headshot photos), corporate brand assets (`company_logo`, `company_footer`, `company_color`), statements/quotes, public comments, academic history, and based-in locations.
+  - `other`: Visual assets (profile headshot photos), corporate brand assets (`company_logo`, `company_footer`, `company_color`), legal registration (`commercial_register`, `vat_id`), statements/quotes, public comments, academic history, and based-in locations.
+- **`adapters/dns_mx.py`:** Authoritative corporate email infrastructure detection via DNS-over-HTTPS (DoH). Identifies Google Workspace, Microsoft 365, Proton, and security gateways to eliminate "Wrong Facts" deductions.
 - **`adapters/github.py`:** Unauthenticated public GitHub adapter using octosuite. Extracts avatar image URL (`profile_picture`), bio, company, location, website, email, X profile, public repos, language/topics, and public issue/PR comments and commits.
 - **`adapters/hackernews.py`:** Keyless Algolia Hacker News search for stories and community comments.
 - **`adapters/arxiv.py`:** Academic preprint and research paper search via arXiv Atom API, extracting paper topics and co-author colleagues.
-- **`adapters/firecrawl.py`:** REST client for Firecrawl search and full-page scrape (including header/footer for logos and legal footers).
+- **`adapters/firecrawl.py`:** REST client for Firecrawl search and full-page scrape (including header/footer for logos, footers, and `/imprint`).
 - **`adapters/youtube.py`:** YouTube transcript capture for public talks and interviews.
 - **`pipeline.py` & `validation.py`:** Enforces schema constraints, source provenance, deduplication, and the sensitivity gate.
 

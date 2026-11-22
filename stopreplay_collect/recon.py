@@ -36,6 +36,7 @@ from stopreplay_db import Storage, db
 
 from .adapters import (
     ArxivAdapter,
+    DnsMxAdapter,
     FirecrawlAdapter,
     GitHubAdapter,
     HackerNewsAdapter,
@@ -73,13 +74,18 @@ def run_recon(storage: Storage, subject: str, seed_text: str, *, source_run: str
     # 2. Multi-Channel Web Reconnaissance via Firecrawl
     web_report = ImportReport(adapter="firecrawl", source_run=source_run)
 
-    # Channel 0: Company Brand Asset & Site Scrape (only_main_content=False to preserve logos and footer)
+    # Channel 0: Company Brand Asset & Site Scrape (only_main_content=False to preserve logos, footer & imprint)
     if analysis.include_domains:
         brand_domain = analysis.include_domains[0]
         brand_req = ResearchRequest(
             source_run=source_run,
             subject=subject,
-            params={"urls": [f"https://{brand_domain}", f"https://{brand_domain}/about"]},
+            params={"urls": [
+                f"https://{brand_domain}",
+                f"https://{brand_domain}/about",
+                f"https://{brand_domain}/imprint",
+                f"https://{brand_domain}/impressum",
+            ]},
             synthetic_authorized=authorized,
         )
         brand_adapter = FirecrawlAdapter(only_main_content=False)
@@ -93,6 +99,20 @@ def run_recon(storage: Storage, subject: str, seed_text: str, *, source_run: str
         web_report.retrieval_failures.extend(brand_rep.retrieval_failures)
         web_report.extraction_failures.extend(brand_rep.extraction_failures)
         web_report.storage_failures.extend(brand_rep.storage_failures)
+
+        # Channel 0b: DNS MX Infrastructure Detection (Google Workspace vs Microsoft 365)
+        dns_adapter = DnsMxAdapter()
+        dns_req = ResearchRequest(
+            source_run=source_run,
+            subject=subject,
+            include_domains=analysis.include_domains,
+            query=brand_domain,
+            synthetic_authorized=authorized,
+        )
+        dns_rep = pipe.run(dns_adapter, dns_req)
+        web_report.sources_registered += dns_rep.sources_registered
+        web_report.accepted.extend(dns_rep.accepted)
+        web_report.retrieval_failures.extend(dns_rep.retrieval_failures)
 
     queries: list[dict[str, Any]] = []
 

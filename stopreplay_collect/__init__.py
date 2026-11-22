@@ -8,6 +8,7 @@ from __future__ import annotations
 from .adapters import (
     ArxivAdapter,
     BraveSearchAdapter,
+    DnsMxAdapter,
     FirecrawlAdapter,
     GitHubAdapter,
     HackerNewsAdapter,
@@ -37,6 +38,7 @@ __all__ = [
     "ImportReport",
     "IdentityAdapter",
     "BraveSearchAdapter",
+    "DnsMxAdapter",
     "FirecrawlAdapter",
     "GitHubAdapter",
     "HackerNewsAdapter",

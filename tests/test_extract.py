@@ -116,6 +116,7 @@ def test_extract_brand_assets_and_email_patterns():
                 'Robert Seilbeck, CTO & Co-Founder\n'
                 'Sarah Jenkins, Head of Product\n\n'
                 '<footer>\n'
+                'Amtsgericht München HRB 291823 | USt-IdNr.: DE367891234\n'
                 '© 2026 revel8 GmbH, Munich. All rights reserved.\n'
                 '</footer>'
             )
@@ -125,11 +126,13 @@ def test_extract_brand_assets_and_email_patterns():
     facts = extract_facts(sources, "julius", name="Julius Muth", org_domains=["revel8.ai"])
     claims = [f.claim for f in facts]
 
-    # Brand assets
+    # Brand & legal imprint assets
     assert any("company_logo: https://revel8.ai/assets/logo.svg (revel8 logo)" in c for c in claims)
     assert any("company_logo: https://revel8.ai/static/brand_mark.png" in c for c in claims)
     assert any("company_footer: © 2026 revel8 GmbH, Munich. All rights reserved." in c for c in claims)
     assert any("company_color: #4f46e5" in c for c in claims)
+    assert any("commercial_register: Amtsgericht München HRB 291823" in c for c in claims)
+    assert any("vat_id: USt-IdNr.: DE367891234" in c for c in claims)
 
     # Corporate contact emails
     assert any("company_contact_email: contact@revel8.ai" in c for c in claims)
